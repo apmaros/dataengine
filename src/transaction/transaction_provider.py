@@ -1,7 +1,7 @@
 from dataclasses import asdict
 import pandas as pd
 from src.model.Merchant import build_merchant
-from src.model.Transaction import build_transactions
+from src.model.Transaction import build_transaction
 from src.monzo.api import get_transactions
 from src.util import _day_to_daytime_str
 
@@ -23,7 +23,7 @@ def get_txs_df(req, since=None, before=None) -> pd.DataFrame :
 
     txs = []
     for tx_raw in txs_raw['transactions']:
-        tx = build_transactions(tx_raw).to_plot_dict()
+        tx = build_transaction(tx_raw).to_plot_dict()
 
         merchant = {}
         if tx_raw["merchant"] is not None:

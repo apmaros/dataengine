@@ -25,7 +25,7 @@ class Transaction:
         }
 
 
-def build_transactions(raw_transaction):
+def build_transaction(raw_transaction):
     return Transaction(
         raw_transaction['id'],
         raw_transaction['description'],
