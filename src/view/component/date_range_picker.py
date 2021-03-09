@@ -3,8 +3,10 @@ from flask import request
 from src.server import dash_app
 from src.transaction.transaction_provider import get_txs_df
 from src.transaction.transformations import get_out_txs, group_by_category, group_by_date
+from src.view.component.map import build_txs_map
 from src.view.component.table import generate_table
 import plotly.express as px
+import dash_core_components as dcc
 
 
 def get_transactions_dfs(start_date_raw, end_date_raw):
@@ -24,7 +26,7 @@ def get_transactions_dfs(start_date_raw, end_date_raw):
         f"since={start_date_raw} until={end_date_raw} txs={len(txs_df)}"
     )
 
-    txs_table = generate_table(out_txs_df[['emoji', 'name', 'abs_amount', 'category', 'date', 'address']])
+    txs_table = generate_table(out_txs_df)
 
     out_txs_by_name_fig = px.bar(out_txs_df, x="name", y="abs_amount", barmode="group")
 
@@ -38,4 +40,24 @@ def get_transactions_dfs(start_date_raw, end_date_raw):
 
     txs_by_date_agg_fig = px.line(group_by_date(out_txs_df), x='date', y="abs_amount")
 
-    return txs_table, out_txs_by_name_fig, out_txs_by_name_category_fig, txs_by_category_fig, txs_by_date_agg_fig
+    txs_map = build_txs_map(out_txs_df)
+
+    return \
+        txs_table,\
+        out_txs_by_name_fig, \
+        out_txs_by_name_category_fig, \
+        txs_by_category_fig, \
+        txs_by_date_agg_fig, \
+        txs_map
+
+
+def build_date_picker():
+    return dcc.DatePickerRange(
+            id='txs-date-range',
+            min_date_allowed=date(2010, 1, 1),
+            max_date_allowed=date.today() + timedelta(days=1),
+            initial_visible_month=date.today(),
+            end_date=date.today(),
+            persistence=True,
+            updatemode='bothdates'
+        )
