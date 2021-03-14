@@ -8,8 +8,8 @@
 import os
 import requests
 from flask import make_response
-from src.server import app
-from src.util import random_str
+from app.server import app
+from app.util import random_str
 
 monzo_client_id = os.environ.get('MONZO_CLIENT_ID')
 monzo_client_secret = os.environ.get('MONZO_CLIENT_SECRET')

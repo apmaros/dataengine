@@ -12,10 +12,6 @@ def get_access_token(req):
     return req.cookies.get(MONZO_ACCESS_TOKEN_COOKIE_NAME)
 
 
-def get_account_id():
-    return os.environ.get('MONZO_ACC_ID')
-
-
 def get_authenticated_headers(req):
     return {
         'Content-Type': 'application/x-www-form-urlencoded',

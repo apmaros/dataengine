@@ -1,14 +1,14 @@
-from src.monzo.api import get_balance, get_accounts, get_transactions
-from src.monzo.auth import get_token, get_monzo_auth_url
-from src.monzo.security import set_access_token, logout
-from src.server import app
-from flask import request, make_response, redirect
+from app.monzo.api import get_balance, get_accounts, get_transactions
+from app.monzo.auth import get_token, get_monzo_auth_url
+from app.monzo.security import set_access_token, logout
+from app.server import app
+from flask import request, make_response, redirect, render_template
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return "welcome to budget app!"
+    return render_template('home.html', name="Maros", card_text="this is my card text. COOOL")
 
 
 @app.route('/home')
@@ -50,12 +50,10 @@ def transactions():
 
 def home_set_auth_handler(req):
     code = req.args.get("code")
-    app.logger.info(f"received code: {code}")
-
-    token = get_token(code)
-    resp = make_response('success')
-    app.logger.info(f'token={token}')
-    set_access_token(resp, token)
+    app.logger.info(f"Requesting token")
+    resp = make_response("Login was successful")
+    set_access_token(resp, get_token(code))
+    app.logger.info(f"Token acquired, redirecting home")
 
     return resp
 

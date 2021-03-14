@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, date, timedelta
 import pytz
 
 
@@ -17,3 +17,7 @@ def _day_to_daytime_str(date, is_end=False):
 
 def random_str():
     return str(uuid.uuid4())
+
+
+def _last_week_date():
+    return date.today() - timedelta(days=7)

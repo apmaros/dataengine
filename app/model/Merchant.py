@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.server import app
+from app.server import app
 
 
 @dataclass

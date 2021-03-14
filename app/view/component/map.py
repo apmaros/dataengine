@@ -1,6 +1,6 @@
 import plotly.express as px
 
-from src.config import MAPBOX_TOKEN
+from app.config import MAPBOX_TOKEN
 
 
 def build_txs_map(df):

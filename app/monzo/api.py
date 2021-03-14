@@ -1,16 +1,17 @@
 import os
 import requests
-from src.monzo.security import get_access_token, get_authenticated_headers
+from app.monzo.security import get_access_token, get_authenticated_headers
 
 
 monzo_redirect_uri = 'http://127.0.0.1:8050/home?from=auth'
 monzo_client_secret = os.environ.get('MONZO_CLIENT_SECRET')
 monzo_client_id = os.environ.get('MONZO_CLIENT_ID')
+monzo_account_id = os.environ.get('MONZO_ACC_ID')
 base_url = 'https://api.monzo.com'
 
 
 def get_balance(req):
-    url = f'{base_url}/balance?account_id=acc_00009R9wohAMOeu47J6j4r'
+    url = f'{base_url}/balance?account_id={monzo_account_id}'
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': f"Bearer {get_access_token(req)}"
@@ -37,7 +38,7 @@ def get_transactions(req, since_date, before_date):
         date_params = f'{date_params}&before={before_date}'
 
     return requests.get(
-        f'{base_url}/transactions?account_id=acc_00009R9wohAMOeu47J6j4r{date_params}&expand[]=merchant',
+        f'{base_url}/transactions?account_id={monzo_account_id}&{date_params}&expand[]=merchant',
         headers=get_authenticated_headers(req)
     ).json()
 
