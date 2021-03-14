@@ -9,3 +9,7 @@ nav .brand-logo {
 .DateRangePicker_picker {
     z-index: 2;
 }
+
+div.input-field input[type=text]{
+    padding-left: 10px;
+}

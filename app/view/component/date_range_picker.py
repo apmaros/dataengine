@@ -65,6 +65,7 @@ def build_date_picker(start_date=_last_week_date(), end_date=date.today()):
             start_date=start_date,
             end_date=end_date,
             updatemode='bothdates',
-            clearable=True
+            clearable=True,
+            className="txs-date-range-picker"
         )
 

@@ -5,7 +5,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Output, Input
 from dateutil.relativedelta import relativedelta
-
 from app.server import dash_app
 from app.view.component.date_range_picker import get_transactions_dfs, build_date_picker, _last_week_date
 from app.view.constants import TXSGraphConstants
@@ -35,7 +34,9 @@ def update_output_div(start_date_raw, end_date_raw, this_month, this_year):
     if button_id == "txs-this-month":
         start_date = datetime.today().replace(day=28) - relativedelta(months=1)
         end_date = datetime.today()
-
+    elif button_id == "txs-this-year":
+        start_date = datetime.today().replace(month=1).replace(day=1)
+        end_date = datetime.today()
     else:
         if start_date_raw:
             start_date = date.fromisoformat(start_date_raw)
@@ -55,7 +56,7 @@ def init(app):
     app.layout = html.Div(className='container', children=[
         html.H1("Transactions Summary"),
         html.Div(className="row", children=[
-            html.Div(id="date-picker", className="input-field", children=[
+            html.Div(id="date-picker", className="input-field col s6", children=[
                 html.Div(["Date: ", build_date_picker()]),
             ])
         ]),
@@ -63,8 +64,9 @@ def init(app):
             html.Div(className="col s6", children=[
                 html.A("This Budget Month", id="txs-this-month", className="waves-effect waves-light btn"),
                 html.A("This Year", id="txs-this-year", className="waves-effect waves-light btn"),
+                html.Br(),html.Br(),
+                html.Div(id=TXSGraphConstants.SUMMARY_CARD),
                 html.Br(),
-                html.Div(id=TXSGraphConstants.SUMMARY_CARD)
             ]),
             html.Div(className="col s6", children=[
                 html.Div(id=TXSGraphConstants.SUMMARY_BY_CATEGORY_CARD)
