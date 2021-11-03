@@ -1,5 +1,3 @@
-import os
-
 MONZO_API_CODE_COOKIE_NAME = 'monzo_api_code'
 MONZO_ACCESS_TOKEN_COOKIE_NAME = 'monzo_api_token'
 

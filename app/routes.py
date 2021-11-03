@@ -53,7 +53,7 @@ def home_set_auth_handler(req):
     app.logger.info(f"Requesting token")
     resp = make_response("Login was successful")
     set_access_token(resp, get_token(code))
-    app.logger.info(f"Token acquired, redirecting home")
+    app.logger.info(f"Token acquired")
 
     return resp
 
@@ -62,5 +62,3 @@ def home_set_auth_handler(req):
 def auth():
     logout(make_response())
     return redirect(get_monzo_auth_url())
-
-
