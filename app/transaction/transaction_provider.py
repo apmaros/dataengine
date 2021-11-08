@@ -6,7 +6,7 @@ from app.monzo.api import get_transactions
 from app.util import _day_to_daytime_str
 
 
-def get_txs_df(req, since=None, before=None) -> pd.DataFrame :
+def get_txs_df(req, since=None, before=None) -> pd.DataFrame:
     """
     Returns DataFrame containing all transactions from Monzo
     in given period of time

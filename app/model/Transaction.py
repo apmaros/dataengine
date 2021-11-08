@@ -17,11 +17,13 @@ class Transaction:
 
     def to_plot_dict(self):
         return {
+            'time': self.created_at,
             'date': self.created_at.split("T")[0],
             'amount': self.amount / 100,
             'name': self.name,
             'category': self.category if self.category else 'unknown',
-            'abs_amount': abs(self.amount) / 100
+            'abs_amount': abs(self.amount) / 100,
+            'type': "CREDIT" if self.amount > 0 else "DEBIT"
         }
 
 
