@@ -1,10 +1,13 @@
+from datetime import datetime, timedelta
+
 from app.db.db_client import build_db_client
 from app.monzo.api import get_balance, get_accounts, get_transactions
 from app.monzo.auth import get_token, get_monzo_auth_url
 from app.monzo.security import set_access_token, logout
 from app.server import app
 from flask import request, make_response, redirect, render_template, flash, url_for
-from app.transaction.transaction_provider import get_txs_df
+from app.transaction.transaction_provider import get_txs_as_points, _get_txs
+from app.util import chunks
 
 
 @app.route('/')
@@ -53,14 +56,10 @@ def transactions():
 @app.route("/sync-transactions")
 def sync_transactions():
     try:
-        txs = get_txs_df(request, None, None)
-        txs.set_index('time', inplace=True)
-        app.logger.info(f"Loaded {len(txs)} transactions")
-        build_db_client().write_dataframe(
-            txs,
-            ['category', 'type', 'abs_amount', 'amount'],
-            'transactions'
-        )
+        batches = chunks(get_txs_as_points(request, None, None), 500)
+        for batch in batches:
+            build_db_client().write_records(points=batch)
+
         app.logger.info(f"flushed transactions to db")
         flash('Transactions were synced', 'success')
     except Exception as e:

@@ -1,7 +1,9 @@
 from dataclasses import asdict
 import pandas as pd
+from influxdb_client import Point
+import typing as t
 from app.model.Merchant import build_merchant
-from app.model.Transaction import build_transaction
+from app.model.Transaction import build_transaction, Transaction
 from app.monzo.api import get_transactions
 from app.util import _day_to_daytime_str
 
@@ -15,6 +17,22 @@ def get_txs_df(req, since=None, before=None) -> pd.DataFrame:
     :param before: end date for transactions
     :return: transactions in DataFrame
     """
+    return pd.DataFrame(_get_txs(req=req, since=since, before=before))
+
+
+def get_txs_as_points(req, since=None, before=None) -> pd.DataFrame:
+    txs = _get_txs(req=req, since=since, before=before)
+    return list(map(lambda tx: Point("transactions")
+                    .time(tx['time'])
+                    .tag('type', tx['type'])
+                    .tag('category', tx['category'])
+                    .tag('name', tx['name'])
+                    .field('amount', tx['amount'])
+                    .field('abs_amount', tx['abs_amount']),
+                txs))
+
+
+def _get_txs(req, since=None, before=None) -> t.List[Transaction]:
     txs_raw = get_transactions(
         req,
         _day_to_daytime_str(since) if since else None,
@@ -33,4 +51,4 @@ def get_txs_df(req, since=None, before=None) -> pd.DataFrame:
 
         txs.append({**tx, **merchant})
 
-    return pd.DataFrame(txs)
+    return txs

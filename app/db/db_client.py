@@ -1,6 +1,6 @@
 import os
 import typing as t
-from influxdb_client import InfluxDBClient, WriteOptions
+from influxdb_client import InfluxDBClient, Point
 from influxdb_client.client.write_api import SYNCHRONOUS
 from pandas import DataFrame
 
@@ -27,8 +27,21 @@ class DbClient(object):
             data_frame_measurement_name=measurement_name
         )
 
-    def query(self, query: str):
+    def write_records(self, points: t.List[Point]):
+        for point in points:
+            self.write_record(point=point)
+
+    def write_record(self, point: Point):
+        self.write_client.write(
+            bucket=self.bucket,
+            record=point,
+        )
+
+    def query_df(self, query: str):
         return self.read_client.query_data_frame(query)
+
+    def query(self, query: str):
+        return self.read_client.query(query)
 
 
 def build_db_client() -> DbClient:

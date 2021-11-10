@@ -21,3 +21,9 @@ def random_str():
 
 def _last_week_date():
     return date.today() - timedelta(days=7)
+
+
+def chunks(lst, n):
+    """Yield successive n-sized chunks from lst."""
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
