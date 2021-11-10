@@ -6,8 +6,9 @@
 # 3. Exchange the authorization code for an access token.
 
 import os
+from dataclasses import dataclass
+
 import requests
-from flask import make_response
 from app.server import app
 from app.util import random_str
 
@@ -18,6 +19,16 @@ monzo_auth_base_url = 'https://auth.monzo.com'
 base_url = 'https://api.monzo.com'
 
 
+@dataclass
+class MonzoToken:
+    access_token: str
+    client_id: str
+    expires_in_sec: int
+    refresh_token: str
+    token_type: str
+    user_id: str
+
+
 def get_monzo_auth_url():
     return f"{monzo_auth_base_url}/?" \
                 f"client_id={monzo_client_id}&" \
@@ -26,7 +37,7 @@ def get_monzo_auth_url():
                 f"state={random_str()}"
 
 
-def get_token(code: str) -> str:
+def get_token(code: str) -> MonzoToken:
     url = f"{base_url}/oauth2/token"
     data = {
             'grant_type': 'authorization_code',
@@ -47,12 +58,15 @@ def get_token(code: str) -> str:
         app.logger.error(
             f"failed to authenticate with monzo with status_code={auth_resp.status_code}, reason={auth_resp.reason}"
         )
-        app.logger.error(f'error response = {auth_resp.content}')
-        return make_response('Failed to authenticate')
+        raise RuntimeError(f"Failed to authenticate due to {auth_resp.content}")
 
     body = auth_resp.json()
 
-    resp = make_response()
-    resp.set_cookie('monzo_access_token', body['access_token'])
-
-    return body['access_token']
+    return MonzoToken(
+        access_token=body["access_token"],
+        client_id=body["client_id"],
+        expires_in_sec=body["expires_in"],
+        refresh_token=body["refresh_token"],
+        token_type=body["token_type"],
+        user_id=body["user_id"],
+    )

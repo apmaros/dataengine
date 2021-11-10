@@ -5,6 +5,7 @@ import typing as t
 from app.model.Merchant import build_merchant
 from app.model.Transaction import build_transaction, Transaction
 from app.monzo.api import get_transactions
+from app.monzo.security import get_access_token
 from app.util import _day_to_daytime_str
 
 
@@ -34,7 +35,7 @@ def get_txs_as_points(req, since=None, before=None) -> pd.DataFrame:
 
 def _get_txs(req, since=None, before=None) -> t.List[Transaction]:
     txs_raw = get_transactions(
-        req,
+        get_access_token(req),
         _day_to_daytime_str(since) if since else None,
         _day_to_daytime_str(before, True) if before else None
     )

@@ -1,12 +1,10 @@
-from datetime import datetime, timedelta
-
 from app.db.db_client import build_db_client
 from app.monzo.api import get_balance, get_accounts, get_transactions
-from app.monzo.auth import get_token, get_monzo_auth_url
-from app.monzo.security import set_access_token, logout
+from app.monzo.auth import get_token, get_monzo_auth_url, MonzoToken
+from app.monzo.security import set_access_token, logout, get_access_token
 from app.server import app
 from flask import request, make_response, redirect, render_template, flash, url_for
-from app.transaction.transaction_provider import get_txs_as_points, _get_txs
+from app.transaction.transaction_provider import get_txs_as_points
 from app.util import chunks
 
 
@@ -23,21 +21,19 @@ def home():
     }
 
     handler = handlers.get(request.args.get("from"))
-    resp = handler(request)
-
-    return resp
+    return handler(request)
 
 
 @app.route('/balance')
 def balance():
-    balance_resp = get_balance(request)
+    balance_resp = get_balance(get_access_token(request))
     app.logger.info(f'balance_resp: {balance_resp}')
     return balance_resp
 
 
 @app.route('/accounts')
 def accounts():
-    acc_resp = get_accounts(request)
+    acc_resp = get_accounts(get_access_token(request))
     app.logger.info(f'acc_resp={acc_resp}')
     return acc_resp
 
@@ -72,10 +68,16 @@ def sync_transactions():
 def home_set_auth_handler(req):
     code = req.args.get("code")
     app.logger.info(f"Requesting token")
-    resp = make_response("Login was successful")
-    set_access_token(resp, get_token(code))
-    app.logger.info(f"Token acquired")
-
+    resp = make_response(render_template('home.html'))
+    try:
+        token: MonzoToken = get_token(code)
+        logout(resp)
+        resp.set_cookie('monzo_access_token', token.access_token)
+        app.logger.info(f"token acquired until {token.expires_in_sec / 3600}")
+    except RuntimeError as e:
+        app.logger.error(e)
+        flash('Failed to login to Monzo')
+    flash('Successfully logged-in to Monzo')
     return resp
 
 
