@@ -27,7 +27,7 @@ class InfluxDbClient(object):
         return self.read_client.query(query)
 
 
-def build_db_client() -> InfluxDbClient:
+def build_influxdb_client() -> InfluxDbClient:
     return InfluxDbClient(
         token=os.environ.get('INFLUXDB_TOKEN'),
         org=os.environ.get('INFLUXDB_ORG'),

@@ -1,7 +1,7 @@
-from app.db.db_client import build_db_client
+from app.db.influxdb_client import build_influxdb_client
 from app.monzo.api import get_balance, get_accounts, get_transactions
 from app.monzo.auth import get_token, get_monzo_auth_url, MonzoToken
-from app.monzo.security import set_access_token, logout, get_access_token
+from app.monzo.security import logout, get_access_token, set_access_token
 from app.server import app
 from flask import request, make_response, redirect, render_template, flash, url_for
 from app.transaction.transaction_provider import get_txs_as_points
@@ -54,7 +54,7 @@ def sync_transactions():
     try:
         batches = chunks(get_txs_as_points(request, None, None), 500)
         for batch in batches:
-            build_db_client().write_records(points=batch)
+            build_influxdb_client().write_records(points=batch)
 
         app.logger.info(f"flushed transactions to db")
         flash('Transactions were synced', 'success')
@@ -72,12 +72,12 @@ def home_set_auth_handler(req):
     try:
         token: MonzoToken = get_token(code)
         logout(resp)
-        resp.set_cookie('monzo_access_token', token.access_token)
+        set_access_token(resp, token.access_token)
         app.logger.info(f"token acquired until {token.expires_in_sec / 3600}")
+        flash('Successfully logged-in to Monzo')
     except RuntimeError as e:
         app.logger.error(e)
         flash('Failed to login to Monzo')
-    flash('Successfully logged-in to Monzo')
     return resp
 
 
