@@ -1,5 +1,7 @@
 from datetime import date, timedelta
 from flask import request
+
+from app.db.influxdb_client import build_influxdb_client
 from app.server import dash_app
 from app.transaction.transaction_provider import get_txs_df
 from app.transaction.transformations import get_out_txs, group_by_category, group_by_date, get_in_txs
@@ -69,3 +71,16 @@ def build_date_picker(start_date=_last_week_date(), end_date=date.today()):
             className="txs-date-range-picker"
         )
 
+
+def get_transactions_from_db(since):
+    query = f'from(bucket:"transactions") |> range(start: {since})'
+    tables = build_influxdb_client().query(query)
+
+    for table in tables:
+        print(table)
+        for row in table.records:
+            print(row.values)
+
+
+if __name__ == '__main__':
+    get_transactions_from_db("-10d")

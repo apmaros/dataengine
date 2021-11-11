@@ -1,7 +1,8 @@
 from app.db.influxdb_client import build_influxdb_client
-from app.monzo.api import get_balance, get_accounts, get_transactions
-from app.monzo.auth import get_token, get_monzo_auth_url, MonzoToken
-from app.monzo.security import logout, get_access_token, set_access_token
+from app.monzo.api import get_balance, get_monzo_config, get_auth_url, get_transactions, get_accounts
+from app.monzo.monzo_client import monzo_client
+from app.monzo.monzo_token import MonzoToken
+from app.monzo.security import logout, get_access_token, set_access_token, set_account_id, get_account_id
 from app.server import app
 from flask import request, make_response, redirect, render_template, flash, url_for
 from app.transaction.transaction_provider import get_txs_as_points
@@ -26,7 +27,10 @@ def home():
 
 @app.route('/balance')
 def balance():
-    balance_resp = get_balance(get_access_token(request))
+    balance_resp = get_balance(
+        get_account_id(request),
+        get_access_token(request),
+    )
     app.logger.info(f'balance_resp: {balance_resp}')
     return balance_resp
 
@@ -41,9 +45,10 @@ def accounts():
 @app.route('/transactions')
 def transactions():
     resp = get_transactions(
-        request,
         request.args.get("since"),
-        request.args.get("from")
+        request.args.get("from"),
+        get_access_token(request),
+        get_account_id(request),
     )
     app.logger.info(f'resp={resp}')
     return resp
@@ -70,9 +75,11 @@ def home_set_auth_handler(req):
     app.logger.info(f"Requesting token")
     resp = make_response(render_template('home.html'))
     try:
-        token: MonzoToken = get_token(code)
         logout(resp)
+        token: MonzoToken = monzo_client.get_token(code)
         set_access_token(resp, token.access_token)
+        set_account_id(resp, token.account_id)
+        monzo_client.login(token)
         app.logger.info(f"token acquired until {token.expires_in_sec / 3600}")
         flash('Successfully logged-in to Monzo')
     except RuntimeError as e:
@@ -83,5 +90,4 @@ def home_set_auth_handler(req):
 
 @app.route('/login')
 def auth():
-    logout(make_response())
-    return redirect(get_monzo_auth_url())
+    return redirect(get_auth_url(get_monzo_config()))
