@@ -30,13 +30,6 @@ class MonzoClient(object):
         return get_accounts(self.token.access_token)
 
     def get_transactions(self, since_date, before_date):
-        """
-        Returns transactions from Monzo API
-        Date format is as following: format 'YYYY-MM-DDTHH:MM:SS+00:00' (e.g. '2021-03-05T00:00:00+00:00')
-        :param since_date: Starting point since (or from) to return transactions
-        :param before_date: End point before (or to) which to return transactions
-        :return: JSON Array of transactions
-        """
         return get_transactions(since_date, before_date, self.token.access_token, self.config.monzo_account_id)
 
     def get_all_transactions(self):

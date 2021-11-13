@@ -2,7 +2,7 @@ from app.db.influxdb_client import build_influxdb_client
 from app.monzo.api import get_balance, get_monzo_config, get_auth_url, get_transactions, get_accounts
 from app.monzo.monzo_client import monzo_client
 from app.monzo.monzo_token import MonzoToken
-from app.monzo.security import logout, get_access_token, set_access_token, set_account_id, get_account_id
+from app.monzo.security import logout as monzo_logout, get_access_token, set_access_token, set_account_id, get_account_id
 from app.server import app
 from flask import request, make_response, redirect, render_template, flash, url_for
 from app.transaction.transaction_provider import get_txs_as_points
@@ -73,9 +73,8 @@ def sync_transactions():
 def home_set_auth_handler(req):
     code = req.args.get("code")
     app.logger.info(f"Requesting token")
-    resp = make_response(render_template('home.html'))
+    resp = make_response(redirect('index'))
     try:
-        logout(resp)
         token: MonzoToken = monzo_client.get_token(code)
         set_access_token(resp, token.access_token)
         set_account_id(resp, token.account_id)
@@ -89,5 +88,14 @@ def home_set_auth_handler(req):
 
 
 @app.route('/login')
-def auth():
+def login():
     return redirect(get_auth_url(get_monzo_config()))
+
+
+@app.route('/logout')
+def logout():
+    resp = make_response(redirect('index'))
+    monzo_logout(resp)
+    flash("Successfully lodged-out")
+    return resp
+

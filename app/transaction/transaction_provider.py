@@ -37,7 +37,6 @@ def get_txs_as_points(request, since=None, before=None) -> pd.DataFrame:
 config = get_monzo_config()
 
 
-# TODO - remove request from the method
 def _get_txs(request, since=None, before=None) -> t.List[Transaction]:
     txs_raw = get_transactions(
         _day_to_daytime_str(since) if since else None,

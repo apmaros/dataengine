@@ -20,3 +20,8 @@ def get_account_id(req):
 
 def logout(resp):
     resp.delete_cookie(_MONZO_ACCESS_TOKEN_COOKIE_NAME)
+    resp.delete_cookie(_MONZO_ACCOUNT_ID_COOKIE_NAME)
+
+
+def is_authenticated(req):
+    return get_account_id(req) and get_access_token(req) is not None

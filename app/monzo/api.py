@@ -1,12 +1,13 @@
 import os
+from typing import Dict
 
 import requests
 
+from app.monzo.api_error import ApiError
 from app.monzo.monzo_config import MonzoApiConfig
 from app.monzo.monzo_token import MonzoToken
 from app.server import app
 from app.util import random_str
-
 
 # Monzo OAUTH2 Authorization
 # Acquiring an access token is a three-step process:
@@ -14,7 +15,6 @@ from app.util import random_str
 # 1. Redirect the user to Monzo to authorise your app
 # 2. Monzo redirects the user back to your app with an authorization code
 # 3. Exchange the authorization code for an access token.
-
 
 BASE_URL = 'https://api.monzo.com'
 
@@ -79,16 +79,33 @@ def get_transactions(
     token: str,
     account_id: str
 ):
+    """
+    Returns transactions from Monzo API
+    Date format is as following: format 'YYYY-MM-DDTHH:MM:SS+00:00' (e.g. '2021-03-05T00:00:00+00:00')
+    :param account_id: monzo account id
+    :param token: monzo access token
+    :param since_date: Starting point since (or from) to return transactions
+    :param before_date: End point before (or to) which to return transactions
+    :return: JSON Array of transactions
+    """
     date_params = ""
     if since_date:
         date_params = f'{date_params}&since={since_date}'
     if before_date:
         date_params = f'{date_params}&before={before_date}'
 
-    return requests.get(
+    result = requests.get(
         f'{BASE_URL}/transactions?account_id={account_id}&{date_params}&expand[]=merchant',
         headers=get_authenticated_headers(token)
-    ).json()
+    )
+    content: Dict = result.json()
+    if result.status_code == 200:
+        return content
+    else:
+        raise ApiError(
+            content.get('code', 'unknown'),
+            content.get('message', 'Unknown error')
+        )
 
 
 def get_accounts(token: str):
