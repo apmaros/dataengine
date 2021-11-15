@@ -73,6 +73,40 @@ def get_token(code: str, config: MonzoApiConfig):
     )
 
 
+def refresh_token(secret: str, token: MonzoToken) -> MonzoToken:
+    url = f"{BASE_URL}/oauth2/token"
+    data = {
+        'grant_type': 'refresh_token',
+        'client_id': token.client_id,
+        'client_secret': secret,
+        'refresh_token': token.refresh_token,
+    }
+
+    auth_resp = requests.post(
+        url, data=data, headers={'Content-Type': 'application/x-www-form-urlencoded'}
+    )
+
+    if auth_resp.status_code != 200:
+        app.logger.error(
+            f"failed to authenticate with monzo with status_code={auth_resp.status_code}, reason={auth_resp.reason}"
+        )
+        raise RuntimeError(f"Failed to authenticate due to {auth_resp.content}")
+
+    body = auth_resp.json()
+    try:
+        return MonzoToken(
+            access_token=body["access_token"],
+            client_id=body['client_id'],
+            expires_in_sec=body['expires_in'],
+            refresh_token=body['refresh_token'],
+            token_type=body['token_type'],
+            user_id=body['user_id'],
+            account_id=token.account_id
+        )
+    except KeyError as err:
+        raise ApiError('refresh-token.invalid-response', f"Failed to build token due to invalid response, err={err}")
+
+
 def get_transactions(
     since_date: str,
     before_date: str,

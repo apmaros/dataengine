@@ -1,6 +1,9 @@
+import datetime
+
 from app.db.influxdb_client import build_influxdb_client
 from app.monzo.api import get_balance, get_monzo_config, get_auth_url, get_transactions, get_accounts
 from app.monzo.monzo_client import monzo_client
+from app.monzo.monzo_scheduled_service import get_scheduled_monzo_service_instance
 from app.monzo.monzo_token import MonzoToken
 from app.monzo.security import logout as monzo_logout, get_access_token, set_access_token, set_account_id, get_account_id
 from app.server import app
@@ -57,7 +60,8 @@ def transactions():
 @app.route("/sync-transactions")
 def sync_transactions():
     try:
-        batches = chunks(get_txs_as_points(request, None, None), 500)
+        since = datetime.datetime.now() - datetime.timedelta(30)
+        batches = chunks(get_txs_as_points(request, since, None), 500)
         for batch in batches:
             build_influxdb_client().write_records(points=batch)
 
@@ -72,17 +76,26 @@ def sync_transactions():
 
 def home_set_auth_handler(req):
     code = req.args.get("code")
-    app.logger.info(f"Requesting token")
     resp = make_response(redirect('index'))
     try:
-        token: MonzoToken = monzo_client.get_token(code)
+        token: MonzoToken = monzo_client.acquire_token(code)
         set_access_token(resp, token.access_token)
         set_account_id(resp, token.account_id)
         monzo_client.login(token)
-        app.logger.info(f"token acquired until {token.expires_in_sec / 3600}")
+        scheduled_monzo = get_scheduled_monzo_service_instance(
+            monzo_client=monzo_client,
+            delay_sec=60
+        )
+        if not scheduled_monzo.is_running:
+            app.logger.info("Starting Monzo Scheduled service")
+            scheduled_monzo.start()
+        else:
+            app.logger.info("Monzo Scheduled service running, skipping")
+
+        app.logger.info(f"token acquired until {token.expires_in_sec / 3600}h")
         flash('Successfully logged-in to Monzo')
     except RuntimeError as e:
-        app.logger.error(e)
+        app.logger.error(f"Failed to login due to error={e}")
         flash('Failed to login to Monzo')
     return resp
 

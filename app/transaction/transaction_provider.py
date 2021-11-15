@@ -21,17 +21,24 @@ def get_txs_df(request, since=None, before=None) -> pd.DataFrame:
     return pd.DataFrame(_get_txs(request=request, since=since, before=before))
 
 
-def get_txs_as_points(request, since=None, before=None) -> pd.DataFrame:
+def get_txs_as_points(request, since=None, before=None):
     txs = _get_txs(request, since=since, before=before)
-    return list(map(
-        lambda tx: Point("transactions")
-            .time(tx['time'])
-            .tag('type', tx['type'])
-            .tag('category', tx['category'])
-            .tag('name', tx['name'])
-            .field('amount', tx['amount'])
-            .field('abs_amount', tx['abs_amount']),
-        txs))
+    return transactions_to_records(txs)
+
+
+def transactions_to_records(transactions: t.List[Transaction]):
+    return list(map(transaction_as_record, transactions))
+
+
+def transaction_as_record(transaction: t.Dict) -> Point:
+    return (
+        Point("transactions")
+        .time(transaction['time'])
+        .tag('type', transaction['type'])
+        .tag('category', transaction['category'])
+        .tag('name', transaction['name'])
+        .field('amount', transaction['amount'])
+        .field('abs_amount', transaction['abs_amount']))
 
 
 config = get_monzo_config()
@@ -47,14 +54,18 @@ def _get_txs(request, since=None, before=None) -> t.List[Transaction]:
 
     txs = []
     for tx_raw in txs_raw['transactions']:
-        tx = build_transaction(tx_raw).to_plot_dict()
-
-        merchant = {}
-        if tx_raw["merchant"] is not None:
-            merchant = build_merchant(tx_raw.get('merchant', {}))
-            tx['name'] = merchant.name
-            merchant = asdict(merchant)
-
-        txs.append({**tx, **merchant})
+        txs.append(build_transaction_with_merchant(tx_raw))
 
     return txs
+
+
+def build_transaction_with_merchant(raw_transaction):
+    tx = build_transaction(raw_transaction).to_plot_dict()
+
+    merchant = {}
+    if raw_transaction["merchant"] is not None:
+        merchant = build_merchant(raw_transaction.get('merchant', {}))
+        tx['name'] = merchant.name
+        merchant = asdict(merchant)
+
+    return {**tx, **merchant}

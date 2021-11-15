@@ -1,3 +1,4 @@
+import time
 import uuid
 from datetime import datetime, date, timedelta
 import pytz
@@ -27,3 +28,7 @@ def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
+
+
+def current_time_sec():
+    return int(time.time())

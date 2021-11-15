@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from app.util import current_time_sec
 
 
 @dataclass
@@ -10,3 +11,4 @@ class MonzoToken:
     token_type: str
     user_id: str
     account_id: str
+    created_at_sec: str = current_time_sec()
