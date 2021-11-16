@@ -84,7 +84,7 @@ def home_set_auth_handler(req):
         monzo_client.login(token)
         scheduled_monzo = get_scheduled_monzo_service_instance(
             monzo_client=monzo_client,
-            delay_sec=60
+            delay_sec=120
         )
         if not scheduled_monzo.is_running:
             app.logger.info("Starting Monzo Scheduled service")

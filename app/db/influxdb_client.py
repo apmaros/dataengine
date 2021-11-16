@@ -1,7 +1,6 @@
 import os
 import typing as t
 from influxdb_client import InfluxDBClient, Point
-from influxdb_client.client.write_api import SYNCHRONOUS
 
 
 class InfluxDbClient(object):
@@ -9,8 +8,15 @@ class InfluxDbClient(object):
         self.token = token
         self.org = org
         self.bucket = bucket
-        self._inner: InfluxDBClient = InfluxDBClient(url=url, token=token, org=org, debug=True)
-        self.write_client = self._inner.write_api(write_options=SYNCHRONOUS)
+        self._inner: InfluxDBClient = InfluxDBClient(url=url, token=token, org=org, debug=False)
+        self.write_client = self._inner.write_api(
+            batch_size=100,
+            flush_interval=10_000,
+            jitter_interval=2_000,
+            retry_interval=5_000,
+            max_retries=5,
+            max_retry_delay=30_000, exponential_base=2
+        )
         self.read_client = self._inner.query_api()
 
     def write_records(self, points: t.List[Point]):

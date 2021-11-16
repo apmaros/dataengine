@@ -7,7 +7,7 @@ from app.monzo.api_error import ApiError
 from app.monzo.monzo_config import MonzoApiConfig
 from app.monzo.monzo_token import MonzoToken
 from app.server import app
-from app.util import random_str
+from app.util import random_str, current_time_sec
 
 # Monzo OAUTH2 Authorization
 # Acquiring an access token is a three-step process:
@@ -93,18 +93,19 @@ def refresh_token(secret: str, token: MonzoToken) -> MonzoToken:
         raise RuntimeError(f"Failed to authenticate due to {auth_resp.content}")
 
     body = auth_resp.json()
-    try:
-        return MonzoToken(
-            access_token=body["access_token"],
-            client_id=body['client_id'],
-            expires_in_sec=body['expires_in'],
-            refresh_token=body['refresh_token'],
-            token_type=body['token_type'],
-            user_id=body['user_id'],
-            account_id=token.account_id
-        )
-    except KeyError as err:
-        raise ApiError('refresh-token.invalid-response', f"Failed to build token due to invalid response, err={err}")
+
+    token = MonzoToken(
+        access_token=body["access_token"],
+        client_id=body['client_id'],
+        expires_in_sec=body['expires_in'],
+        refresh_token=body['refresh_token'],
+        token_type=body['token_type'],
+        user_id=body['user_id'],
+        account_id=token.account_id,
+        created_at_sec=current_time_sec()
+    )
+
+    return token
 
 
 def get_transactions(

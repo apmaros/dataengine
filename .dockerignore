@@ -1,0 +1,3 @@
+# ignore when building docker image
+
+data/*

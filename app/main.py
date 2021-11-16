@@ -1,5 +1,5 @@
 from app.view import transactions_view
-from app.server import dash_app
+from app.server import dash_app, app
 
 
 def start():

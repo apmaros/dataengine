@@ -41,20 +41,22 @@ class MonzoScheduledService(object):
         self.timer.start()
 
     def _load_and_schedule(self):
-        app.logger.info(f"start: {self._TASK_DESCRIPTION}]")
+        app.logger.info(f"start: {self._TASK_DESCRIPTION}")
         try:
             self._load_transactions()
         except ApiError as err:
             app.logger.error(f"Monzo API failed to load transactions due to {err}")
         except Exception as err:
             app.logger.error(f"Failed to load transactions {err}")
-        app.logger.info(f"finish: {self._TASK_DESCRIPTION}]")
+        app.logger.info(f"finish: {self._TASK_DESCRIPTION}")
         self.schedule()
 
     def _load_transactions(self):
         if not self.monzo_client.is_authenticated():
             app.logger.error("Monzo client not authenticated. Authenticate to load transactions")
             return
+
+        app.logger.info(f"Token created at {self.monzo_client.token.created_at_sec}")
 
         if (
             self.monzo_client.token.created_at_sec + self.refresh_token_delay_sec
@@ -74,6 +76,7 @@ class MonzoScheduledService(object):
                 lambda tx: build_transaction_with_merchant(tx),
                 txs['transactions']
             )))
+            app.logger.info(f"transaction_count={len(points)}")
             self.influxdb_client.write_records(points)
         except ApiError as e:
             app.logger.error(f"Failed to load transactions due to ApiError: {e}")

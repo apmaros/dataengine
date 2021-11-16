@@ -1,7 +1,5 @@
 from typing import Optional
 
-from flask import app
-
 from app.monzo.api import (
     get_token,
     get_auth_url,
@@ -53,7 +51,9 @@ class MonzoClient(object):
     def refresh_token(self):
         if not self.is_authenticated():
             raise AuthenticationException("Client not logged in - token not present")
-        self.token = refresh_token(self.config.monzo_client_secret, self.token)
+        new_token = refresh_token(self.config.monzo_client_secret, self.token)
+
+        self.token = new_token
 
     def _get_authenticated_headers(self):
         if not self.token:
