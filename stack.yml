@@ -1,0 +1,59 @@
+version: '3.1'
+
+services:
+  app:
+    image: apmaros/budgetdesk:latest
+    networks:
+        - outside
+    environment:
+        MONZO_CLIENT_SECRET: 'run/secrets/monzo_client_secret'
+        MONZO_ACC_ID: 'run/secrets/monzo_acc_id'
+        MONZO_CLIENT_ID: 'run/secrets/monzo_client_id'
+        MAPBOX_TOKEN: 'run/secrets/mapbox_token'
+        INFLUXDB_URL: 'run/secrets/influxdb_url'
+        INFLUXDB_ORG: 'run/secrets/influxdb_org'
+        INFLUXDB_BUCKET: 'run/secrets/influxdb_bucket'
+        SERVER_SECRET_KEY: 'run/secrets/server_secret_key'
+        INFLUXDB_TOKEN: 'run/secrets/influxdb_token'
+    secrets:
+        - monzo_client_secret
+        - monzo_acc_id
+        - monzo_client_id
+        - mapbox_token
+        - influxdb_url
+        - influxdb_org
+        - influxdb_bucket
+        - server_secret_key
+        - influxdb_token
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+secrets:
+  monzo_client_secret:
+    external: true
+  monzo_acc_id:
+    external: true
+  monzo_client_id:
+    external: true
+  mapbox_token:
+    external: true
+  influxdb_url:
+    external: true
+  influxdb_org:
+    external: true
+  influxdb_bucket:
+    external: true
+  server_secret_key:
+    external: true
+  influxdb_token:
+    external: true
+
+networks:
+  outside:
+    external:
+      name: "host"
