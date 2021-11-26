@@ -35,7 +35,7 @@ jobs:
         key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
         name: id_rsa # optional
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
-    - name: deploy api
+    - name: setup docker
       uses: docker-practice/actions-setup-docker@master
-      run: |
-        docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy -c stack.yml budgetapp
+    - name: deploy app
+      run: docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy -c stack.yml budgetapp
