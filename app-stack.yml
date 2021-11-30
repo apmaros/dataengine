@@ -3,8 +3,6 @@ version: '3.1'
 services:
   app:
     image: apmaros/budgetdesk:latest
-    networks:
-        - outside
     environment:
         MONZO_CLIENT_SECRET: 'run/secrets/monzo_client_secret'
         MONZO_ACC_ID: 'run/secrets/monzo_acc_id'
@@ -25,6 +23,8 @@ services:
         - influxdb_bucket
         - server_secret_key
         - influxdb_token
+    ports:
+      - "8050:8050"
     deploy:
       replicas: 1
       restart_policy:
@@ -53,7 +53,3 @@ secrets:
   influxdb_token:
     external: true
 
-networks:
-  outside:
-    external:
-      name: "host"
