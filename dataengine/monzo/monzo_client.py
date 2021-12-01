@@ -1,6 +1,6 @@
 from typing import Optional
 
-from app.monzo.api import (
+from dataengine.monzo.api import (
     get_token,
     get_auth_url,
     get_authenticated_headers,
@@ -9,8 +9,8 @@ from app.monzo.api import (
     get_balance,
     get_monzo_config, refresh_token
 )
-from app.monzo.monzo_config import MonzoApiConfig
-from app.monzo.monzo_token import MonzoToken
+from dataengine.monzo.monzo_config import MonzoApiConfig
+from dataengine.monzo.monzo_token import MonzoToken
 
 
 class AuthenticationException(Exception):

@@ -24,7 +24,7 @@ services:
         - server_secret_key
         - influxdb_token
     ports:
-      - "8050:8050"
+      - "4000:4000"
     deploy:
       replicas: 1
       restart_policy:
@@ -52,4 +52,3 @@ secrets:
     external: true
   influxdb_token:
     external: true
-

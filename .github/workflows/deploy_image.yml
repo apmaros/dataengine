@@ -36,4 +36,4 @@ jobs:
         name: id_rsa # optional
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: deploy api
-      run: docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy -c app-stack.yml together
+      run: docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy -c dataengine-stack.yml dataengine

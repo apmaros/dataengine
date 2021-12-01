@@ -6,6 +6,6 @@ freeze:
 install:
 	PIP_CONFIG_FILE=pip.conf pip install -r requirements.txt
 run:
-	python app/main.py
+	python dataengine/main.py
 test:
 	JWT_SECRET=secret python -m pytest

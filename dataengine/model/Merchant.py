@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from app.server import app
+from dataengine.log import logger
 
 
 @dataclass
@@ -22,7 +22,7 @@ class Merchant:
 
 
 def build_merchant(data: dict):
-    app.logger.debug(f'merchant data={data}')
+    logger.debug(f'merchant data={data}')
     address = data.get('address', {})
     metadata = data.get('metadata', {})
 

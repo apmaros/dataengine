@@ -1,24 +1,12 @@
 from dataclasses import asdict
-import pandas as pd
+
 from influxdb_client import Point
 import typing as t
-from app.model.Merchant import build_merchant
-from app.model.Transaction import build_transaction, Transaction
-from app.monzo.api import get_monzo_config, get_transactions
-from app.monzo.security import get_access_token, get_account_id
-from app.util import _day_to_daytime_str
-
-
-def get_txs_df(request, since=None, before=None) -> pd.DataFrame:
-    """
-    Returns DataFrame containing all transactions from Monzo
-    in given period of time
-    :param request:
-    :param since: start date for transactions
-    :param before: end date for transactions
-    :return: transactions in DataFrame
-    """
-    return pd.DataFrame(_get_txs(request=request, since=since, before=before))
+from dataengine.model.Merchant import build_merchant
+from dataengine.model.Transaction import build_transaction, Transaction
+from dataengine.monzo.api import get_monzo_config, get_transactions
+from dataengine.monzo.security import get_access_token, get_account_id
+from dataengine.util import _day_to_daytime_str
 
 
 def get_txs_as_points(request, since=None, before=None):

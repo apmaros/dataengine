@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
 
-export PYTHONPATH="${PYTHONPATH}:./app"
-python ./app/main.py
+APP_NAME=dataengine
+
+export PYTHONPATH="${PYTHONPATH}:./${APP_NAME}"
+echo "Starting application server for ${APP_NAME}"
+gunicorn -w 4 -b 0.0.0.0:4000 ${APP_NAME}:app
