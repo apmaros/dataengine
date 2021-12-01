@@ -13,7 +13,7 @@ services:
         - server_secret_key
         - influxdb_token_v2
     networks:
-        - outside
+        - public
     ports:
       - "4000:4000"
     deploy:
@@ -43,6 +43,7 @@ secrets:
     external: true
 
 networks:
-  outside:
+  public:
     external:
-      name: "host"
+      name: public
+
