@@ -12,7 +12,7 @@ services:
         - influxdb_org
         - influxdb_bucket
         - server_secret_key
-        - influxdb_token
+        - influxdb_token_v2
 
     ports:
       - "4000:4000"
