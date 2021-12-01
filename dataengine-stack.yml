@@ -3,15 +3,6 @@ version: '3.1'
 services:
   app:
     image: apmaros/budgetdesk:latest
-    environment:
-        MONZO_CLIENT_SECRET: 'run/secrets/monzo_client_secret'
-        MONZO_ACC_ID: 'run/secrets/monzo_acc_id'
-        MONZO_CLIENT_ID: 'run/secrets/monzo_client_id'
-        INFLUXDB_URL: 'run/secrets/influxdb_url'
-        INFLUXDB_ORG: 'run/secrets/influxdb_org'
-        INFLUXDB_BUCKET: 'run/secrets/influxdb_bucket'
-        SERVER_SECRET_KEY: 'run/secrets/server_secret_key'
-        INFLUXDB_TOKEN: 'run/secrets/influxdb_token'
     secrets:
         - monzo_client_secret
         - monzo_acc_id
