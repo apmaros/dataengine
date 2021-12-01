@@ -8,7 +8,6 @@ services:
         - monzo_acc_id
         - monzo_client_id
         - monzo_redirect_url
-        - influxdb_url
         - influxdb_org
         - influxdb_bucket
         - server_secret_key
@@ -32,8 +31,6 @@ secrets:
   monzo_client_id:
     external: true
   monzo_redirect_url:
-    external: true
-  influxdb_url:
     external: true
   influxdb_org:
     external: true
