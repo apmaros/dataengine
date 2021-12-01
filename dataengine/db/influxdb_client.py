@@ -2,6 +2,8 @@ import os
 import typing as t
 from influxdb_client import InfluxDBClient, Point
 
+from common.secrets import get_secret
+
 
 class InfluxDbClient(object):
     def __init__(self, token: str, org: str, bucket: str, url: str):
@@ -35,8 +37,8 @@ class InfluxDbClient(object):
 
 def build_influxdb_client() -> InfluxDbClient:
     return InfluxDbClient(
-        token=os.environ.get('INFLUXDB_TOKEN'),
-        org=os.environ.get('INFLUXDB_ORG'),
-        bucket=os.environ.get('INFLUXDB_BUCKET'),
-        url=os.environ.get('INFLUXDB_URL')
+        token=get_secret('INFLUXDB_TOKEN'),
+        org=get_secret('INFLUXDB_ORG'),
+        bucket=get_secret('INFLUXDB_BUCKET'),
+        url=get_secret('INFLUXDB_URL')
     )

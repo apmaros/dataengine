@@ -1,5 +1,4 @@
-import os
+from common.secrets import get_secret
 
-MAPBOX_TOKEN = os.environ.get("MAPBOX_TOKEN")
-SERVER_SECRET_KEY = os.environ.get("SERVER_SECRET_KEY")
+SERVER_SECRET_KEY = get_secret("SERVER_SECRET_KEY")
 SERVER_SESSION_TYPE = 'filesystem'

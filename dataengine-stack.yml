@@ -7,7 +7,6 @@ services:
         MONZO_CLIENT_SECRET: 'run/secrets/monzo_client_secret'
         MONZO_ACC_ID: 'run/secrets/monzo_acc_id'
         MONZO_CLIENT_ID: 'run/secrets/monzo_client_id'
-        MAPBOX_TOKEN: 'run/secrets/mapbox_token'
         INFLUXDB_URL: 'run/secrets/influxdb_url'
         INFLUXDB_ORG: 'run/secrets/influxdb_org'
         INFLUXDB_BUCKET: 'run/secrets/influxdb_bucket'
@@ -17,7 +16,6 @@ services:
         - monzo_client_secret
         - monzo_acc_id
         - monzo_client_id
-        - mapbox_token
         - influxdb_url
         - influxdb_org
         - influxdb_bucket
@@ -39,8 +37,6 @@ secrets:
   monzo_acc_id:
     external: true
   monzo_client_id:
-    external: true
-  mapbox_token:
     external: true
   influxdb_url:
     external: true

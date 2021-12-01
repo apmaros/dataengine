@@ -7,7 +7,6 @@ https://developers.monzo.com/
 - `MONZO_CLIENT_SECRET`
 - `MONZO_ACC_ID`
 - `MONZO_CLIENT_ID`
-- `MAPBOX_TOKEN`
 - `INFLUXDB_TOKEN`
 - `INFLUXDB_URL`
 - `INFLUXDB_ORG`

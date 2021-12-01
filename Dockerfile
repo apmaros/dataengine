@@ -3,6 +3,9 @@ FROM python:3.8.0-slim
 ARG APP_VERSION
 ENV APP_VERSION=$APP_VERSION
 
+ENV SERVER_HOST=0.0.0.0
+ENV SERVER_PORT=4000
+
 # setup working directory for container
 WORKDIR /usr/src/app
 # copy project to the image
