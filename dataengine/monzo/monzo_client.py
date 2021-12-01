@@ -1,5 +1,6 @@
 from typing import Optional
 
+from config import get_monzo_config
 from dataengine.monzo.api import (
     get_token,
     get_auth_url,
@@ -7,7 +8,7 @@ from dataengine.monzo.api import (
     get_transactions,
     get_accounts,
     get_balance,
-    get_monzo_config, refresh_token
+    refresh_token
 )
 from dataengine.monzo.monzo_config import MonzoApiConfig
 from dataengine.monzo.monzo_token import MonzoToken

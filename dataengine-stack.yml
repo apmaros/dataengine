@@ -7,11 +7,13 @@ services:
         - monzo_client_secret
         - monzo_acc_id
         - monzo_client_id
+        - monzo_redirect_url
         - influxdb_url
         - influxdb_org
         - influxdb_bucket
         - server_secret_key
         - influxdb_token
+
     ports:
       - "4000:4000"
     deploy:
@@ -29,6 +31,8 @@ secrets:
     external: true
   monzo_client_id:
     external: true
+  monzo_redirect_url:
+    external: true
   influxdb_url:
     external: true
   influxdb_org:
@@ -37,5 +41,5 @@ secrets:
     external: true
   server_secret_key:
     external: true
-  influxdb_token:
+  influxdb_token_v2:
     external: true

@@ -1,8 +1,6 @@
-import os
 from typing import Dict
 import requests
-
-from common.secrets import get_secret
+from config import BASE_URL
 from dataengine.log import logger
 from dataengine.monzo.api_error import ApiError
 from dataengine.monzo.monzo_config import MonzoApiConfig
@@ -15,21 +13,6 @@ from dataengine.util import random_str, current_time_sec
 # 1. Redirect the user to Monzo to authorise your app
 # 2. Monzo redirects the user back to your app with an authorization code
 # 3. Exchange the authorization code for an access token.
-
-BASE_URL = 'https://api.monzo.com'
-
-
-def get_monzo_config():
-    return MonzoApiConfig(
-        monzo_redirect_uri='http://127.0.0.1:8050/home?from=auth',
-        monzo_client_secret=get_secret('MONZO_CLIENT_SECRET'),
-        monzo_client_id=get_secret('MONZO_CLIENT_ID'),
-        monzo_account_id=get_secret('MONZO_ACC_ID'),
-        base_url=BASE_URL,
-        redirect_uri=os.environ.get('MONZO_REDIRECT_URL') if os.environ.get(
-            'MONZO_REDIRECT_URL') else 'http://127.0.0.1:8050/home?from=auth',
-        auth_base_url='https://auth.monzo.com'
-    )
 
 
 def get_auth_url(config: MonzoApiConfig):

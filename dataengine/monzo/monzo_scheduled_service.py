@@ -71,11 +71,12 @@ class MonzoScheduledService(object):
                 since_date=_day_to_daytime_str(since),
                 before_date=_day_to_daytime_str(datetime.datetime.now()),
             )
+            logger.info(f"transaction_count={len(txs)}")
             points = transactions_to_records(list(map(
                 lambda tx: build_transaction_with_merchant(tx),
                 txs['transactions']
             )))
-            logger.info(f"transaction_count={len(points)}")
+            logger.debug("transactions flushed to influxdb")
             self.influxdb_client.write_records(points)
         except ApiError as e:
             logger.error(f"Failed to load transactions due to ApiError: {e}")

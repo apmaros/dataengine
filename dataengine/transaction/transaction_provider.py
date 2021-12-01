@@ -4,7 +4,7 @@ from influxdb_client import Point
 import typing as t
 from dataengine.model.Merchant import build_merchant
 from dataengine.model.Transaction import build_transaction, Transaction
-from dataengine.monzo.api import get_monzo_config, get_transactions
+from dataengine.monzo.api import get_transactions
 from dataengine.monzo.security import get_access_token, get_account_id
 from dataengine.util import _day_to_daytime_str
 
@@ -27,9 +27,6 @@ def transaction_as_record(transaction: t.Dict) -> Point:
         .tag('name', transaction['name'])
         .field('amount', transaction['amount'])
         .field('abs_amount', transaction['abs_amount']))
-
-
-config = get_monzo_config()
 
 
 def _get_txs(request, since=None, before=None) -> t.List[Transaction]:
