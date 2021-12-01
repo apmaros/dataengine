@@ -22,7 +22,7 @@ SERVER_SECRET_KEY = get_secret("SERVER_SECRET_KEY")
 SERVER_SESSION_TYPE = 'filesystem'
 
 # influxdb
-INFLUXDB_TOKEN = get_secret('INFLUXDB_TOKEN_V2')
+INFLUXDB_TOKEN = get_secret('INFLUXDB_TOKEN_V3')
 INFLUXDB_ORG = get_secret('INFLUXDB_ORG')
 INFLUXDB_BUCKET = get_secret('INFLUXDB_BUCKET')
-INFLUXDB_URL = "http://localhost:8086"
+INFLUXDB_URL = get_secret("INFLUXDB_URL")
