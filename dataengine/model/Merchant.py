@@ -22,7 +22,6 @@ class Merchant:
 
 
 def build_merchant(data: dict):
-    logger.debug(f'merchant data={data}')
     address = data.get('address', {})
     metadata = data.get('metadata', {})
 
