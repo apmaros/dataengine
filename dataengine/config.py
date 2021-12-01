@@ -9,7 +9,6 @@ DEFAULT_MONZO_REDIRECT_URL = 'http://127.0.0.1:8050/home?from=auth'
 
 def get_monzo_config():
     return MonzoApiConfig(
-        monzo_redirect_uri=MONZO_REDIRECT_URL if MONZO_REDIRECT_URL else DEFAULT_MONZO_REDIRECT_URL,
         monzo_client_secret=get_secret('MONZO_CLIENT_SECRET'),
         monzo_client_id=get_secret('MONZO_CLIENT_ID'),
         monzo_account_id=get_secret('MONZO_ACC_ID'),

@@ -18,7 +18,7 @@ from dataengine.util import random_str, current_time_sec
 def get_auth_url(config: MonzoApiConfig):
     return f"{config.auth_base_url}/?" \
            f"client_id={config.monzo_client_id}&" \
-           f"redirect_uri={config.monzo_redirect_uri}&" \
+           f"redirect_uri={config.redirect_uri}&" \
            f"response_type=code&" \
            f"state={random_str()}"
 
