@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from dataengine.util import current_time_sec
+from common.util import current_time_sec
 
 
 @dataclass

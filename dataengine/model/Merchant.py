@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from dataengine.log import logger
-
 
 @dataclass
 class Merchant:

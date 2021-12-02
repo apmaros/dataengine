@@ -10,7 +10,7 @@ from dataengine.monzo.monzo_scheduled_service import get_scheduled_monzo_service
 from dataengine.monzo.monzo_token import MonzoToken
 from dataengine.monzo.security import logout as monzo_logout, get_access_token, set_access_token, set_account_id, get_account_id
 from dataengine.transaction.transaction_provider import get_txs_as_points
-from dataengine.util import chunks
+from common.util import chunks
 from dataengine import app
 
 

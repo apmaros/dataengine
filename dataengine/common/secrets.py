@@ -1,6 +1,6 @@
 import os
 
-from log import logger
+from common.log import logger
 
 
 SECRETS_PATH = f'/run/secrets/'

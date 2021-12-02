@@ -6,7 +6,7 @@ from dataengine.model.Merchant import build_merchant
 from dataengine.model.Transaction import build_transaction, Transaction
 from dataengine.monzo.api import get_transactions
 from dataengine.monzo.security import get_access_token, get_account_id
-from dataengine.util import _day_to_daytime_str
+from common.util import _day_to_daytime_str
 
 
 def get_txs_as_points(request, since=None, before=None):
