@@ -1,19 +1,18 @@
-version: '3.1'
+version: "3.5"
 
 services:
   app:
     image: apmaros/budgetdesk:latest
     secrets:
-        - monzo_client_secret
-        - monzo_acc_id
-        - monzo_client_id
-        - monzo_redirect_url
-        - influxdb_org
-        - influxdb_bucket
-        - server_secret_key
-        - influxdb_token_v2
-    networks:
-        - public
+      - monzo_client_secret
+      - monzo_acc_id
+      - monzo_client_id
+      - monzo_redirect_url
+      - influxdb_org
+      - influxdb_bucket
+      - server_secret_key
+      - influxdb_token_v3
+      - influxdb_url
     ports:
       - "4000:4000"
     deploy:
@@ -23,6 +22,43 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
+  grafana:
+    image: grafana/grafana
+    depends_on:
+      - influxdb
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana:/var/lib/grafana
+    environment:
+      GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource"
+
+  influxdb:
+    image: influxdb:2.0
+    volumes:
+      - influxdb:/var/lib/influxdb
+      - influxdb2:/var/lib/influxdb2
+    configs:
+      - source: influxdb_config
+        target: /etc/influxdb2/config.yml
+        uid: '1000'
+        gid: '1000'
+    environment:
+      DOCKER_INFLUXDB_INIT_ORG: org
+      DOCKER_INFLUXDB_INIT_BUCKET: bucket
+    ports:
+      - "8086:8086"
+
+configs:
+  influxdb_config:
+    external: true
+    name: influxdb_config
+
+volumes:
+  logvolume01: {}
+  influxdb: {}
+  influxdb2: {}
+  grafana: {}
 
 secrets:
   monzo_client_secret:
@@ -39,11 +75,7 @@ secrets:
     external: true
   server_secret_key:
     external: true
-  influxdb_token_v2:
+  influxdb_token_v3:
     external: true
-
-networks:
-  public:
-    external:
-      name: public
-
+  influxdb_url:
+    external: true
