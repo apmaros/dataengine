@@ -29,4 +29,4 @@ INFLUXDB_URL = get_secret("INFLUXDB_URL")
 
 # redis
 REDIS_PORT = 6379
-REDIS_HOST = "localhost"
+REDIS_HOST = "redis"
