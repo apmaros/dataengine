@@ -15,11 +15,11 @@ def store_monzo_token(token: MonzoToken):
 
 
 def load_monzo_token() -> t.Optional[MonzoToken]:
-    raw_token = get_redis_client().get(MONZO_TOKEN_KEY)
-    if not raw_token:
+    token_bytes = get_redis_client().get(MONZO_TOKEN_KEY)
+    if not token_bytes:
         return None
 
-    token = MonzoToken(**json.load(raw_token))
+    token = MonzoToken(**json.load(token_bytes.decode("utf-8")))
     # TODO validate token not expired
 
     return token

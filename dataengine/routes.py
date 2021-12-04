@@ -1,4 +1,5 @@
 import datetime
+import traceback
 
 from flask import request, make_response, redirect, render_template, flash, url_for
 
@@ -101,6 +102,8 @@ def schedule_monzo_sync():
             flash("Monzo already scheduled")
     except Exception as e:
         logger.error(f"Failed to schedul mozno sync due to {e}")
+        logger.error(traceback.print_exc())
+
 
     return make_response(redirect('index'))
 

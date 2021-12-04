@@ -17,7 +17,7 @@ class MonzoToken:
     created_at_sec: str = current_time_sec()
 
     def to_json(self):
-        json.dumps(self, cls=DataclassJsonEncoder)
+        return json.dumps(self, cls=DataclassJsonEncoder)
 
     @staticmethod
     def from_json(data):
