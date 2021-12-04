@@ -48,6 +48,12 @@ services:
       DOCKER_INFLUXDB_INIT_BUCKET: bucket
     ports:
       - "8086:8086"
+  redis:
+    image: redis:alpine3.15
+    volumes:
+      - redis:/data
+    ports:
+      - "6379:6379"
 
 configs:
   influxdb_config:
@@ -59,6 +65,7 @@ volumes:
   influxdb: {}
   influxdb2: {}
   grafana: {}
+  redis: {}
 
 secrets:
   monzo_client_secret:

@@ -1,4 +1,7 @@
+import json
 from dataclasses import dataclass
+
+from common.DataclassJsonEncoder import DataclassJsonEncoder
 from common.util import current_time_sec
 
 
@@ -12,3 +15,10 @@ class MonzoToken:
     user_id: str
     account_id: str
     created_at_sec: str = current_time_sec()
+
+    def to_json(self):
+        json.dumps(self, cls=DataclassJsonEncoder)
+
+    @staticmethod
+    def from_json(data):
+        return MonzoToken(**json.loads(data))

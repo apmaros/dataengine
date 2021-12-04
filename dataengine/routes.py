@@ -2,16 +2,18 @@ import datetime
 
 from flask import request, make_response, redirect, render_template, flash, url_for
 
+from common.log import logger
 from config import get_monzo_config
 from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.monzo.api import get_balance, get_auth_url, get_transactions, get_accounts
-from dataengine.monzo.monzo_client import monzo_client
 from dataengine.monzo.monzo_scheduled_service import get_scheduled_monzo_service_instance
 from dataengine.monzo.monzo_token import MonzoToken
 from dataengine.monzo.security import logout as monzo_logout, get_access_token, set_access_token, set_account_id, get_account_id
 from dataengine.transaction.transaction_provider import get_txs_as_points
 from common.util import chunks
 from dataengine import app
+from monzo.monzo_client import build_monzo_client
+from monzo.monzo_token_provider import store_monzo_token, load_monzo_token
 
 
 @app.route('/')
@@ -76,28 +78,53 @@ def sync_transactions():
     return redirect(url_for('index'))
 
 
-def home_set_auth_handler(req):
-    code = req.args.get("code")
-    resp = make_response(redirect('index'))
+@app.route("/schedule-monzo-sync")
+def schedule_monzo_sync():
     try:
-        token: MonzoToken = monzo_client.acquire_token(code)
-        set_access_token(resp, token.access_token)
-        set_account_id(resp, token.account_id)
-        monzo_client.login(token)
+        token = load_monzo_token()
+        if not token:
+            logger.warn("Can not schedule Monzo sync, Monzo token not found")
+            flash("Monzo token not found, please login to Monzo")
+            return make_response(redirect('index'))
+
+        monzo_client = build_monzo_client(token)
         scheduled_monzo = get_scheduled_monzo_service_instance(
             monzo_client=monzo_client,
             delay_sec=120
         )
         if not scheduled_monzo.is_running:
-            app.logger.info("Starting Monzo Scheduled service")
+            logger.info("Starting Monzo Scheduled service")
             scheduled_monzo.start()
+            flash("Scheduled Monzo Sync")
         else:
-            app.logger.info("Monzo Scheduled service running, skipping")
+            logger.info("Monzo Scheduled service running, skipping")
+            flash("Monzo already scheduled")
+    except Exception as e:
+        logger.error(f"Failed to schedul mozno sync due to {e}")
 
-        app.logger.info(f"token acquired until {token.expires_in_sec / 3600}h")
+    return make_response(redirect('index'))
+
+
+def home_set_auth_handler(req):
+    code = req.args.get("code")
+    resp = make_response(redirect('index'))
+    monzo_client = build_monzo_client()
+    try:
+        token: MonzoToken = monzo_client.acquire_token(code)
+        set_access_token(resp, token.access_token)
+        set_account_id(resp, token.account_id)
+
+        try:
+            store_monzo_token(token)
+        except RuntimeError as e:
+            logger.error(f"Failed to store monzo token due to {e}")
+
+        monzo_client.login(token)
+
+        logger.info(f"token acquired until {token.expires_in_sec / 3600}h")
         flash('Successfully logged-in to Monzo')
     except RuntimeError as e:
-        app.logger.error(f"Failed to login due to error={e}")
+        logger.error(f"Failed to login due to error={e}")
         flash('Failed to login to Monzo')
     return resp
 

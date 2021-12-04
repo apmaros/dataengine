@@ -12,7 +12,6 @@ services:
       GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource"
     links:
       - influxdb
-
   influxdb:
     image: influxdb:2.0
     volumes:
@@ -27,9 +26,17 @@ services:
       DOCKER_INFLUXDB_INIT_BUCKET: bucket
     ports:
       - "8086:8086"
+  redis:
+    image: redis:alpine3.15
+    volumes:
+      - redis:/data
+    ports:
+      - "6379:6379"
+
 
 volumes:
   logvolume01: {}
   influxdb: {}
   influxdb2: {}
   grafana: {}
+  redis: {}

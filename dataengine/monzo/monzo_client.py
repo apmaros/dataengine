@@ -67,8 +67,11 @@ class MonzoClient(object):
         self.token: Optional[MonzoToken] = token
 
 
-def build_monzo_client() -> MonzoClient:
-    return MonzoClient(get_monzo_config())
+def build_monzo_client(token: MonzoToken = None) -> MonzoClient:
+    client = MonzoClient(get_monzo_config())
+    if MonzoToken:
+        client.login(token)
+    return client
 
 
-monzo_client = build_monzo_client()
+# monzo_client = build_monzo_client()

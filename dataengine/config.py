@@ -26,3 +26,7 @@ INFLUXDB_TOKEN = get_secret('INFLUXDB_TOKEN_V3')
 INFLUXDB_ORG = get_secret('INFLUXDB_ORG')
 INFLUXDB_BUCKET = get_secret('INFLUXDB_BUCKET')
 INFLUXDB_URL = get_secret("INFLUXDB_URL")
+
+# redis
+REDIS_PORT = 6379
+REDIS_HOST = "localhost"
