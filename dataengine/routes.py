@@ -101,9 +101,8 @@ def schedule_monzo_sync():
             logger.info("Monzo Scheduled service running, skipping")
             flash("Monzo already scheduled")
     except Exception as e:
-        logger.error(f"Failed to schedul mozno sync due to {e}")
+        logger.error(f"Failed to schedule Mozno sync due to {e}")
         logger.error(traceback.print_exc())
-
 
     return make_response(redirect('index'))
 
