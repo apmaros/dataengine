@@ -18,3 +18,6 @@ def create_app():
     app.register_blueprint(core_bp)
 
     return app
+
+
+app = create_app()
