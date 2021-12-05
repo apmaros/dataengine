@@ -2,7 +2,6 @@ from dataengine import create_app
 
 
 def start_app():
-    app = create_app()
     app.run()
 
 
