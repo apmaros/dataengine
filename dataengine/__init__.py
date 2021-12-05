@@ -10,4 +10,4 @@ app.secret_key = SERVER_SECRET_KEY
 app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
 
 
-import dataengine.routes
+import dataengine.routes.core
