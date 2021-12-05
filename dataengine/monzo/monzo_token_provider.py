@@ -19,7 +19,7 @@ def load_monzo_token() -> t.Optional[MonzoToken]:
     if not token_bytes:
         return None
 
-    token = MonzoToken(**json.load(token_bytes.decode("utf-8")))
+    token = MonzoToken(**json.loads(token_bytes.decode("utf-8")))
     # TODO validate token not expired
 
     return token
