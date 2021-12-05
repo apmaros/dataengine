@@ -1,29 +1,38 @@
 import datetime
 import traceback
 
-from flask import request, make_response, redirect, render_template, flash, url_for
-
+from flask import (
+    request,
+    make_response,
+    redirect,
+    render_template,
+    flash,
+    url_for,
+    Blueprint
+)
 from common.log import logger
+from common.util import chunks
 from config import get_monzo_config
 from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.monzo.api import get_balance, get_auth_url, get_transactions, get_accounts
 from dataengine.monzo.monzo_scheduled_service import get_scheduled_monzo_service_instance
 from dataengine.monzo.monzo_token import MonzoToken
-from dataengine.monzo.security import logout as monzo_logout, get_access_token, set_access_token, set_account_id, get_account_id
+from dataengine.monzo.security import logout as monzo_logout, get_access_token, set_access_token, set_account_id, \
+    get_account_id
 from dataengine.transaction.transaction_provider import get_txs_as_points
-from common.util import chunks
-from dataengine import app
 from monzo.monzo_client import build_monzo_client
 from monzo.monzo_token_provider import store_monzo_token, load_monzo_token
 
+core_bp = Blueprint('core', __name__)
 
-@app.route('/')
-@app.route('/index')
+
+@core_bp.route('/')
+@core_bp.route('/index')
 def index():
     return render_template('home.html')
 
 
-@app.route('/home')
+@core_bp.route('/home')
 def home():
     handlers = {
         'auth': home_set_auth_handler,
@@ -33,24 +42,24 @@ def home():
     return handler(request)
 
 
-@app.route('/balance')
+@core_bp.route('/balance')
 def balance():
     balance_resp = get_balance(
         get_account_id(request),
         get_access_token(request),
     )
-    app.logger.info(f'balance_resp: {balance_resp}')
+    logger.info(f'balance_resp: {balance_resp}')
     return balance_resp
 
 
-@app.route('/accounts')
+@core_bp.route('/accounts')
 def accounts():
     acc_resp = get_accounts(get_access_token(request))
-    app.logger.info(f'acc_resp={acc_resp}')
+    logger.info(f'acc_resp={acc_resp}')
     return acc_resp
 
 
-@app.route('/transactions')
+@core_bp.route('/transactions')
 def transactions():
     resp = get_transactions(
         request.args.get("since"),
@@ -58,11 +67,11 @@ def transactions():
         get_access_token(request),
         get_account_id(request),
     )
-    app.logger.info(f'resp={resp}')
+    logger.info(f'resp={resp}')
     return resp
 
 
-@app.route("/sync-transactions")
+@core_bp.route("/sync-transactions")
 def sync_transactions():
     try:
         since = datetime.datetime.now() - datetime.timedelta(30)
@@ -70,16 +79,16 @@ def sync_transactions():
         for batch in batches:
             build_influxdb_client().write_records(points=batch)
 
-        app.logger.info(f"flushed transactions to db")
+        logger.info(f"flushed transactions to db")
         flash('Transactions were synced', 'success')
     except Exception as e:
-        app.logger.error(f"Failed to sync transactions due to {e}")
+        logger.error(f"Failed to sync transactions due to {e}")
         flash('Transactions failed to sync')
 
     return redirect(url_for('index'))
 
 
-@app.route("/schedule-monzo-sync")
+@core_bp.route("/schedule-monzo-sync")
 def schedule_monzo_sync():
     try:
         token = load_monzo_token()
@@ -131,12 +140,12 @@ def home_set_auth_handler(req):
     return resp
 
 
-@app.route('/login')
+@core_bp.route('/login-monzo')
 def login():
     return redirect(get_auth_url(get_monzo_config()))
 
 
-@app.route('/logout')
+@core_bp.route('/logout-monzo')
 def logout():
     resp = make_response(redirect('index'))
     monzo_logout(resp)

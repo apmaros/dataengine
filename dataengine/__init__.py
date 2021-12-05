@@ -9,5 +9,8 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 app.secret_key = SERVER_SECRET_KEY
 app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
 
+from routes.auth import auth_bp
+app.register_blueprint(auth_bp)
 
-import dataengine.routes.core
+from dataengine.routes.core import core_bp
+app.register_blueprint(core_bp)
