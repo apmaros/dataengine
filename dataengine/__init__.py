@@ -4,20 +4,20 @@ from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE
 
 
 def create_app():
-    app = Flask(__name__)
+    flask_app = Flask(__name__)
 
-    app.wsgi_app = ProxyFix(app.wsgi_app)
+    flask_app.wsgi_app = ProxyFix(flask_app.wsgi_app)
 
-    app.secret_key = SERVER_SECRET_KEY
-    app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
+    flask_app.secret_key = SERVER_SECRET_KEY
+    flask_app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
 
     from routes.auth import auth_bp
-    app.register_blueprint(auth_bp)
+    flask_app.register_blueprint(auth_bp)
 
     from dataengine.routes.core import core_bp
-    app.register_blueprint(core_bp)
+    flask_app.register_blueprint(core_bp)
 
-    return app
+    return flask_app
 
 
 app = create_app()

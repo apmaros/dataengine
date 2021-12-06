@@ -132,7 +132,7 @@ def home_set_auth_handler(req):
 
         monzo_client.login(token)
 
-        logger.info(f"token acquired until {token.expires_in_sec / 3600}h")
+        logger.info(f"token acquired (Valid for {round(token.expires_in_sec / 3600, 2)} hours")
         flash('Successfully logged-in to Monzo')
     except RuntimeError as e:
         logger.error(f"Failed to login due to error={e}")
