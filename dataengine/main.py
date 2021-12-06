@@ -1,4 +1,4 @@
-from dataengine import create_app
+from dataengine import app
 
 
 def start_app():

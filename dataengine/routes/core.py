@@ -85,7 +85,7 @@ def sync_transactions():
         logger.error(f"Failed to sync transactions due to {e}")
         flash('Transactions failed to sync')
 
-    return make_response(redirect('core.index'))
+    return make_response(redirect(url_for('core.index')))
 
 
 @core_bp.route("/schedule-monzo-sync")
@@ -95,7 +95,7 @@ def schedule_monzo_sync():
         if not token:
             logger.warn("Can not schedule Monzo sync, Monzo token not found")
             flash("Monzo token not found, please login to Monzo")
-            return make_response(redirect('core.index'))
+            return make_response(redirect(url_for('core.index')))
 
         monzo_client = build_monzo_client(token)
         scheduled_monzo = get_scheduled_monzo_service_instance(
@@ -113,12 +113,12 @@ def schedule_monzo_sync():
         logger.error(f"Failed to schedule Mozno sync due to {e}")
         logger.error(traceback.print_exc())
 
-    return make_response(redirect('core.index'))
+    return make_response(redirect(url_for('core.index')))
 
 
 def home_set_auth_handler(req):
     code = req.args.get("code")
-    resp = make_response(redirect('core.index'))
+    resp = make_response(redirect(url_for('core.index')))
     monzo_client = build_monzo_client()
     try:
         token: MonzoToken = monzo_client.acquire_token(code)
