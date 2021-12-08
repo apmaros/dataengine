@@ -1,4 +1,7 @@
 # Budget Desk
+[![deploy image](https://github.com/apmaros/budgetapp/actions/workflows/deploy_image.yml/badge.svg)](https://github.com/apmaros/budgetapp/actions/workflows/deploy_image.yml)
+
+[![CodeQL](https://github.com/apmaros/budgetapp/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apmaros/budgetapp/actions/workflows/codeql-analysis.yml)
 
 ## ENV Variables
 
