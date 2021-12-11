@@ -34,6 +34,7 @@ def callback_handling():
     auth0 = Context.auth0()
     auth0.authorize_access_token()
     resp = auth0.get('userinfo')
+    print(resp)
     userinfo = resp.json()
 
     session['jwt_payload'] = userinfo
