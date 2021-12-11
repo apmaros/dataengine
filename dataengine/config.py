@@ -40,4 +40,4 @@ AUTH0_AUTHORIZE_URL = f'{AUTH0_API_BASE_URL}/authorize'
 AUTH0_CLIENT_KWARGS = 'openid profile email'
 AUTH0_CALLBACK_URL = get_secret('AUTH0_CALLBACK_URL')
 
-APP_INDEX_URL = get_secret('APP_INDEX_URL')
+SERVER_NAME = get_secret('APP_INDEX_URL')

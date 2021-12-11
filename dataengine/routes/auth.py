@@ -6,7 +6,7 @@ from flask import (
 )
 from urllib.parse import urlencode
 
-from config import AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID, APP_INDEX_URL
+from config import AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID, SERVER_NAME
 from context import Context
 
 auth_bp = Blueprint('auth', __name__)
@@ -23,7 +23,7 @@ def logout():
     session.clear()
     # Redirect user to logout endpoint
     params = {
-        'returnTo': APP_INDEX_URL,
+        'returnTo': SERVER_NAME,
         'client_id': AUTH0_CLIENT_ID
     }
     return redirect(Context.auth0().api_base_url + '/v2/logout?' + urlencode(params))

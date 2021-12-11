@@ -1,6 +1,6 @@
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
-from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE
+from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SERVER_NAME
 from authlib.integrations.flask_client import OAuth
 from config import AUTH0_CLIENT_ID, AUTO0_CLIENT_SECRET, AUTH0_API_BASE_URL, AUTH0_ACCESS_TOKEN_URL, \
     AUTH0_AUTHORIZE_URL, AUTH0_CLIENT_KWARGS
@@ -14,7 +14,7 @@ def create_app():
 
     flask_app.secret_key = SERVER_SECRET_KEY
     flask_app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
-
+    flask_app.config['SERVER_NAME'] = SERVER_NAME
     # register routes blueprints
     from dataengine.routes.core import core_bp
     flask_app.register_blueprint(core_bp)
