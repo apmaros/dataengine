@@ -17,7 +17,7 @@ services:
       - auth0_client_secret
       - auth0_api_base_url
       - auth0_callback_url
-      - app_index_url
+      - server_name
     ports:
       - "4000:4000"
     deploy:
@@ -99,5 +99,5 @@ secrets:
     external: true
   auth0_callback_url:
     external: true
-  app_index_url:
+  server_name:
     external: true

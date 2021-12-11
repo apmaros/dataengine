@@ -1,6 +1,8 @@
 from common.secrets import get_secret
 from monzo.monzo_config import MonzoApiConfig
 
+SERVER_NAME = get_secret('SERVER_NAME')
+
 # Monzo
 BASE_URL = 'https://api.monzo.com'
 MONZO_REDIRECT_URL = get_secret('MONZO_REDIRECT_URL')
@@ -39,5 +41,3 @@ AUTH0_ACCESS_TOKEN_URL = f'{AUTH0_API_BASE_URL}/oauth/token'
 AUTH0_AUTHORIZE_URL = f'{AUTH0_API_BASE_URL}/authorize'
 AUTH0_CLIENT_KWARGS = 'openid profile email'
 AUTH0_CALLBACK_URL = get_secret('AUTH0_CALLBACK_URL')
-
-SERVER_NAME = get_secret('APP_INDEX_URL')
