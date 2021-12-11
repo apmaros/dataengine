@@ -11,11 +11,12 @@ def create_app():
     flask_app.secret_key = SERVER_SECRET_KEY
     flask_app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
 
-    from routes.auth import auth_bp
-    flask_app.register_blueprint(auth_bp)
-
+    # register routes blueprints
     from dataengine.routes.core import core_bp
     flask_app.register_blueprint(core_bp)
+
+    from dataengine.routes.auth import auth_bp
+    flask_app.register_blueprint(auth_bp)
 
     return flask_app
 

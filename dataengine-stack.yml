@@ -13,6 +13,10 @@ services:
       - server_secret_key
       - influxdb_token_v3
       - influxdb_url
+      - auth0_client_id
+      - auto0_client_secret
+      - auth0_api_base_url
+      - auth0_callback_url
     ports:
       - "4000:4000"
     deploy:
@@ -85,4 +89,12 @@ secrets:
   influxdb_token_v3:
     external: true
   influxdb_url:
+    external: true
+  auth0_client_id:
+    external: true
+  auto0_client_secret:
+    external: true
+  auth0_api_base_url:
+    external: true
+  auth0_callback_url:
     external: true

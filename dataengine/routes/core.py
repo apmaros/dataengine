@@ -8,7 +8,7 @@ from flask import (
     render_template,
     flash,
     url_for,
-    Blueprint
+    Blueprint,
 )
 from common.log import logger
 from common.util import chunks
@@ -22,17 +22,20 @@ from dataengine.monzo.security import logout as monzo_logout, get_access_token, 
 from dataengine.transaction.transaction_provider import get_txs_as_points
 from monzo.monzo_client import build_monzo_client
 from monzo.monzo_token_provider import store_monzo_token, load_monzo_token
+from routes.annotations import requires_auth
 
 core_bp = Blueprint('core', __name__)
 
 
 @core_bp.route('/')
 @core_bp.route('/index')
+@requires_auth
 def index():
     return render_template('home.html')
 
 
 @core_bp.route('/home')
+@requires_auth
 def home():
     handlers = {
         'auth': home_set_auth_handler,
@@ -43,6 +46,7 @@ def home():
 
 
 @core_bp.route('/balance')
+@requires_auth
 def balance():
     balance_resp = get_balance(
         get_account_id(request),
@@ -53,6 +57,7 @@ def balance():
 
 
 @core_bp.route('/accounts')
+@requires_auth
 def accounts():
     acc_resp = get_accounts(get_access_token(request))
     logger.info(f'acc_resp={acc_resp}')
@@ -60,6 +65,7 @@ def accounts():
 
 
 @core_bp.route('/transactions')
+@requires_auth
 def transactions():
     resp = get_transactions(
         request.args.get("since"),
@@ -72,6 +78,7 @@ def transactions():
 
 
 @core_bp.route("/sync-transactions")
+@requires_auth
 def sync_transactions():
     try:
         since = datetime.datetime.now() - datetime.timedelta(30)
@@ -89,6 +96,7 @@ def sync_transactions():
 
 
 @core_bp.route("/schedule-monzo-sync")
+@requires_auth
 def schedule_monzo_sync():
     try:
         token = load_monzo_token()
@@ -141,12 +149,14 @@ def home_set_auth_handler(req):
 
 
 @core_bp.route('/login-monzo')
-def login():
+@requires_auth
+def login_monzo():
     return redirect(get_auth_url(get_monzo_config()))
 
 
 @core_bp.route('/logout-monzo')
-def logout():
+@requires_auth
+def logout_monzo():
     resp = make_response(redirect('core.index'))
     monzo_logout(resp)
     flash("Successfully lodged-out")
