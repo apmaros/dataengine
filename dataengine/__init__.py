@@ -12,7 +12,7 @@ def create_app():
 
     flask_app.wsgi_app = ProxyFix(flask_app.wsgi_app)
 
-    flask_app.secret_key = SERVER_SECRET_KEY
+    flask_app.config['SECRET_KEY'] = SERVER_SECRET_KEY
     flask_app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
     flask_app.config['SESSION_COOKIE_NAME'] = SESSION_COOKIE_NAME
 
