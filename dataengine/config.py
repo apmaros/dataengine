@@ -22,6 +22,7 @@ def get_monzo_config():
 
 SERVER_SECRET_KEY = get_secret("SERVER_SECRET_KEY")
 SERVER_SESSION_TYPE = 'filesystem'
+SESSION_COOKIE_NAME = 'mysession'
 
 # influxdb
 INFLUXDB_TOKEN = get_secret('INFLUXDB_TOKEN_V3')
