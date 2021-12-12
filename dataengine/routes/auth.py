@@ -6,6 +6,7 @@ from flask import (
 )
 from urllib.parse import urlencode
 
+from common.log import logger
 from config import AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID, SERVER_NAME
 from context import Context
 
@@ -34,7 +35,7 @@ def callback_handling():
     auth0 = Context.auth0()
     auth0.authorize_access_token()
     resp = auth0.get('userinfo')
-    print(resp)
+    logger.warn(f"resp={resp}")
     userinfo = resp.json()
 
     session['jwt_payload'] = userinfo

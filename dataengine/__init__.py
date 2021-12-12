@@ -23,7 +23,6 @@ def create_app():
     from dataengine.routes.auth import auth_bp
     flask_app.register_blueprint(auth_bp)
 
-
     oauth = OAuth(flask_app)
     auth0 = oauth.register(
         'auth0',
