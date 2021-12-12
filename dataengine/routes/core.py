@@ -9,6 +9,7 @@ from flask import (
     flash,
     url_for,
     Blueprint,
+    session
 )
 from common.log import logger
 from common.util import chunks
@@ -17,8 +18,13 @@ from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.monzo.api import get_balance, get_auth_url, get_transactions, get_accounts
 from dataengine.monzo.monzo_scheduled_service import get_scheduled_monzo_service_instance
 from dataengine.monzo.monzo_token import MonzoToken
-from dataengine.monzo.security import logout as monzo_logout, get_access_token, set_access_token, set_account_id, \
+from dataengine.monzo.security import (
+    logout as monzo_logout,
+    get_access_token,
+    set_access_token,
+    set_account_id,
     get_account_id
+)
 from dataengine.transaction.transaction_provider import get_txs_as_points
 from monzo.monzo_client import build_monzo_client
 from monzo.monzo_token_provider import store_monzo_token, load_monzo_token
@@ -31,7 +37,7 @@ core_bp = Blueprint('core', __name__)
 @core_bp.route('/index')
 @requires_auth
 def index():
-    return render_template('home.html')
+    return render_template('home.html', user_profile=session['profile'])
 
 
 @core_bp.route('/home')

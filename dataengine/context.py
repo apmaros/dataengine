@@ -22,15 +22,15 @@ class Context(object):
 
     @staticmethod
     def app() -> Flask:
-        verify_context()
+        validate_context()
         return Context._instance.app
 
     @staticmethod
     def auth0() -> OAuth:
-        verify_context()
+        validate_context()
         return Context._instance.auth0
 
 
-def verify_context():
+def validate_context():
     if not Context.instance:
         raise ValueError("Context is not set")
