@@ -101,6 +101,12 @@ def sync_transactions():
     return make_response(redirect(url_for('core.index')))
 
 
+
+@core_bp.route("/about")
+def about():
+    make_response("Hello World")
+
+
 @core_bp.route("/schedule-monzo-sync")
 @requires_auth
 def schedule_monzo_sync():
