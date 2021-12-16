@@ -57,8 +57,6 @@ services:
     image: redis:alpine3.15
     volumes:
       - redis:/data
-    ports:
-      - "6379:6379"
 
 configs:
   influxdb_config:
