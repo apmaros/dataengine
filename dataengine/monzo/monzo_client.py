@@ -72,6 +72,3 @@ def build_monzo_client(token: MonzoToken = None) -> MonzoClient:
     if MonzoToken:
         client.login(token)
     return client
-
-
-# monzo_client = build_monzo_client()

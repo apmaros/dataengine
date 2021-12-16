@@ -28,7 +28,7 @@ services:
         max_attempts: 3
         window: 120s
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:8.3.3
     depends_on:
       - influxdb
     ports:
