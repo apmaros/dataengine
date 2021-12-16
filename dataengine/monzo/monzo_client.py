@@ -1,4 +1,5 @@
-from typing import Optional
+import json
+import typing as t
 
 from config import get_monzo_config
 from dataengine.monzo.api import (
@@ -12,6 +13,7 @@ from dataengine.monzo.api import (
 )
 from dataengine.monzo.monzo_config import MonzoApiConfig
 from dataengine.monzo.monzo_token import MonzoToken
+from db.redis_client import get_redis_client
 
 
 class AuthenticationException(Exception):
@@ -19,6 +21,12 @@ class AuthenticationException(Exception):
 
 
 class MonzoClient(object):
+    _REDIS_MONZO_TOKEN_KEY = 'monzo_token'
+
+    def __init__(self, config: MonzoApiConfig, token: MonzoToken = None):
+        self.config = config
+        self.token: t.Optional[MonzoToken] = token
+
     def acquire_token(self, code: str) -> MonzoToken:
         return get_token(code, self.config)
 
@@ -56,15 +64,17 @@ class MonzoClient(object):
 
         self.token = new_token
 
+    def load_monzo_token(self) -> t.Optional[MonzoToken]:
+        token_bytes = get_redis_client().get(self._REDIS_MONZO_TOKEN_KEY)
+        if not token_bytes:
+            return None
+        self.token = MonzoToken(**json.loads(token_bytes.decode("utf-8")))
+
     def _get_authenticated_headers(self):
         if not self.token:
             raise AuthenticationException("Client not logged in - token not present")
 
         get_authenticated_headers(self.token.access_token)
-
-    def __init__(self, config: MonzoApiConfig, token: MonzoToken = None):
-        self.config = config
-        self.token: Optional[MonzoToken] = token
 
 
 def build_monzo_client(token: MonzoToken = None) -> MonzoClient:

@@ -87,6 +87,15 @@ def transactions():
 @requires_auth
 def sync_transactions():
     try:
+        token = load_monzo_token()
+        if not token:
+            logger.warn("Can not schedule Monzo sync, Monzo token not found")
+            flash("Monzo token not found, please login to Monzo")
+            return make_response(redirect(url_for('core.index')))
+
+
+        monzo_client = build_monzo_client(token)
+
         since = datetime.datetime.now() - datetime.timedelta(30)
         batches = chunks(get_txs_as_points(request, since, None), 500)
         for batch in batches:
