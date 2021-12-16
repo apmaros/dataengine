@@ -104,7 +104,7 @@ def sync_transactions():
 
 @core_bp.route("/about")
 def about():
-    make_response("Hello World")
+    return make_response("Hello World")
 
 
 @core_bp.route("/schedule-monzo-sync")
