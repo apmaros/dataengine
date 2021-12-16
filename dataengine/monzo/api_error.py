@@ -6,3 +6,6 @@ class ApiError(Exception):
 
     def __str__(self):
         return f'Api call to Monzo failed, reason={self.message}, code={self.code}'
+
+    def is_unauthorised(self):
+        return self.code.split('.')[0] == 'unauthorized'

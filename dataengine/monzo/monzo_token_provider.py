@@ -14,6 +14,10 @@ def store_monzo_token(token: MonzoToken):
     )
 
 
+def remove_monzo_token():
+    get_redis_client().delete(MONZO_TOKEN_KEY)
+
+
 def load_monzo_token() -> t.Optional[MonzoToken]:
     token_bytes = get_redis_client().get(MONZO_TOKEN_KEY)
     if not token_bytes:

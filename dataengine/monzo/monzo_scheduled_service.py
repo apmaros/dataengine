@@ -8,6 +8,7 @@ from dataengine.monzo.api_error import ApiError
 from dataengine.monzo.monzo_client import MonzoClient
 from dataengine.transaction.transaction_provider import transactions_to_records, build_transaction_with_merchant
 from common.util import current_time_sec, _day_to_daytime_str
+from monzo.monzo_token_provider import load_monzo_token
 
 
 class MonzoScheduledService(object):
@@ -24,13 +25,21 @@ class MonzoScheduledService(object):
         self.influxdb_client = influxdb_client
         self.delay_sec = delay_sec
         self.refresh_token_delay_sec = monzo_client.get_expiry_sec() / 2
-        self.timer = None
+        self.timer: Timer = None
         self.is_running = False
 
     def start(self):
         logger.info(f"scheduled: {self._TASK_DESCRIPTION}")
         self.schedule()
         self.is_running = True
+
+    def stop(self):
+        if not self.is_running:
+            logger.info("Scheduler not running does, not need to stop")
+            return
+
+        self.timer.cancel()
+        self.is_running = False
 
     def schedule(self) -> None:
         self.timer = Timer(
@@ -40,11 +49,19 @@ class MonzoScheduledService(object):
         self.timer.start()
 
     def _load_and_schedule(self):
+        if not self.is_running:
+            logger.warn("Attempting to run task that was stopped, skipping")
+            return
+
         logger.info(f"start: {self._TASK_DESCRIPTION}")
         try:
             self._load_transactions()
         except ApiError as err:
             logger.error(f"Monzo API failed to load transactions due to {err}")
+            if err.is_unauthorised():
+                self.monzo_client.login(
+                    load_monzo_token()
+                )
         except Exception as err:
             logger.error(f"Failed to load transactions {err}")
         logger.info(f"finish: {self._TASK_DESCRIPTION}")
@@ -62,7 +79,7 @@ class MonzoScheduledService(object):
             <= current_time_sec()
         ):
             logger.info(f"Refreshing token - "
-                            f"{self.monzo_client.token.created_at_sec + self.delay_sec} <= {current_time_sec()}")
+                        f"{self.monzo_client.token.created_at_sec + self.delay_sec} <= {current_time_sec()}")
             self.monzo_client.refresh_token()
 
         since = datetime.datetime.now() - datetime.timedelta(self._DEFAULT_TXS_SINCE_DAYS_AGO)
@@ -71,13 +88,12 @@ class MonzoScheduledService(object):
                 since_date=_day_to_daytime_str(since),
                 before_date=_day_to_daytime_str(datetime.datetime.now()),
             )
-            logger.info(f"transaction_count={len(txs)}")
             points = transactions_to_records(list(map(
                 lambda tx: build_transaction_with_merchant(tx),
                 txs['transactions']
             )))
-            logger.debug("transactions flushed to influxdb")
             self.influxdb_client.write_records(points)
+            logger.info(f"Flashed {len(points)} transactions flushed to influxdb")
         except ApiError as e:
             logger.error(f"Failed to load transactions due to ApiError: {e}")
         except RuntimeError as e:
