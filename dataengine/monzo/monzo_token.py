@@ -1,7 +1,6 @@
 import json
 from dataclasses import dataclass
-
-from common.DataclassJsonEncoder import DataclassJsonEncoder
+from common.dataclass_json_encoder import DataclassJsonEncoder
 from common.util import current_time_sec
 
 

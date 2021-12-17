@@ -1,6 +1,9 @@
+import os
+import pathlib
+
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
-from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SERVER_NAME, SESSION_COOKIE_NAME
+from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_COOKIE_NAME
 from authlib.integrations.flask_client import OAuth
 from config import (
     AUTH0_CLIENT_ID,
@@ -12,9 +15,14 @@ from config import (
 )
 from context import Context
 
+SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
+TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")
+STATIC_FOLDER_PATH = os.path.join(SERVER_PATH, "static")
+
 
 def create_app():
-    flask_app = Flask(__name__)
+    flask_app = Flask(__name__, template_folder=TEMPLATE_FOLDER_PATH)
+    flask_app.static_folder = STATIC_FOLDER_PATH
 
     flask_app.wsgi_app = ProxyFix(flask_app.wsgi_app)
 
@@ -24,10 +32,10 @@ def create_app():
     flask_app.config['SESSION_COOKIE_NAME'] = SESSION_COOKIE_NAME
 
     # Register Routes
-    from dataengine.routes.core import core_bp
+    from server.routes.core import core_bp
     flask_app.register_blueprint(core_bp)
 
-    from dataengine.routes.auth import auth_bp
+    from server.routes.auth import auth_bp
     flask_app.register_blueprint(auth_bp)
 
     # Setup OAuth
