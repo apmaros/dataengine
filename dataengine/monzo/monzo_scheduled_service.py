@@ -95,7 +95,9 @@ class MonzoScheduledService(object):
             )))
             batches = chunks(points, 500)
 
-            tx_metric = Point(f"transactions_count").tag(f"count_since_{self._DEFAULT_TXS_SINCE_DAYS_AGO}d", points)
+            tx_metric = (Point(f"transaction-count")
+                         .tag(f"period", self._DEFAULT_TXS_SINCE_DAYS_AGO)
+                         .field("count", len(points)))
             self.influxdb_client.write_record(tx_metric)
 
             for batch in batches:
