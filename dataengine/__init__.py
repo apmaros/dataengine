@@ -21,7 +21,6 @@ STATIC_FOLDER_PATH = os.path.join(SERVER_PATH, "static")
 
 
 def create_app():
-    print(STATIC_FOLDER_PATH)
     flask_app = Flask(__name__, template_folder=TEMPLATE_FOLDER_PATH)
     flask_app.static_folder = STATIC_FOLDER_PATH
 
