@@ -9,6 +9,7 @@ from dataengine.monzo.monzo_client import MonzoClient
 from dataengine.transaction.transaction_provider import transactions_to_records, build_transaction_with_merchant
 from common.util import current_time_sec, _day_to_daytime_str, chunks
 from monzo.monzo_token_provider import load_monzo_token
+from influxdb_client import Point
 
 
 class MonzoScheduledService(object):
@@ -94,8 +95,11 @@ class MonzoScheduledService(object):
             )))
             batches = chunks(points, 500)
 
+            tx_metric = Point(f"transactions").tag(f"count_since_{self._DEFAULT_TXS_SINCE_DAYS_AGO}d", points)
+            self.influxdb_client.write_record(tx_metric)
+
             for batch in batches:
-                build_influxdb_client().write_records(points=batch)
+                self.influxdb_client.write_records(points=batch)
 
             logger.info(f"Flashed {len(points)} transactions flushed to influxdb")
         except ApiError as e:
