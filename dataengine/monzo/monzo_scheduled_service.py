@@ -7,7 +7,7 @@ from common.log import logger
 from dataengine.monzo.api_error import ApiError
 from dataengine.monzo.monzo_client import MonzoClient
 from dataengine.transaction.transaction_provider import transactions_to_records, build_transaction_with_merchant
-from common.util import current_time_sec, _day_to_daytime_str
+from common.util import current_time_sec, _day_to_daytime_str, chunks
 from monzo.monzo_token_provider import load_monzo_token
 
 
@@ -55,7 +55,7 @@ class MonzoScheduledService(object):
 
         logger.info(f"start: {self._TASK_DESCRIPTION}")
         try:
-            self._load_transactions()
+            self._sync_transactions()
         except ApiError as err:
             logger.error(f"Monzo API failed to load transactions due to {err}")
             if err.is_unauthorised():
@@ -67,7 +67,7 @@ class MonzoScheduledService(object):
         logger.info(f"finish: {self._TASK_DESCRIPTION}")
         self.schedule()
 
-    def _load_transactions(self):
+    def _sync_transactions(self):
         if not self.monzo_client.is_authenticated():
             logger.error("Monzo client not authenticated. Authenticate to load transactions")
             return
@@ -92,7 +92,11 @@ class MonzoScheduledService(object):
                 lambda tx: build_transaction_with_merchant(tx),
                 txs['transactions']
             )))
-            self.influxdb_client.write_records(points)
+            batches = chunks(points, 100)
+
+            for batch in batches:
+                build_influxdb_client().write_records(points=batch)
+
             logger.info(f"Flashed {len(points)} transactions flushed to influxdb")
         except ApiError as e:
             logger.error(f"Failed to load transactions due to ApiError: {e}")
