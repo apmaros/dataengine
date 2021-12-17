@@ -86,13 +86,13 @@ class MonzoScheduledService(object):
         try:
             txs = self.monzo_client.get_transactions(
                 since_date=_day_to_daytime_str(since),
-                before_date=_day_to_daytime_str(datetime.datetime.now()),
+                before_date=None,
             )
             points = transactions_to_records(list(map(
                 lambda tx: build_transaction_with_merchant(tx),
                 txs['transactions']
             )))
-            batches = chunks(points, 100)
+            batches = chunks(points, 500)
 
             for batch in batches:
                 build_influxdb_client().write_records(points=batch)

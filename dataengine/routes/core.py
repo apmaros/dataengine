@@ -93,9 +93,6 @@ def sync_transactions():
             flash("Monzo token not found, please login to Monzo")
             return make_response(redirect(url_for('core.index')))
 
-
-        monzo_client = build_monzo_client(token)
-
         since = datetime.datetime.now() - datetime.timedelta(30)
         batches = chunks(get_txs_as_points(request, since, None), 500)
         for batch in batches:
@@ -161,7 +158,7 @@ def home_set_auth_handler(req):
 
         monzo_client.login(token)
 
-        logger.info(f"token acquired (Valid for {round(token.expires_in_sec / 3600, 2)} hours")
+        logger.info(f"token acquired (Valid for {round(token.expires_in_sec / 3600, 2)} hours)")
         flash('Successfully logged-in to Monzo')
     except RuntimeError as e:
         logger.error(f"Failed to login due to error={e}")
