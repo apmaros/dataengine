@@ -28,7 +28,7 @@ from dataengine.monzo.security import (
 from dataengine.transaction.transaction_provider import get_txs_as_points
 from monzo.monzo_client import build_monzo_client
 from monzo.monzo_token_provider import store_monzo_token, load_monzo_token, remove_monzo_token
-from routes.annotations import requires_auth
+from server.routes.annotations import requires_auth
 
 core_bp = Blueprint('core', __name__)
 
