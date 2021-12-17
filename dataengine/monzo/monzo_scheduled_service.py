@@ -5,7 +5,7 @@ from typing import Optional
 from common.log import logger
 from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.monzo.monzo_client import MonzoClient
-from monzo.monzo_service import MonzoService
+from dataengine.monzo.monzo_service import MonzoService
 
 
 class MonzoScheduledService(object):

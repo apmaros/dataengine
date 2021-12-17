@@ -1,8 +1,8 @@
 import json
 import typing as t
 
-from db.redis_client import get_redis_client
-from monzo.model.monzo_token import MonzoToken
+from dataengine.db.redis_client import get_redis_client
+from dataengine.monzo.model.monzo_token import MonzoToken
 
 MONZO_TOKEN_KEY = "monzo_token"
 

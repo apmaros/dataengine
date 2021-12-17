@@ -2,12 +2,12 @@ import datetime
 
 from influxdb_client import Point
 
-from common.log import logger
-from common.util import current_time_sec, _day_to_daytime_str, chunks
-from monzo.model.api_error import ApiError
-from monzo.monzo_client import MonzoClient
-from monzo.monzo_token_provider import store_monzo_token, load_monzo_token
-from transaction.transaction_provider import transactions_to_records, build_transaction_with_merchant
+from dataengine.common.log import logger
+from dataengine.common.util import current_time_sec, _day_to_daytime_str, chunks
+from dataengine.monzo.model.api_error import ApiError
+from dataengine.monzo.monzo_client import MonzoClient
+from dataengine.monzo.monzo_token_provider import store_monzo_token, load_monzo_token
+from dataengine.monzo.transaction_mapper import transactions_to_records, build_transaction_with_merchant
 
 
 class MonzoService:
@@ -20,7 +20,7 @@ class MonzoService:
         self._influxdb_client = influxdb_client
 
     def sync_transactions(self, sync_since=_DEFAULT_TXS_SINCE_DAYS_AGO):
-        if self._should_refresh_token():
+        if self._monzo_client.should_refresh_token(current_time_sec()):
             logger.info(f"Refreshing token")
             store_monzo_token(self._monzo_client.refresh_token())
 
@@ -53,6 +53,3 @@ class MonzoService:
                 self._monzo_client.login(load_monzo_token())
         except RuntimeError as e:
             logger.error(f"Failed to load transactions due to error: {e}")
-
-    def _should_refresh_token(self) -> bool:
-        return self._monzo_client.token.created_at_sec + self._monzo_client.get_expiry_sec() / 2 <= current_time_sec()

@@ -1,4 +1,7 @@
+import typing as t
 from dataclasses import dataclass
+
+from dataengine.monzo.model.Merchant import Merchant, build_merchant
 
 
 @dataclass
@@ -14,6 +17,7 @@ class Transaction:
     notes: str
     description: str
     address: str
+    merchant: t.Optional[Merchant] = None
 
     def to_plot_dict(self):
         return {
@@ -28,16 +32,20 @@ class Transaction:
 
 
 def build_transaction(raw_transaction):
+    raw_merchant = raw_transaction.get('merchant', {})
+    merchant = build_merchant(raw_merchant) if raw_merchant else None
+
     return Transaction(
-        raw_transaction['id'],
-        raw_transaction['description'],
-        'Unknown',
-        raw_transaction['created'],
-        raw_transaction['created'],
-        raw_transaction['category'],
-        raw_transaction['amount'],
-        raw_transaction['currency'],
-        raw_transaction['notes'],
-        None,
-        None
+        id=raw_transaction['id'],
+        name=raw_transaction['description'],
+        type='Unknown',
+        created_at=raw_transaction['created'],
+        time=raw_transaction['created'],
+        category=raw_transaction['category'],
+        amount=raw_transaction['amount'],
+        currency=raw_transaction['currency'],
+        notes=raw_transaction['notes'],
+        description=None,
+        address=None,
+        merchant=merchant
     )
