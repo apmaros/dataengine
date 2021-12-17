@@ -11,9 +11,9 @@ from dataengine.monzo.api import (
     get_balance,
     refresh_token
 )
-from dataengine.monzo.monzo_config import MonzoApiConfig
-from dataengine.monzo.monzo_token import MonzoToken
 from db.redis_client import get_redis_client
+from monzo.model.monzo_config import MonzoApiConfig
+from monzo.model.monzo_token import MonzoToken
 
 
 class AuthenticationException(Exception):
@@ -57,12 +57,13 @@ class MonzoClient(object):
     def is_authenticated(self):
         return self.token is not None
 
-    def refresh_token(self):
+    def refresh_token(self) -> MonzoToken:
         if not self.is_authenticated():
             raise AuthenticationException("Client not logged in - token not present")
         new_token = refresh_token(self.config.monzo_client_secret, self.token)
-
         self.token = new_token
+
+        return self.token
 
     def load_monzo_token(self) -> t.Optional[MonzoToken]:
         token_bytes = get_redis_client().get(self._REDIS_MONZO_TOKEN_KEY)

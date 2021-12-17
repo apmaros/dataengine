@@ -1,5 +1,5 @@
 from common.secrets import get_secret
-from monzo.monzo_config import MonzoApiConfig
+from monzo.model.monzo_config import MonzoApiConfig
 
 SERVER_NAME = get_secret('SERVER_NAME')
 
