@@ -9,15 +9,19 @@ from factory.transaction_factory import make_raw_transaction
 
 @pytest.fixture(autouse=True)
 def mock_monzo_api_config():
-    with patch("dataengine.monzo.model.monzo_config.MonzoApiConfig") as mock:
-        mock.monzo_account_id.return_value = 'client-id'
+    with patch(
+        "dataengine.monzo.model.monzo_config.MonzoApiConfig",
+        monzo_account_id='client-id'
+    ) as mock:
         yield mock
 
 
 @pytest.fixture(autouse=True)
 def mock_monzo_token():
-    with patch("dataengine.monzo.model.monzo_token.MonzoToken") as mock:
-        mock.access_token_value.return_value = "secrect-key"
+    with patch(
+        "dataengine.monzo.model.monzo_token.MonzoToken",
+        access_token="secret-key"
+    ) as mock:
         yield mock
 
 
@@ -41,11 +45,17 @@ class TestMonzoClient:
         mock_raw_transaction
     ):
         under_test = MonzoClient(mock_monzo_api_config, mock_monzo_token)
-        mock_get_transactions.return_value = [mock_raw_transaction]
+        mock_get_transactions.return_value = {'transactions': [mock_raw_transaction]}
 
         actual = under_test.get_transactions('123', '456')
         assert 1 == len(actual)
-        assert mock_raw_transaction['id'] == 'actual[0].id'
+        assert mock_raw_transaction['id'] == actual[0].id
+        mock_get_transactions.assert_called_with(
+            since_date='123',
+            before_date='456',
+            account_id='client-id',
+            token='secret-key'
+        )
 
 
 if __name__ == '__main__':

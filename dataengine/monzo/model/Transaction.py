@@ -13,6 +13,7 @@ class Transaction:
     time: str
     category: str
     amount: int
+    abs_amount: int
     currency: str
     notes: str
     description: str
@@ -38,11 +39,12 @@ def build_transaction(raw_transaction):
     return Transaction(
         id=raw_transaction['id'],
         name=raw_transaction['description'],
-        type='Unknown',
+        type="CREDIT" if raw_transaction['amount'] > 0 else "DEBIT",
         created_at=raw_transaction['created'],
         time=raw_transaction['created'],
-        category=raw_transaction['category'],
-        amount=raw_transaction['amount'],
+        category=raw_transaction.get('category', 'unknown'),
+        amount=raw_transaction['amount'] / 100,
+        abs_amount=abs(raw_transaction['amount']) / 100,
         currency=raw_transaction['currency'],
         notes=raw_transaction['notes'],
         description=None,

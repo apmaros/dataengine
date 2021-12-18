@@ -44,14 +44,14 @@ class MonzoClient(object):
         return get_accounts(self.token.access_token)
 
     def get_transactions(self, since_date, before_date=None):
-        return list(map(
-            lambda raw_tx: build_transaction(raw_tx),
-            (get_transactions(
-                since_date=since_date,
-                before_date=before_date,
-                token=self.token.access_token,
-                account_id=self.config.monzo_account_id
-            ))))
+        raw_txs = get_transactions(
+            since_date=since_date,
+            before_date=before_date,
+            token=self.token.access_token,
+            account_id=self.config.monzo_account_id
+        ).get('transactions', [])
+
+        return list(map(lambda raw_tx: build_transaction(raw_tx), raw_txs))
 
     def get_all_transactions(self):
         return self.get_transactions(None, None)

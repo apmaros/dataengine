@@ -3,11 +3,11 @@ import datetime
 from influxdb_client import Point
 
 from dataengine.common.log import logger
-from dataengine.common.util import current_time_sec, _day_to_daytime_str, chunks
+from dataengine.common.util import current_time_sec, _day_to_daytime_str
 from dataengine.monzo.model.api_error import ApiError
 from dataengine.monzo.monzo_client import MonzoClient
 from dataengine.monzo.monzo_token_provider import store_monzo_token, load_monzo_token
-from dataengine.monzo.transaction_mapper import transactions_to_records, build_transaction_with_merchant
+from dataengine.monzo.transaction_mapper import to_points
 
 
 class MonzoService:
@@ -26,25 +26,20 @@ class MonzoService:
 
         since = datetime.datetime.now() - datetime.timedelta(sync_since)
         try:
-            txs = self._monzo_client.get_transactions(
+            transactions = self._monzo_client.get_transactions(
                 since_date=_day_to_daytime_str(since),
                 before_date=None,
             )
-            points = transactions_to_records(list(map(
-                lambda tx: build_transaction_with_merchant(tx),
-                txs['transactions']
-            )))
-            batches = chunks(points, 500)
 
+            # todo extract
             tx_metric = (Point(f"transaction-count")
                          .tag(f"period", self._DEFAULT_TXS_SINCE_DAYS_AGO)
-                         .field("count", len(points)))
+                         .field("count", len(transactions)))
+
             self._influxdb_client.write_record(tx_metric)
+            self._influxdb_client.write_records(points=to_points(transactions))
 
-            for batch in batches:
-                self._influxdb_client.write_records(points=batch)
-
-            logger.info(f"Flashed {len(points)} transactions flushed to influxdb")
+            logger.info(f"Flashed {len(transactions)} transactions flushed to influxdb")
         except ApiError as e:
             logger.error(f"Failed to load transactions due to ApiError: {e}")
             logger.error(f"Monzo API failed to load transactions due to {e}")
