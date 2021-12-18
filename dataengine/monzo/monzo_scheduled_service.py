@@ -11,6 +11,7 @@ from dataengine.monzo.monzo_service import MonzoService
 class MonzoScheduledService(object):
     _DEFAULT_TXS_SINCE_DAYS_AGO = 30
     _TASK_DESCRIPTION = "Synchronise Monzo transactions"
+    _TASK_NAME = "monzo-scheduled-service"
 
     def __init__(
         self,
@@ -23,7 +24,7 @@ class MonzoScheduledService(object):
         self.delay_sec = delay_sec
 
     def start(self):
-        logger.info(f"scheduled: {self._TASK_DESCRIPTION}")
+        logger.info(f"scheduled task: {self._TASK_NAME}")
         self.schedule()
         self.is_running = True
 
@@ -44,15 +45,15 @@ class MonzoScheduledService(object):
 
     def _sync_and_schedule(self):
         if not self.is_running:
-            logger.warn("Attempting to run task that was stopped, skipping")
+            logger.warn(f"{self._TASK_NAME}: Attempting to run task that was stopped, skipping")
             return
 
-        logger.info(f"start: {self._TASK_DESCRIPTION}")
+        logger.info(f"start: {self._TASK_NAME}")
         try:
             self.monzo_service.sync_transactions()
         except RuntimeError as e:
             logger(f"Unexpected error in scheduled task: {e}")
-        logger.info(f"finish: {self._TASK_DESCRIPTION}")
+        logger.info(f"finish: {self._TASK_NAME}")
         self.schedule()
 
 
