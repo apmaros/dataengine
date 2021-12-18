@@ -1,4 +1,3 @@
-import datetime
 import traceback
 
 from flask import (
@@ -11,13 +10,15 @@ from flask import (
     Blueprint,
     session
 )
-from common.log import logger
-from common.util import chunks
-from config import get_monzo_config
+
+from dataengine.common.log import logger
+from dataengine.config import get_monzo_config
 from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.monzo.api import get_balance, get_auth_url, get_transactions, get_accounts
+from dataengine.monzo.model.monzo_token import MonzoToken
+from dataengine.monzo.monzo_client import build_monzo_client
 from dataengine.monzo.monzo_scheduled_service import get_scheduled_monzo_service_instance
-from dataengine.monzo.monzo_token import MonzoToken
+from dataengine.monzo.monzo_token_provider import store_monzo_token, load_monzo_token, remove_monzo_token
 from dataengine.monzo.security import (
     logout as monzo_logout,
     get_access_token,
@@ -25,10 +26,8 @@ from dataengine.monzo.security import (
     set_account_id,
     get_account_id
 )
-from dataengine.transaction.transaction_provider import get_txs_as_points
-from monzo.monzo_client import build_monzo_client
-from monzo.monzo_token_provider import store_monzo_token, load_monzo_token, remove_monzo_token
-from server.routes.annotations import requires_auth
+from dataengine.server.routes.annotations import requires_auth
+from monzo.monzo_service import MonzoService
 
 core_bp = Blueprint('core', __name__)
 
@@ -93,13 +92,15 @@ def sync_transactions():
             flash("Monzo token not found, please login to Monzo")
             return make_response(redirect(url_for('core.index')))
 
-        since = datetime.datetime.now() - datetime.timedelta(30)
-        batches = chunks(get_txs_as_points(request, since, None), 500)
-        for batch in batches:
-            build_influxdb_client().write_records(points=batch)
+        sync_success = MonzoService(
+            build_monzo_client(token),
+            build_influxdb_client()
+        ).sync_transactions()
 
-        logger.info(f"flushed transactions to db")
-        flash('Transactions were synced', 'success')
+        if sync_success:
+            flash('Transactions were synced', 'success')
+        else:
+            flash('Failed to sync transactions', 'failure')
     except Exception as e:
         logger.error(f"Failed to sync transactions due to {e}")
         flash('Transactions failed to sync')

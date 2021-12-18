@@ -1,11 +1,14 @@
 from typing import Dict
+
 import requests
-from config import BASE_URL
-from common.log import logger
-from dataengine.monzo.api_error import ApiError
-from dataengine.monzo.monzo_config import MonzoApiConfig
-from dataengine.monzo.monzo_token import MonzoToken
-from common.util import random_str, current_time_sec
+
+from dataengine.common.log import logger
+from dataengine.common.util import random_str, current_time_sec
+from dataengine.config import BASE_URL
+from dataengine.monzo.model.api_error import ApiError
+from dataengine.monzo.model.monzo_config import MonzoApiConfig
+from dataengine.monzo.model.monzo_token import MonzoToken
+
 
 # Monzo OAUTH2 Authorization
 # Acquiring an access token is a three-step process:

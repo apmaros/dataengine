@@ -1,7 +1,7 @@
 import json
 import typing as t
 
-from config import get_monzo_config
+from dataengine.config import get_monzo_config
 from dataengine.monzo.api import (
     get_token,
     get_auth_url,
@@ -11,8 +11,9 @@ from dataengine.monzo.api import (
     get_balance,
     refresh_token
 )
-from dataengine.monzo.monzo_config import MonzoApiConfig
-from dataengine.monzo.monzo_token import MonzoToken
+from dataengine.monzo.model.Transaction import build_transaction
+from dataengine.monzo.model.monzo_config import MonzoApiConfig
+from dataengine.monzo.model.monzo_token import MonzoToken
 from db.redis_client import get_redis_client
 
 
@@ -43,7 +44,14 @@ class MonzoClient(object):
         return get_accounts(self.token.access_token)
 
     def get_transactions(self, since_date, before_date=None):
-        return get_transactions(since_date, before_date, self.token.access_token, self.config.monzo_account_id)
+        raw_txs = get_transactions(
+            since_date=since_date,
+            before_date=before_date,
+            token=self.token.access_token,
+            account_id=self.config.monzo_account_id
+        ).get('transactions', [])
+
+        return list(map(lambda raw_tx: build_transaction(raw_tx), raw_txs))
 
     def get_all_transactions(self):
         return self.get_transactions(None, None)
@@ -57,12 +65,16 @@ class MonzoClient(object):
     def is_authenticated(self):
         return self.token is not None
 
-    def refresh_token(self):
+    def should_refresh_token(self, time_sec: int):
+        return self.token.created_at_sec + self.get_expiry_sec() / 2 <= time_sec
+
+    def refresh_token(self) -> MonzoToken:
         if not self.is_authenticated():
             raise AuthenticationException("Client not logged in - token not present")
         new_token = refresh_token(self.config.monzo_client_secret, self.token)
-
         self.token = new_token
+
+        return self.token
 
     def load_monzo_token(self) -> t.Optional[MonzoToken]:
         token_bytes = get_redis_client().get(self._REDIS_MONZO_TOKEN_KEY)

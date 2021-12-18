@@ -1,32 +1,33 @@
+import typing as t
 from dataclasses import asdict
 
 from influxdb_client import Point
-import typing as t
-from dataengine.model.Merchant import build_merchant
-from dataengine.model.Transaction import build_transaction, Transaction
+
+from dataengine.common.util import _day_to_daytime_str
 from dataengine.monzo.api import get_transactions
+from dataengine.monzo.model.Merchant import build_merchant
+from dataengine.monzo.model.Transaction import build_transaction, Transaction
 from dataengine.monzo.security import get_access_token, get_account_id
-from common.util import _day_to_daytime_str
 
 
 def get_txs_as_points(request, since=None, before=None):
     txs = _get_txs(request, since=since, before=before)
-    return transactions_to_records(txs)
+    return to_points(txs)
 
 
-def transactions_to_records(transactions: t.List[Transaction]):
+def to_points(transactions: t.List[Transaction]):
     return list(map(transaction_as_record, transactions))
 
 
-def transaction_as_record(transaction: t.Dict) -> Point:
+def transaction_as_record(transaction: Transaction) -> Point:
     return (
         Point("transactions")
-        .time(transaction['time'])
-        .tag('type', transaction['type'])
-        .tag('category', transaction['category'])
-        .tag('name', transaction['name'])
-        .field('amount', transaction['amount'])
-        .field('abs_amount', transaction['abs_amount']))
+            .time(transaction.time)
+            .tag('type', transaction.type)
+            .tag('category', transaction.category)
+            .tag('name', transaction.name)
+            .field('amount', transaction.amount)
+            .field('abs_amount', transaction.abs_amount))
 
 
 def _get_txs(request, since=None, before=None) -> t.List[Transaction]:

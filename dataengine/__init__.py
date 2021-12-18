@@ -1,10 +1,10 @@
 import os
 import pathlib
 
+from authlib.integrations.flask_client import OAuth
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
-from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_COOKIE_NAME
-from authlib.integrations.flask_client import OAuth
+
 from config import (
     AUTH0_CLIENT_ID,
     AUTO0_CLIENT_SECRET,
@@ -14,6 +14,7 @@ from config import (
     AUTH0_CLIENT_KWARGS
 )
 from context import Context
+from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_COOKIE_NAME
 
 SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
 TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")

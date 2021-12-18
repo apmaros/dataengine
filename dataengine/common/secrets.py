@@ -2,7 +2,6 @@ import os
 
 from common.log import logger
 
-
 SECRETS_PATH = f'/run/secrets/'
 
 
@@ -31,4 +30,4 @@ def get_secret(name: str) -> str:
         secret = open(secret_path).read().rstrip('\n')
         return secret
 
-    raise KeyError(f"Secret {name} not found")
+    return None
