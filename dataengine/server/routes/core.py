@@ -176,7 +176,7 @@ def login_monzo():
 @core_bp.route('/logout-monzo')
 @requires_auth
 def logout_monzo():
-    resp = make_response(redirect('core.index'))
+    resp = make_response(redirect(url_for('core.index')))
     monzo_logout(resp)
     remove_monzo_token()
     flash("Successfully lodged-out")
