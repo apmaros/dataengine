@@ -45,7 +45,6 @@ class MonzoService:
         # TODO Should not swallow exception
         except ApiError as e:
             logger.error(f"Failed to load transactions due to ApiError: {e}")
-            logger.error(f"Monzo API failed to load transactions due to {e}")
             # reload token - might have been evicted by rotation
             if e.is_unauthorised():
                 self._monzo_client.login(load_monzo_token())
