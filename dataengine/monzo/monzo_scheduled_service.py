@@ -17,7 +17,7 @@ class MonzoScheduledService(object):
         monzo_service: MonzoService,
         delay_sec: int,
     ):
-        self.monzo_service: MonzoService = monzo_service
+        self.monzo_service = monzo_service
         self.timer: Timer = None
         self.is_running = False
         self.delay_sec = delay_sec
