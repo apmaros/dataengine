@@ -1,15 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="ui grid">
-        <div class="row">
-            <div class="ui message">
-                <div class="four wide column">
-                    <p>Welcome to Budget Desk - the platform for managing data</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <article>
+        <p>Welcome to Budget Desk - the platform for managing data</p>
+    </article>
     <div class="grid">
         <article class="monzo">
             <header>Monzo</header>
@@ -29,18 +24,23 @@
             <form action={{ url_for('core.blood_pressure') }}>
                 <div class="grid">
                     <label for="systolic">
-                        systolic
+                        Systolic
                         <input type="number" name="systolic" id="systolic" placeholder=120 required>
                     </label>
                     <label for="diastolic">
-                        diastolic
+                        Diastolic
                         <input type=number name="diastolic" id="diastolic" placeholder="70" required>
                     </label>
                     <label for="heart-rate">
-                        heart rate
+                        Heart Rate
                         <input type=number name="heart-rate" id="heart-rate" placeholder=60 required>
                     </label>
                 </div>
+                <label for="last-activity">
+                    Last Activity
+                    <input type=text name="last-activity" id="last-activity" placeholder="run">
+                    <small>Should be less than 1 hour before measurement</small>
+                </label>
                 <button type="submit">Submit</button>
             </form>
         </article>

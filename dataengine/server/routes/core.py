@@ -190,6 +190,7 @@ def blood_pressure():
     systolic = int(request.args.get("systolic"))
     diastolic = int(request.args.get("diastolic"))
     heart_rate = int(request.args.get("heart-rate"))
+    last_activity = int(request.args.get("last-activity"))
 
     flash("Recorded blood pressure reading ("
           f"{systolic}/{diastolic}, {heart_rate})")
@@ -197,6 +198,7 @@ def blood_pressure():
     db = build_influxdb_client()
 
     point = (Point('blood-pressure-reading')
+             .tag('last_activity', last_activity)
              .field('systolic', systolic)
              .field('diastolic', diastolic)
              .field('heart_rate', heart_rate))
