@@ -196,7 +196,7 @@ def blood_pressure():
 
     db = build_influxdb_client()
 
-    point = (Point('blood_pressure')
+    point = (Point('blood-pressure-reading')
              .field('systolic', systolic)
              .field('diastolic', diastolic)
              .field('heart_rate', heart_rate))
