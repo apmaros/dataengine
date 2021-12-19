@@ -14,8 +14,16 @@ div.input-field input[type=text] {
     padding-left: 10px;
 }
 
+main.container {
+    padding: 0;
+}
+
 nav {
     padding: 15px;
+}
+
+article {
+    margin: 10px;
 }
 
 a.brand-logo {
