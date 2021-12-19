@@ -1,0 +1,51 @@
+nav .brand-logo {
+    padding-left: 10px;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+.DateRangePicker_picker {
+    z-index: 2;
+}
+
+div.input-field input[type=text] {
+    padding-left: 10px;
+}
+
+nav {
+    padding: 15px;
+}
+
+a.brand-logo {
+    color: #fafffb;
+    font-weight: bolder;
+}
+
+div.flash article {
+    margin: 0;
+    width: 50%;
+}
+
+div.flash article span.success {
+    color: #72a174;
+}
+
+div.flash article span.error {
+    color: #a24b4b;
+}
+
+/* Monzo */
+/*article.monzo {*/
+/*    width: 50%;*/
+/*}*/
+
+article.monzo ul li {
+    list-style-type: none;
+}
+
+article.monzo a {
+    width: 90%;
+    text-align: left;
+}

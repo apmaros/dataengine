@@ -10,6 +10,7 @@ from flask import (
     Blueprint,
     session
 )
+from influxdb_client import Point
 
 from dataengine.common.log import logger
 from dataengine.config import get_monzo_config
@@ -182,3 +183,24 @@ def logout_monzo():
     flash("Successfully lodged-out")
     return resp
 
+
+@core_bp.route('/blood_pressure')
+@requires_auth
+def blood_pressure():
+    systolic = int(request.args.get("systolic"))
+    diastolic = int(request.args.get("diastolic"))
+    heart_rate = int(request.args.get("heart-rate"))
+
+    flash("Recorded blood pressure reading ("
+          f"{systolic}/{diastolic}, {heart_rate})")
+
+    db = build_influxdb_client()
+
+    point = (Point('blood_pressure')
+             .field('systolic', systolic)
+             .field('diastolic', diastolic)
+             .field('heart_rate', heart_rate))
+
+    db.write_record(point)
+
+    return make_response(redirect(url_for('core.index')))

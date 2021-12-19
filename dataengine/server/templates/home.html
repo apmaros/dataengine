@@ -1,32 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="col s12 m8 offset-m2 l6 offset-l3">
-    <div class="card-panel grey lighten-5 z-depth-1">
-      <div class="row valign-wrapper">
-        <div class="col s10">
-          <span class="black-text">
-            Welcome to Budget Desk - the platform for managing data
-          </span>
+    <div class="ui grid">
+        <div class="row">
+            <div class="ui message">
+                <div class="four wide column">
+                    <p>Welcome to Budget Desk - the platform for managing data</p>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-
-    <div class="row">
-      <div class="col s12 m6">
-         <ul class="collection with-header">
-             <li class="collection-header"><h4>Monzo</h4></li>
-            <li><a href="{{ url_for('core.schedule_monzo_sync') }}" class="collection-item"><i class="material-icons left">schedule</i>Schedule Monzo Transactions Sync</a></li>
-            <li><a href="{{ url_for('core.sync_transactions') }}" class="collection-item"><i class="material-icons left">sync</i>Sync Monzo Transactions</a></li>
-            <li><a href="{{ url_for('core.login_monzo') }}" class="collection-item"><i class="material-icons left">lock_open</i>Login</a></li>
-            <li><a href="{{ url_for('core.logout_monzo') }}" class="collection-item"><i class="material-icons left">lock</i>Logout</a></li>
-         </ul>
-      </div>
+    <div class="grid">
+        <article class="monzo">
+            <header>Monzo</header>
+            <ul>
+                <li><a href="{{ url_for('core.schedule_monzo_sync') }}" role="button"><i class="material-icons left">schedule</i>Schedule
+                    Monzo Transactions Sync</a></li>
+                <li><a href="{{ url_for('core.sync_transactions') }}" role="button"><i
+                        class="material-icons left">sync</i>Sync Monzo Transactions</a></li>
+                <li><a href="{{ url_for('core.login_monzo') }}" role="button"><i
+                        class="material-icons left">lock_open</i>Login</a></li>
+                <li><a href="{{ url_for('core.logout_monzo') }}" role="button"><i class="material-icons left">lock</i>Logout</a>
+                </li>
+            </ul>
+        </article>
+        <article>
+            <header>Blood Pressure Reading</header>
+            <form action={{ url_for('core.blood_pressure') }}>
+                <div class="grid">
+                    <label for="systolic">
+                        systolic
+                        <input type="number" name="systolic" id="systolic" placeholder=120 required>
+                    </label>
+                    <label for="diastolic">
+                        diastolic
+                        <input type=number name="diastolic" id="diastolic" placeholder="70" required>
+                    </label>
+                    <label for="heart-rate">
+                        heart rate
+                        <input type=number name="heart-rate" id="heart-rate" placeholder=60 required>
+                    </label>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </article>
     </div>
-
-
-
-
-
 {% endblock %}
