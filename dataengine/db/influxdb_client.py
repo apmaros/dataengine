@@ -1,5 +1,7 @@
 import typing as t
+
 from influxdb_client import InfluxDBClient, Point
+
 from config import INFLUXDB_TOKEN, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_URL
 
 
@@ -33,10 +35,10 @@ class InfluxDbClient(object):
         return self.read_client.query(query)
 
 
-def build_influxdb_client() -> InfluxDbClient:
+def build_influxdb_client(bucket=INFLUXDB_BUCKET) -> InfluxDbClient:
     return InfluxDbClient(
         token=INFLUXDB_TOKEN,
         org=INFLUXDB_ORG,
-        bucket=INFLUXDB_BUCKET,
+        bucket=bucket,
         url=INFLUXDB_URL
     )

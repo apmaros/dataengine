@@ -96,7 +96,7 @@ def sync_transactions():
         sync_success = MonzoService(
             build_monzo_client(token),
             build_influxdb_client()
-        ).sync_transactions()
+        ).sync_transactions(sync_since=None)  # None - from the beginning of time
 
         if sync_success:
             flash('Transactions were synced', 'success')
@@ -193,9 +193,9 @@ def blood_pressure():
     last_activity = request.args.get("last-activity")
 
     flash("Recorded blood pressure reading ("
-          f"{systolic}/{diastolic}, {heart_rate})")
+          f"blood pressure: {systolic}/{diastolic}, heart rate: {heart_rate})")
 
-    db = build_influxdb_client()
+    db = build_influxdb_client("physio")
 
     point = (Point('blood-pressure-reading')
              .tag('last_activity', last_activity)
