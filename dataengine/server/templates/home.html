@@ -11,13 +11,13 @@
         <article class="monzo">
             <header>Monzo</header>
             <ul>
-                <li><a href="{{ url_for('core.schedule_monzo_sync') }}" role="button"><i class="material-icons left">schedule</i>Schedule
+                <li><a href="{{ url_for('monzo.schedule') }}" role="button"><i class="material-icons left">schedule</i>Schedule
                     Monzo Transactions Sync</a></li>
-                <li><a href="{{ url_for('core.sync_transactions') }}" role="button"><i
+                <li><a href="{{ url_for('monzo.sync') }}" role="button"><i
                         class="material-icons left">sync</i>Sync Monzo All Transactions</a></li>
-                <li><a href="{{ url_for('core.login_monzo') }}" role="button"><i
+                <li><a href="{{ url_for('monzo.login') }}" role="button"><i
                         class="material-icons left">lock_open</i>Login</a></li>
-                <li><a href="{{ url_for('core.logout_monzo') }}" role="button"><i class="material-icons left">lock</i>Logout</a>
+                <li><a href="{{ url_for('monzo.logout') }}" role="button"><i class="material-icons left">lock</i>Logout</a>
                 </li>
             </ul>
         </article>

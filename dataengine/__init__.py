@@ -39,6 +39,9 @@ def create_app():
     from server.routes.auth import auth_bp
     flask_app.register_blueprint(auth_bp)
 
+    from server.routes.monzo import monzo_bp
+    flask_app.register_blueprint(monzo_bp)
+
     # Setup OAuth
     oauth = OAuth(flask_app)
     auth0 = oauth.register(

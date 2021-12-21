@@ -19,15 +19,21 @@ class MonzoService:
         self._monzo_client = monzo_client
         self._influxdb_client = influxdb_client
 
-    def sync_transactions(self, sync_since=_DEFAULT_TXS_SINCE_DAYS_AGO):
+    def sync_transactions(self, sync_since_days=_DEFAULT_TXS_SINCE_DAYS_AGO):
         if self._monzo_client.should_refresh_token(current_time_sec()):
             logger.info(f"Refreshing token")
             store_monzo_token(self._monzo_client.refresh_token())
 
-        since = datetime.datetime.now() - datetime.timedelta(sync_since)
+        if sync_since_days:
+            since = _day_to_daytime_str(
+                datetime.datetime.now() - datetime.timedelta(sync_since_days)
+            )
+        else:
+            since = None
+
         try:
             transactions = self._monzo_client.get_transactions(
-                since_date=_day_to_daytime_str(since),
+                since_date=since,
                 before_date=None,
             )
 
