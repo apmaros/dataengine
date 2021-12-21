@@ -44,11 +44,6 @@ div.flash article span.error {
     color: #a24b4b;
 }
 
-/* Monzo */
-/*article.monzo {*/
-/*    width: 50%;*/
-/*}*/
-
 article.monzo ul li {
     list-style-type: none;
 }
