@@ -21,8 +21,10 @@ class MonzoService:
 
     def sync_transactions(self, sync_since_days=_DEFAULT_TXS_SINCE_DAYS_AGO):
         if self._monzo_client.should_refresh_token(current_time_sec()):
-            logger.info(f"Refreshing token")
-            store_monzo_token(self._monzo_client.refresh_token())
+            logger.info(f"Token too old, refreshing")
+            new_token = self._monzo_client.refresh_token()
+            logger.info(f"new token valid until {round(new_token.expires_in_sec / 3600)}h")
+            store_monzo_token(new_token)
 
         if sync_since_days:
             since = _day_to_daytime_str(

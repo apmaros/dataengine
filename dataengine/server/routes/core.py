@@ -14,4 +14,3 @@ core_bp = Blueprint('core', __name__)
 @requires_auth
 def index():
     return render_template('home.html', user_profile=session['profile'])
-
