@@ -52,3 +52,7 @@ article.monzo a {
     width: 90%;
     text-align: left;
 }
+
+article a {
+    margin: 5px;
+}
