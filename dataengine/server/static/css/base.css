@@ -56,3 +56,8 @@ article.monzo a {
 article a {
     margin: 5px;
 }
+
+.material-icons {
+    vertical-align: middle;
+    margin-right: 10px;
+}
