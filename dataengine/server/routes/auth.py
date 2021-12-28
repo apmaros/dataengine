@@ -1,10 +1,12 @@
+from urllib.parse import urlencode
+
 from flask import Blueprint
 from flask import (
     session,
     url_for,
     redirect
 )
-from urllib.parse import urlencode
+
 from config import AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID, SERVER_NAME
 from context import Context
 
@@ -37,6 +39,8 @@ def callback_handling():
     session['profile'] = {
         'user_id': userinfo['sub'],
         'name': userinfo['name'],
-        'picture': userinfo['picture']
+        'picture': userinfo['picture'],
+        'email': userinfo.get('email'),
+        'email_verified': userinfo.get('email_verified'),
     }
     return redirect(url_for('core.index'))

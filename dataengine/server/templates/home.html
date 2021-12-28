@@ -23,7 +23,7 @@
         </article>
         <article>
             <header>Blood Pressure Reading</header>
-            <form action={{ url_for('physio.blood_pressure') }}>
+            <form action="{{ url_for('physio.blood_pressure') }}" method="post">
                 <div class="grid">
                     <label for="systolic">
                         Systolic
@@ -47,4 +47,33 @@
             </form>
         </article>
     </div>
+    <article>
+        <header>Event</header>
+        <form action="{{ url_for('core.event') }}" method="post">
+            <label for="title">
+                Title
+                <input type="text" name="title" id="title" placeholder="What happened?" required>
+            </label>
+            <label for="description">
+                Description
+                <input type="text" name="description" id="description">
+            </label>
+            <label for="tags">
+                Tags
+                <input type="text" name="tags" id="tags">
+                <small>Comma separated list of tags</small>
+            </label>
+            <div class="grid">
+                <label for="start-time">
+                    Start Time
+                    <input type="datetime-local" name="start-time" id="start-time" placeholder=120 required>
+                </label>
+                <label for="end-time">
+                    End time
+                    <input type="datetime-local" name="end-time" id="end-time" required>
+                </label>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </article>
 {% endblock %}
