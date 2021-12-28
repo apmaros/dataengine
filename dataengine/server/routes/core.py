@@ -33,12 +33,12 @@ def event():
     flash(f"Recorded event: {title}")
 
     point = (Point('event')
+             .tag('event_id', get_uuid())
              .field('start_time', start_time)
              .field('end_time', end_time)
              .field('title', title)
              .field('description', description)
-             .field('tags', tags)
-             .field('event_id', get_uuid()))
+             .field('tags', tags))
 
     build_influxdb_client("event").write_record(point)
 
