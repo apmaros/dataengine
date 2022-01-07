@@ -9,9 +9,9 @@ ENV SERVER_WORKERS_COUNT=2
 
 # setup working directory for container
 WORKDIR /usr/src/app
+
 # copy project to the image
 COPY . .
-
 # install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 

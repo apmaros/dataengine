@@ -8,13 +8,15 @@ from common.env import is_dev
 logger = logging.getLogger()
 
 if not is_dev():
-    # Instantiate a new log handler
+    logging.basicConfig(
+        level=logging.INFO,
+        format='{} %(levelname)s %(message)s'.format(os.getpid()),
+        handlers=[logging.StreamHandler()]
+    )
     handler = logging.StreamHandler()
-
     # Instantiate the log formatter and add it to the log handler
     formatter = NewRelicContextFormatter()
     handler.setFormatter(formatter)
-
     logger.addHandler(handler)
 else:
     logging.basicConfig(
