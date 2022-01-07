@@ -16,7 +16,6 @@ if not is_dev():
     handler.setFormatter(formatter)
 
     logger.addHandler(handler)
-    logger.info('logger for DEV environment was setup')
 else:
     logging.basicConfig(
         level=logging.INFO,
@@ -24,3 +23,4 @@ else:
         datefmt='%Y-%m-%d %H:%M:%S',
         handlers=[logging.StreamHandler()]
     )
+    logger.info('logger for development environment was setup')
