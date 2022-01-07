@@ -4,4 +4,7 @@ APP_NAME=dataengine
 
 export PYTHONPATH="${PYTHONPATH}:./${APP_NAME}"
 echo "Starting application server for ${APP_NAME}"
-gunicorn -w 4 -b "${SERVER_HOST}":"${SERVER_PORT}" "${APP_NAME}":app
+CMD="gunicorn -w 4 -b ${SERVER_HOST}:${SERVER_PORT} ${APP_NAME}:app"
+
+# shellcheck disable=SC2086
+NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program $CMD
