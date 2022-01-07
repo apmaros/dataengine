@@ -11,12 +11,13 @@ if not is_dev():
     logging.basicConfig(
         level=logging.INFO,
         format='{} %(levelname)s %(message)s'.format(os.getpid()),
-        handlers=[logging.StreamHandler()]
     )
     handler = logging.StreamHandler()
     # Instantiate the log formatter and add it to the log handler
     formatter = NewRelicContextFormatter()
     handler.setFormatter(formatter)
+    # use only newrelic logging handler
+    logger.handlers.clear()
     logger.addHandler(handler)
 else:
     logging.basicConfig(
