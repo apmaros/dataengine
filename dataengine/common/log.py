@@ -3,20 +3,24 @@ import os
 
 from newrelic.agent import NewRelicContextFormatter
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='[%(asctime)s]: {} %(levelname)s %(message)s'.format(os.getpid()),
-    datefmt='%Y-%m-%d %H:%M:%S',
-    handlers=[logging.StreamHandler()]
-)
+from common.env import is_dev
 
 logger = logging.getLogger()
 
-# Instantiate a new log handler
-handler = logging.StreamHandler()
+if not is_dev():
+    # Instantiate a new log handler
+    handler = logging.StreamHandler()
 
-# Instantiate the log formatter and add it to the log handler
-formatter = NewRelicContextFormatter()
-handler.setFormatter(formatter)
+    # Instantiate the log formatter and add it to the log handler
+    formatter = NewRelicContextFormatter()
+    handler.setFormatter(formatter)
 
-logger.addHandler(handler)
+    logger.addHandler(handler)
+    logger.info('logger for DEV environment was setup')
+else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format='[%(asctime)s]: {} %(levelname)s %(message)s'.format(os.getpid()),
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[logging.StreamHandler()]
+    )

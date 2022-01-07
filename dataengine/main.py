@@ -1,12 +1,10 @@
-import threading
-
 from common.log import logger
 from dataengine import app
 
 
 def start_app():
     logger.info("Starting Data Engine app")
-    threading.Thread(target=app.run).start()
+    app.run()
     logger.info("Started Data Engine app")
 
 
