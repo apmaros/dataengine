@@ -23,7 +23,7 @@ class MonzoService:
         if self._monzo_client.should_refresh_token(current_time_sec()):
             logger.info(f"Token too old, refreshing")
             new_token = self._monzo_client.refresh_token()
-            logger.info(f"new token valid until {round(new_token.expires_in_sec / 3600)}h")
+            logger.info(f"new token valid for {round(new_token.expires_in_sec / 3600)}h")
             store_monzo_token(new_token)
 
         if sync_since_days:

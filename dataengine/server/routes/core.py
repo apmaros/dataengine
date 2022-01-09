@@ -43,3 +43,8 @@ def event():
     build_influxdb_client("event").write_record(point)
 
     return render_template('home.html', user_profile=session['profile'])
+
+
+@core_bp.route('/about')
+def about():
+    return render_template('about.html')
