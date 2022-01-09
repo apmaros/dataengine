@@ -30,4 +30,5 @@ def get_secret(name: str) -> str:
         secret = open(secret_path).read().rstrip('\n')
         return secret
 
+    logger.error(f"Secret '{name}' was not found")
     return None
