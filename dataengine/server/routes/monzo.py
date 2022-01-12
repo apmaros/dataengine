@@ -12,13 +12,13 @@ from flask import (
 from dataengine.common.log import logger
 from dataengine.config import get_monzo_config
 from dataengine.db.influxdb_client import build_influxdb_client
+from dataengine.monzo.api import get_auth_url
+from dataengine.monzo.model.monzo_token import MonzoToken
 from dataengine.monzo.monzo_client import build_monzo_client
+from dataengine.monzo.monzo_scheduled_service import get_scheduled_monzo_service_instance
 from dataengine.monzo.monzo_service import MonzoService
 from dataengine.monzo.monzo_token_provider import load_monzo_token, remove_monzo_token, store_monzo_token
 from dataengine.server.routes.annotations import requires_auth
-from monzo.api import get_auth_url
-from monzo.model.monzo_token import MonzoToken
-from monzo.monzo_scheduled_service import get_scheduled_monzo_service_instance
 
 monzo_bp = Blueprint('monzo', __name__, url_prefix='/monzo')
 

@@ -1,5 +1,6 @@
 import redis as redis
-from config import REDIS_HOST, REDIS_PORT
+
+from dataengine.config import REDIS_HOST, REDIS_PORT
 
 pool = redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT, db=0)
 

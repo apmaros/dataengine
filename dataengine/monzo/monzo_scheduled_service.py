@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from threading import Timer
 from typing import Optional
 
-from common.log import logger
+from dataengine.common.log import logger
 from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.monzo.monzo_client import MonzoClient
 from dataengine.monzo.monzo_service import MonzoService

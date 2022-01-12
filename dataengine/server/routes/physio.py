@@ -10,9 +10,9 @@ from flask import (
 )
 from influxdb_client import Point
 
-from common.log import logger
-from db.influxdb_client import build_influxdb_client
-from server.routes.annotations import requires_auth
+from dataengine.common.log import logger
+from dataengine.db.influxdb_client import build_influxdb_client
+from dataengine.server.routes.annotations import requires_auth
 
 physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
 
