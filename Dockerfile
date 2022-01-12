@@ -1,4 +1,4 @@
-FROM python:3.11.0a3-slim-bullseye
+FROM python:3.10.1-slim
 
 ARG APP_VERSION
 ENV APP_VERSION=$APP_VERSION
