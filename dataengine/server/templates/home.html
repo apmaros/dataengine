@@ -50,27 +50,18 @@
     <article>
         <header>Event</header>
         <form action="{{ url_for('core.event') }}" method="post">
-            <label for="title">
+            <label for="event">
                 Title
-                <input type="text" name="title" id="title" placeholder="What happened?" required>
+                <input type="text" name="event" id="event" placeholder="What happened?" required>
             </label>
-            <label for="description">
+            <label for="activity">
                 Description
-                <input type="text" name="description" id="description">
-            </label>
-            <label for="tags">
-                Tags
-                <input type="text" name="tags" id="tags">
-                <small>Comma separated list of tags</small>
+                <input type="text" name="activity" id="activity" placeholder="run">
             </label>
             <div class="grid">
-                <label for="start-time">
-                    Start Time
-                    <input type="datetime-local" name="start-time" id="start-time" placeholder=120 required>
-                </label>
-                <label for="end-time">
-                    End time
-                    <input type="datetime-local" name="end-time" id="end-time" required>
+                <label for="time">
+                    Time
+                    <input type="datetime-local" name="time" id="time" placeholder=120 required>
                 </label>
             </div>
             <button type="submit">Submit</button>

@@ -34,6 +34,9 @@ class InfluxDbClient(object):
     def query(self, query: str):
         return self.read_client.query(query)
 
+    def query_df(self, query):
+        return self.read_client.query_data_frame(query)
+
 
 def build_influxdb_client(bucket=INFLUXDB_BUCKET) -> InfluxDbClient:
     return InfluxDbClient(

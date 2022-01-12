@@ -5,7 +5,8 @@ from flask import (
     make_response,
     url_for,
     redirect,
-    session
+    session,
+    render_template
 )
 from influxdb_client import Point
 
@@ -14,6 +15,12 @@ from db.influxdb_client import build_influxdb_client
 from server.routes.annotations import requires_auth
 
 physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
+
+
+@physio_bp.route('/')
+@requires_auth
+def index():
+    return render_template('physio.html', user_profile=session['profile'])
 
 
 @physio_bp.route('/blood_pressure', methods=['POST'])
@@ -41,4 +48,11 @@ def blood_pressure():
     flash("Recorded blood pressure reading ("f"blood pressure: {systolic}/{diastolic}, heart rate: {heart_rate})",
           'success')
 
-    return make_response(redirect(url_for('core.index')))
+    return _get_response(request)
+
+
+def _get_response(req):
+    if req.referrer.split('/')[-2] == 'physio':
+        return make_response(redirect(url_for('physio.index')))
+    else:
+        return make_response(redirect(url_for('core.index')))
