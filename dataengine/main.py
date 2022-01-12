@@ -1,5 +1,5 @@
-from common.log import logger
 from dataengine import app
+from dataengine.common.log import logger
 
 
 def start_app():

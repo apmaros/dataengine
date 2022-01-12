@@ -5,11 +5,11 @@ from flask import (
     request,
     flash
 )
-from influxdb_client import Point
 
-from common.util import get_uuid
+from dataengine.common.log import logger
 from dataengine.server.routes.annotations import requires_auth
 from db.influxdb_client import build_influxdb_client
+from model.event import Event
 
 core_bp = Blueprint('core', __name__)
 
@@ -24,23 +24,22 @@ def index():
 @core_bp.route('/event', methods=['POST'])
 @requires_auth
 def event():
-    start_time = request.form.get("start-time")
-    end_time = request.form.get("end-time")
-    title = request.form.get("title")
-    description = request.form.get("description")
-    tags = request.form.get("tags")
+    time = request.form.get('time')
+    duration = request.form.get('duration')
 
-    flash(f"Recorded event: {title}")
+    event_model = Event(
+        description=request.form.get('description'),
+        activity=request.form.get('activity'),
+        time=time if time else utcnow_isoformat(),
+        duration=duration
+    )
+    try:
+        build_influxdb_client("event").write_record(event_model.as_point())
+    except RuntimeError as e:
+        logger.error(f"Failed to write to database due to error {e}")
+        flash('Failed to record event due to error', 'error')
 
-    point = (Point('event')
-             .tag('event_id', get_uuid())
-             .field('start_time', start_time)
-             .field('end_time', end_time)
-             .field('title', title)
-             .field('description', description)
-             .field('tags', tags))
-
-    build_influxdb_client("event").write_record(point)
+    flash(f"Recorded event")
 
     return render_template('home.html', user_profile=session['profile'])
 

@@ -1,7 +1,8 @@
 import json
 from dataclasses import dataclass
-from common.dataclass_json_encoder import DataclassJsonEncoder
-from common.util import current_time_sec
+
+from dataengine.common.dataclass_json_encoder import DataclassJsonEncoder
+from dataengine.common.util import current_time_sec
 
 
 @dataclass

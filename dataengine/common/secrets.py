@@ -1,6 +1,6 @@
 import os
 
-from common.log import logger
+from dataengine.common.log import logger
 
 SECRETS_PATH = f'/run/secrets/'
 
