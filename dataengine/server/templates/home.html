@@ -48,23 +48,7 @@
         </article>
     </div>
     <article>
-        <header>Event</header>
-        <form action="{{ url_for('core.event') }}" method="post">
-            <label for="description">
-                Title
-                <input type="text" name="description" id="description" placeholder="What happened?" required>
-            </label>
-            <label for="activity">
-                Description
-                <input type="text" name="activity" id="activity" placeholder="run">
-            </label>
-            <div class="grid">
-                <label for="time">
-                    Time
-                    <input type="datetime-local" name="time" id="time" placeholder=120 required>
-                </label>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+        <header>Last Month Events</header>
+        {% include 'event/events_view_partial.html' %}
     </article>
 {% endblock %}

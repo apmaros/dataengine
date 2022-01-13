@@ -5,6 +5,8 @@ from influxdb_client import Point
 
 from dataengine.common.util import get_uuid
 
+EVENT_MEASUREMENT_NAME = "events"
+
 
 @dataclass
 class Event:
@@ -12,12 +14,14 @@ class Event:
     activity: str
     time: datetime
     duration: int
+    user_id: str
     event_id: str = get_uuid()
 
     def as_point(self):
-        return (Point('event')
-                .tag('event_id', self.event_id)
+        return (Point(EVENT_MEASUREMENT_NAME)
                 .field('description', self.description)
-                .field('activity', self.activity)
-                .field('time', self.time)
-                .tag('duration', self.duration))
+                .tag('activity', self.activity)
+                .time(self.time)
+                .tag('duration', self.duration)
+                .tag('user_id', self.user_id)
+                .field('event_id', self.event_id))

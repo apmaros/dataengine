@@ -2,7 +2,7 @@ import typing as t
 
 from influxdb_client import InfluxDBClient, Point
 
-from config import INFLUXDB_TOKEN, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_URL
+from dataengine.config import INFLUXDB_TOKEN, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_URL
 
 
 class InfluxDbClient(object):

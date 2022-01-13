@@ -1,0 +1,20 @@
+<table>
+    <thead>
+    <tr>
+        <th>Time</th>
+        <th>Duration</th>
+        <th>Activity</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for event in events %}
+        <tr>
+            <td>{{ event.time }}</td>
+            <td>{{ event.duration }}</td>
+            <td>{{ event.activity }}</td>
+            <td>{{ event.description }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

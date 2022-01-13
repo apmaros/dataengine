@@ -42,3 +42,6 @@ AUTH0_ACCESS_TOKEN_URL = f'{AUTH0_API_BASE_URL}/oauth/token'
 AUTH0_AUTHORIZE_URL = f'{AUTH0_API_BASE_URL}/authorize'
 AUTH0_CLIENT_KWARGS = 'openid profile email'
 AUTH0_CALLBACK_URL = get_secret('AUTH0_CALLBACK_URL')
+
+# Service
+EVENT_INFLUX_BUCKET = 'events'

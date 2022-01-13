@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content-nav">
+        <a href="{{ url_for('core.index') }}"><i class="material-icons left">arrow_back</i></a>
+    </div>
+
+    <article>
+        <header>Event</header>
+        {% include 'event/events_view_partial.html' %}
+        {% include 'event/new_event_partial.html' %}
+    </article>
+{% endblock %}
