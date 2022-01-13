@@ -16,7 +16,7 @@
 <body>
 <nav>
     <ul>
-        <li><a href="#" class="brand-logo"><strong>Daxplr</strong></a></li>
+        <li><a href="{{ url_for('core.index') }}" class="brand-logo"><strong>Daxplr</strong></a></li>
     </ul>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
         {% if user_profile %}

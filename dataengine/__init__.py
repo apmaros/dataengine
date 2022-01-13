@@ -5,7 +5,8 @@ from authlib.integrations.flask_client import OAuth
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from config import (
+from context import Context
+from dataengine.config import (
     AUTH0_CLIENT_ID,
     AUTO0_CLIENT_SECRET,
     AUTH0_API_BASE_URL,
@@ -13,7 +14,6 @@ from config import (
     AUTH0_AUTHORIZE_URL,
     AUTH0_CLIENT_KWARGS
 )
-from context import Context
 from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_COOKIE_NAME
 
 SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
@@ -44,6 +44,9 @@ def create_app():
 
     from server.routes.physio import physio_bp
     flask_app.register_blueprint(physio_bp)
+
+    from server.routes.event import event_bp
+    flask_app.register_blueprint(event_bp)
 
     # Setup OAuth
     oauth = OAuth(flask_app)
