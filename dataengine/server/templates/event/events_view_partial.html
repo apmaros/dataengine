@@ -1,22 +1,24 @@
-<table>
-    <thead>
-    <tr>
-        <th>Time</th>
-        <th>Duration</th>
-        <th>Activity</th>
-        <th>Description</th>
-        <th>Feel</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for event in events %}
+<figure>
+    <table>
+        <thead>
         <tr>
-            <td>{{ event.time|format_datetime }}</td>
-            <td>{{ event.duration }}</td>
-            <td>{{ event.activity }}</td>
-            <td>{{ event.description }}</td>
-            <td>{{ event.feel if event.feel else '-' }}</td>
+            <th>Time</th>
+            <th>Duration</th>
+            <th>Activity</th>
+            <th>Description</th>
+            <th>Feel</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.time|format_datetime }}</td>
+                <td>{{ event.duration }}</td>
+                <td>{{ event.activity }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.feel if event.feel else '-' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</figure>
