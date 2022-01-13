@@ -1,6 +1,7 @@
 import typing as t
 
 from influxdb_client import InfluxDBClient, Point
+from influxdb_client.client.write_api import SYNCHRONOUS
 
 from dataengine.config import INFLUXDB_TOKEN, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_URL
 
@@ -17,8 +18,10 @@ class InfluxDbClient(object):
             jitter_interval=2_000,
             retry_interval=5_000,
             max_retries=5,
-            max_retry_delay=30_000, exponential_base=2
+            max_retry_delay=30_000,
+            exponential_base=2
         )
+        self.write_client_sync = self._inner.write_api(write_options=SYNCHRONOUS)
         self.read_client = self._inner.query_api()
 
     def write_records(self, points: t.List[Point]):
@@ -27,6 +30,12 @@ class InfluxDbClient(object):
 
     def write_record(self, point: Point):
         self.write_client.write(
+            bucket=self.bucket,
+            record=point,
+        )
+
+    def write_record_sync(self, point: Point):
+        self.write_client_sync.write(
             bucket=self.bucket,
             record=point,
         )

@@ -41,7 +41,7 @@ def new():
         user_id=session['profile']['user_id']
     )
     try:
-        build_influxdb_client(EVENT_INFLUX_BUCKET).write_record(event.as_point())
+        build_influxdb_client(EVENT_INFLUX_BUCKET).write_record_sync(event.as_point())
     except RuntimeError as e:
         logger.error(f"Failed to write to database due to error {e}")
         flash('Failed to record event due to error', 'error')
