@@ -31,8 +31,8 @@
     {% if messages %}
         {% for category, message in messages %}
             <div class="flash">
-                <article>
-                    <span class={{ category }}>{{ message }}</span>
+                <article class={{ category }}>
+                    <span>{{ message }}</span>
                 </article>
             </div>
         {% endfor %}

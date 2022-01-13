@@ -46,6 +46,6 @@ def new():
         logger.error(f"Failed to write to database due to error {e}")
         flash('Failed to record event due to error', 'error')
 
-    flash(f"👌 Event was recorded")
+    flash(f"👌 Event was recorded", 'success')
 
     return make_response(redirect(url_for('event.index')))
