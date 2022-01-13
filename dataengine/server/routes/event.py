@@ -32,13 +32,12 @@ def index():
 @requires_auth
 def new():
     time = request.form.get('time')
-    duration = request.form.get('duration')
-
     event = Event(
         description=request.form['description'],
         activity=request.form['activity'],
+        feel=int(request.form['feel']),
         time=time if time else utc_isoformat(),
-        duration=duration,
+        duration=request.form.get('duration'),
         user_id=session['profile']['user_id']
     )
     try:

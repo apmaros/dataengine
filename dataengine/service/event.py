@@ -21,6 +21,7 @@ class EventRecord:
     time: datetime
     description: str
     activity: str
+    feel: int
     duration: int
     user_id: str
 
@@ -36,6 +37,7 @@ def flux_record_to_event_record(record) -> EventRecord:
         description=v['_value'],
         activity=v['activity'],
         duration=v['duration'],
+        feel=v['feel'],
         user_id=v.get('user_id')
     )
 

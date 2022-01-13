@@ -5,6 +5,7 @@
         <th>Duration</th>
         <th>Activity</th>
         <th>Description</th>
+        <th>Feel</th>
     </tr>
     </thead>
     <tbody>
@@ -14,6 +15,7 @@
             <td>{{ event.duration }}</td>
             <td>{{ event.activity }}</td>
             <td>{{ event.description }}</td>
+            <td>{{ event.feel if event.feel else '-' }}</td>
         </tr>
     {% endfor %}
     </tbody>

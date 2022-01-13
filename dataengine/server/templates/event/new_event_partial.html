@@ -6,6 +6,13 @@
         <label for="activity">
             <input type="text" name="activity" id="activity" placeholder="Activity">
         </label>
+        <label for="feel">
+            <input type="range" name="feel" id="feel" min="1" max="5" placeholder="3"
+                   oninput="feelInputId.value = feel.value">
+            <small>Feel -
+                <output name="feelOutput" id="feelInputId">3</output>
+            </small>
+        </label>
     </div>
     <div class="grid">
         <label for="time">

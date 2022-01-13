@@ -12,6 +12,7 @@ EVENT_MEASUREMENT_NAME = "events"
 class Event:
     description: str
     activity: str
+    feel: int
     time: datetime
     duration: int
     user_id: str
@@ -21,6 +22,7 @@ class Event:
         return (Point(EVENT_MEASUREMENT_NAME)
                 .field('description', self.description)
                 .tag('activity', self.activity)
+                .tag('feel', self.feel)
                 .time(self.time)
                 .tag('duration', self.duration)
                 .tag('user_id', self.user_id)
