@@ -11,7 +11,6 @@ core_bp = Blueprint('core', __name__)
 
 
 @core_bp.route('/')
-@core_bp.route('/index')
 @requires_auth
 def index():
     profile = session['profile']
