@@ -15,6 +15,7 @@ from dataengine.config import (
     AUTH0_CLIENT_KWARGS
 )
 from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_COOKIE_NAME
+from dataengine.server.util import format_datetime
 
 SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
 TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")
@@ -22,6 +23,15 @@ STATIC_FOLDER_PATH = os.path.join(SERVER_PATH, "static")
 
 
 def create_app():
+    """
+    Create and configure the APP by:
+        - set configuration
+        - add template filters for view
+        - set routes
+        - set OAuth
+        - Set global context
+    :return: instance of the APP ready to run
+    """
     flask_app = Flask(__name__, template_folder=TEMPLATE_FOLDER_PATH)
     flask_app.static_folder = STATIC_FOLDER_PATH
 
@@ -31,6 +41,9 @@ def create_app():
     flask_app.config['SECRET_KEY'] = SERVER_SECRET_KEY
     flask_app.config['SESSION_TYPE'] = SERVER_SESSION_TYPE
     flask_app.config['SESSION_COOKIE_NAME'] = SESSION_COOKIE_NAME
+
+    # Template filters
+    flask_app.jinja_env.filters['format_datetime'] = format_datetime
 
     # Register Routes
     from server.routes.core import core_bp

@@ -45,3 +45,7 @@ AUTH0_CALLBACK_URL = get_secret('AUTH0_CALLBACK_URL')
 
 # Service
 EVENT_INFLUX_BUCKET = 'events'
+
+# View
+# DDD at hh:mm (dd/mm/yyyy)
+DATETIME_VIEW_FORMAT = "%a at %H:%M (%d/%m/%y)"

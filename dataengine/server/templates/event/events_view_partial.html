@@ -11,7 +11,7 @@
     <tbody>
     {% for event in events %}
         <tr>
-            <td>{{ event.time }}</td>
+            <td>{{ event.time|format_datetime }}</td>
             <td>{{ event.duration }}</td>
             <td>{{ event.activity }}</td>
             <td>{{ event.description }}</td>
