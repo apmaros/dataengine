@@ -1,20 +1,19 @@
 <form action="{{ url_for('event.new') }}" method="post">
-    <label for="description">
-        Note
-        <input type="text" name="description" id="description" placeholder="What happened?" required>
-    </label>
-    <label for="activity">
-        Activity
-        <input type="text" name="activity" id="activity" placeholder="run">
-    </label>
+    <div class="grid">
+        <label for="description">
+            <input type="text" name="description" id="description" placeholder="Description" required>
+        </label>
+        <label for="activity">
+            <input type="text" name="activity" id="activity" placeholder="Activity">
+        </label>
+    </div>
     <div class="grid">
         <label for="time">
-            Time (Optional)
             <input type="datetime-local" name="time" id="time">
+            <small>Time (Optional)</small>
         </label>
         <label for="duration">
-            Duration
-            <input type="number" name="duration" id="duration">
+            <input type="number" name="duration" id="duration" placeholder="Duration">
             <small>in hours</small>
         </label>
     </div>
