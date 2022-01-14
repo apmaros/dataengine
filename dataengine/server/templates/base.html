@@ -21,7 +21,7 @@
     <ul class="menu">
         {% if user_profile %}
             <li><a href="{{ url_for('physio.index') }}">Physio</a></li>
-            <li><a href="{{ url_for('day_note.index') }}">Day Notes</a></li>
+            <li><a href="{{ url_for('day_note.index') }}">Notes</a></li>
             <li><a href="{{ url_for('event.index') }}">Events</a></li>
             <li><a href="{{ url_for('user.index') }}"><span class="material-icons">account_box</span></a></li>
         {% else %}
