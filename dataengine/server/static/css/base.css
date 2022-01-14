@@ -80,3 +80,49 @@ article .control-nav {
 details.control-nav summary::after {
     background-image: none;
 }
+
+.card {
+    padding: 10px;
+    border-style: solid;
+    border-width: 0;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 5px #424649;
+}
+
+.card .card-value {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.card .card-value span {
+    padding: 5px;
+}
+
+article.data {
+    padding: 15px;
+}
+
+article.data .content {
+    font-size: 1.3em;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+article.data .labels {
+    font-size: 0.8em;
+    margin: 10px;
+}
+
+article.data .labels span {
+    background-color: #0f2b38;
+    box-shadow: 0 1px 3px #0b0f12;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 25px;
+}
+
+article.data .footer {
+    padding: 20px 10px 10px;
+    color: #878787;
+    font-size: 0.8em;
+}

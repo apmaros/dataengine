@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content-nav">
+        <a href="{{ url_for('core.index') }}"><i class="material-icons left">arrow_back</i></a>
+    </div>
+    {% include 'day_note/day_note_view_partial.html' %}
+    <article>
+        <details class="control-nav">
+            <summary>
+                <span class="control-nav material-icons">add_circle</span>
+            </summary>
+            {% include 'day_note/new_day_note_partial.html' %}
+        </details>
+    </article>
+
+{% endblock %}

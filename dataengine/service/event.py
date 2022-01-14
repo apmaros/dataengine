@@ -1,32 +1,9 @@
-import datetime
-import typing as t
-from dataclasses import dataclass
-
 from dataengine.common.log import logger
 from dataengine.config import EVENT_INFLUX_BUCKET
 from dataengine.db.influxdb_client import build_influxdb_client
+from dataengine.service.model.event_record import EventRecord
 
 
-@dataclass
-class ServiceResponse:
-    result: t.Any
-    success: bool
-    error_msg: str
-
-
-@dataclass
-class EventRecord:
-    start: datetime
-    stop: datetime
-    time: datetime
-    description: str
-    activity: str
-    feel: int
-    duration: int
-    user_id: str
-
-
-# todo: add type
 def flux_record_to_event_record(record) -> EventRecord:
     v = record.values
 
@@ -57,7 +34,6 @@ def get_events(user_id, start=None, stop=None):
     """
 
     try:
-        # when empty response, [0] out of bounds
         result = build_influxdb_client().query(q)
         if result:
             return list(map(

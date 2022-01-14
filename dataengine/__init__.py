@@ -61,6 +61,9 @@ def create_app():
     from server.routes.event import event_bp
     flask_app.register_blueprint(event_bp)
 
+    from server.routes.day_note import day_note_bp
+    flask_app.register_blueprint(day_note_bp)
+
     # Setup OAuth
     oauth = OAuth(flask_app)
     auth0 = oauth.register(

@@ -1,0 +1,41 @@
+<form action="{{ url_for('day_note.new') }}" method="post">
+    <label for="note">
+        <textarea type="text" name="note" id="note" placeholder="Note" rows="3" required></textarea>
+    </label>
+
+    <div class="grid">
+        <label for="sad">
+            <input type="range" name="sad" id="sad" min="1" max="10" placeholder="5"
+                   oninput="sadInputId.value = sad.value">
+            <small>Sad -
+                <output name="sadOutput" id="sadInputId">5</output>
+            </small>
+        </label>
+        <label for="energetic">
+            <input type="range" name="energetic" id="energetic" min="1" max="10" placeholder="5"
+                   oninput="energeticInputId.value = energetic.value">
+            <small>Energetic -
+                <output name="energeticOutput" id="energeticInputId">5</output>
+            </small>
+        </label>
+        <label for="anxious">
+            <input type="range" name="anxious" id="anxious" min="1" max="10" placeholder="5"
+                   oninput="anxiousInputId.value = anxious.value">
+            <small>Anxious -
+                <output name="anxiousOutput" id="anxiousInputId">5</output>
+            </small>
+        </label>
+        <label for="creative">
+            <input type="range" name="creative" id="creative" min="1" max="10" placeholder="5"
+                   oninput="creativeInputId.value = creative.value">
+            <small>Creative -
+                <output name="creativeOutput" id="creativeInputId">5</output>
+            </small>
+        </label>
+    </div>
+    <label for="date">
+        <input type="date" name="date" id="date">
+        <small>Time (Optional)</small>
+    </label>
+    <button type="submit">Submit</button>
+</form>

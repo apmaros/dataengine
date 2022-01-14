@@ -1,28 +1,31 @@
 <form action="{{ url_for('event.new') }}" method="post">
-    <div class="grid">
-        <label for="description">
-            <input type="text" name="description" id="description" placeholder="Description" required>
-        </label>
-        <label for="activity">
-            <input type="text" name="activity" id="activity" placeholder="Activity">
-        </label>
-        <label for="feel">
-            <input type="range" name="feel" id="feel" min="1" max="5" placeholder="3"
-                   oninput="feelInputId.value = feel.value">
-            <small>Feel -
-                <output name="feelOutput" id="feelInputId">3</output>
-            </small>
-        </label>
-    </div>
-    <div class="grid">
-        <label for="time">
-            <input type="datetime-local" name="time" id="time">
-            <small>Time (Optional)</small>
-        </label>
-        <label for="duration">
-            <input type="number" name="duration" id="duration" placeholder="Duration">
-            <small>in hours</small>
-        </label>
-    </div>
-    <button type="submit">Submit</button>
+    <fieldset>
+        <legend>Event</legend>
+        <div class="grid">
+            <label for="description">
+                <input type="text" name="description" id="description" placeholder="Description" required>
+            </label>
+            <label for="activity">
+                <input type="text" name="activity" id="activity" placeholder="Activity">
+            </label>
+            <label for="feel">
+                <input type="range" name="feel" id="feel" min="1" max="5" placeholder="3"
+                       oninput="feelInputId.value = feel.value">
+                <small>Feel -
+                    <output name="feelOutput" id="feelInputId">3</output>
+                </small>
+            </label>
+        </div>
+        <div class="grid">
+            <label for="time">
+                <input type="datetime-local" name="time" id="time">
+                <small>Time (Optional)</small>
+            </label>
+            <label for="duration">
+                <input type="number" name="duration" id="duration" placeholder="Duration">
+                <small>in hours</small>
+            </label>
+        </div>
+        <button type="submit">Submit</button>
+    </fieldset>
 </form>
