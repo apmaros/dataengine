@@ -127,3 +127,15 @@ article.data .footer {
     color: #878787;
     font-size: 0.8em;
 }
+
+.data-container {
+    margin-bottom: 50px;
+}
+
+.data-container .legend {
+    text-align: right;
+    padding: 10px;
+    color: #487676;
+    text-transform: capitalize;
+    font-size: 0.8em;
+}

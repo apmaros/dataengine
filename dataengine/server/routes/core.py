@@ -5,6 +5,7 @@ from flask import (
 )
 
 from dataengine.server.routes.annotations import requires_auth
+from service.day_note import get_day_notes
 from service.event import get_events
 
 core_bp = Blueprint('core', __name__)
@@ -15,7 +16,8 @@ core_bp = Blueprint('core', __name__)
 def index():
     profile = session['profile']
     events = get_events(profile['user_id'])
-    return render_template('home.html', user_profile=profile, events=events)
+    day_notes = get_day_notes(profile['user_id'], start='-7d')
+    return render_template('home.html', user_profile=profile, events=events, day_notes=day_notes)
 
 
 @core_bp.route('/about')

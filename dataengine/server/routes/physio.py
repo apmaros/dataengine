@@ -5,7 +5,8 @@ from flask import (
     make_response,
     url_for,
     redirect,
-    session
+    session,
+    render_template
 )
 from influxdb_client import Point
 
@@ -14,6 +15,13 @@ from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.server.routes.annotations import requires_auth
 
 physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
+
+
+@physio_bp.route('/')
+@requires_auth
+def index():
+    profile = session['profile']
+    return render_template('physio/index.html', user_profile=profile)
 
 
 @physio_bp.route('/blood_pressure', methods=['POST'])

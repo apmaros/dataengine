@@ -2,15 +2,12 @@
 
 {% block content %}
     {% include 'back_home_arrow.html' %}
-
-    {% include 'day_note/day_note_view_partial.html' %}
     <article>
-        <details class="control-nav">
+        <details class="control-nav" open>
             <summary>
                 <span class="control-nav material-icons">add_circle</span>
             </summary>
-            {% include 'day_note/new_day_note_partial.html' %}
+            {% include 'physio/new_blood_pressure_reading_partial.html' %}
         </details>
     </article>
-
 {% endblock %}

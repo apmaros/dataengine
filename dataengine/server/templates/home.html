@@ -1,58 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <article>
-        <div class="grid">
-            <a href="{{ url_for('event.index') }}" role="button">Event</a>
-            <a href="{{ url_for('day_note.index') }}" role="button">Day Note</a>
-        </div>
-        <div class="grid">
-            <a href="https://grafana.daxplr.com" role="button">grafana</a>
-            <a href="https://influx.daxplr.com" role="button">influx</a>
-        </div>
-    </article>
-    <div class="grid">
-        <article class="monzo">
-            <header>Monzo</header>
-            <ul>
-                <li><a href="{{ url_for('monzo.schedule') }}" role="button"><i class="material-icons left">schedule</i>Schedule</a>
-                </li>
-                <li><a href="{{ url_for('monzo.sync') }}" role="button"><i class="material-icons left">sync</i>Sync All
-                    Transactions</a></li>
-                <li><a href="{{ url_for('monzo.login') }}" role="button"><i class="material-icons left">lock_open</i>Login</a>
-                </li>
-                <li><a href="{{ url_for('monzo.logout') }}" role="button"><i class="material-icons left">lock</i>Logout</a>
-                </li>
-            </ul>
-        </article>
-        <article>
-            <header>Blood Pressure Reading</header>
-            <form action="{{ url_for('physio.blood_pressure') }}" method="post">
-                <div class="grid">
-                    <label for="systolic">
-                        Systolic
-                        <input type="number" name="systolic" id="systolic" placeholder=120 required>
-                    </label>
-                    <label for="diastolic">
-                        Diastolic
-                        <input type=number name="diastolic" id="diastolic" placeholder="70" required>
-                    </label>
-                    <label for="heart-rate">
-                        Heart Rate
-                        <input type=number name="heart-rate" id="heart-rate" placeholder=60 required>
-                    </label>
-                </div>
-                <label for="last-activity">
-                    Last Activity
-                    <input type=text name="last-activity" id="last-activity" placeholder="run">
-                    <small>Should be less than 1 hour before measurement</small>
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-        </article>
+    <h1>Recent Day Notes</h1>
+    <div class="data-container">
+        {% include 'day_note/day_note_view_partial.html' %}
+        <div class="legend"><i>last 7 days</i></div>
     </div>
-    <article>
-        <header>Last Month Events</header>
-        {% include 'event/events_view_partial.html' %}
-    </article>
+
+    <h1>Recent Events</h1>
+    {% include 'event/events_view_partial.html' %}
 {% endblock %}
