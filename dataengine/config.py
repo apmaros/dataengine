@@ -45,7 +45,6 @@ AUTH0_CALLBACK_URL = get_secret('AUTH0_CALLBACK_URL')
 
 # Service
 EVENT_INFLUX_BUCKET = 'events'
-PHYSIO_INFLUX_BUCKET = 'physio'
 
 # View
 # DDD at hh:mm (dd/mm/yyyy)

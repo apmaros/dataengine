@@ -1,18 +1,22 @@
 <form action="{{ url_for('physio.blood_pressure') }}" method="post">
     <div class="grid">
         <label for="systolic">
-            <input type="number" name="systolic" id="systolic" placeholder="Systolic" required>
+            Systolic
+            <input type="number" name="systolic" id="systolic" placeholder=120 required>
         </label>
         <label for="diastolic">
-            <input type=number name="diastolic" id="diastolic" placeholder="Diastolic" required>
+            Diastolic
+            <input type=number name="diastolic" id="diastolic" placeholder="70" required>
         </label>
         <label for="heart-rate">
-            <input type=number name="heart-rate" id="heart-rate" placeholder="Heart Rate" required>
+            Heart Rate
+            <input type=number name="heart-rate" id="heart-rate" placeholder=60 required>
         </label>
     </div>
     <label for="last-activity">
-        <input type=text name="last-activity" id="last-activity" placeholder="Last Activity">
-        <small class="left">Should be less than 1 hour before measurement</small>
+        Last Activity
+        <input type=text name="last-activity" id="last-activity" placeholder="run">
+        <small>Should be less than 1 hour before measurement</small>
     </label>
     <button type="submit">Submit</button>
 </form>

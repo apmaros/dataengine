@@ -1,7 +1,3 @@
-import base64
-from io import BytesIO
-
-import matplotlib.pyplot as plt
 from flask import (
     request,
     Blueprint,
@@ -17,7 +13,6 @@ from influxdb_client import Point
 from dataengine.common.log import logger
 from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.server.routes.annotations import requires_auth
-from service.physio import get_heart_pressure_reading_df
 
 physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
 
@@ -26,29 +21,7 @@ physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
 @requires_auth
 def index():
     profile = session['profile']
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-
-    df = get_heart_pressure_reading_df(profile['user_id'], start='-180d')
-    # heart_pressure_reading_df.plot(ax=ax, x='_field', y='_value')
-
-    for name in ['systolic', 'diastolic']:
-        ax.plot(df[df._field == name]._time, df[df._field == name]._value, label=name)
-
-    ax.set_xlabel("time")
-    ax.set_ylabel("value")
-    ax.legend(loc='best')
-
-    # old below
-    buf = BytesIO()
-    fig.savefig(buf, format="png")
-
-    data = base64.b64encode(buf.getbuffer()).decode("ascii")
-
-    fig, ax = plt.subplots()
-
-    return render_template('physio/index.html', user_profile=profile, data=data)
+    return render_template('physio/index.html', user_profile=profile)
 
 
 @physio_bp.route('/blood_pressure', methods=['POST'])
