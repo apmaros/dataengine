@@ -128,6 +128,14 @@ article.data .footer {
     font-size: 0.8em;
 }
 
+article.announcement {
+    text-align: center;
+}
+
+article.announcement .message {
+    padding: 10px;
+}
+
 .data-container {
     margin-bottom: 50px;
 }

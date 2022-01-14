@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Recent Day Notes</h1>
-    <div class="data-container">
-        {% include 'day_note/day_note_view_partial.html' %}
-        <div class="legend"><i>last 7 days</i></div>
-    </div>
+    {% if day_notes %}
+        <h1>Recent Day Notes</h1>
+        <div class="data-container">
+            {% include 'day_note/day_note_view_partial.html' %}
+            <div class="legend"><i>last 7 days</i></div>
+        </div>
+    {% else %}
+        <article class="announcement">
+            <div class="message">You dont have any day notes</div>
+            <div><a href="{{ url_for('day_note.index') }}" role="button">Go to Day Notes</a></div>
+        </article>
+    {% endif %}
 
-    <h1>Recent Events</h1>
-    {% include 'event/events_view_partial.html' %}
+    {% if events %}
+        <h1>Recent Events</h1>
+        {% include 'event/events_view_partial.html' %}
+    {% else %}
+        <article class="announcement">
+            <div class="message">You don't have any events yet</div>
+            <a href="{{ url_for('event.index') }}" role="button">Go to Events</a>
+        </article>
+    {% endif %}
 {% endblock %}
