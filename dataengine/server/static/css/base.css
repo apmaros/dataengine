@@ -156,3 +156,7 @@ article.announcement .message {
     text-transform: capitalize;
     font-size: 0.8em;
 }
+
+.left {
+    text-align: left;
+}
