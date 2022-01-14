@@ -1,5 +1,10 @@
 nav .brand-logo {
+    font-size: 2em;
     padding-left: 10px;
+}
+
+nav .material-icons {
+    font-size: 1.8em;
 }
 
 .btn {
