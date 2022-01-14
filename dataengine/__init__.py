@@ -67,6 +67,9 @@ def create_app():
     from server.routes.admin import admin_bp
     flask_app.register_blueprint(admin_bp)
 
+    from server.routes.user import user_bp
+    flask_app.register_blueprint(user_bp)
+
     # Setup OAuth
     oauth = OAuth(flask_app)
     auth0 = oauth.register(

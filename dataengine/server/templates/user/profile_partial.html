@@ -1,0 +1,8 @@
+<article>
+    <header>Profile</header>
+    <ul class="data-list">
+        <li><strong>name:</strong> {{ user_profile.name }}</li>
+        <li><strong>email:</strong> {{ user_profile.email }}</li>
+        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+    </ul>
+</article>

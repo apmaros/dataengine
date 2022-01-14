@@ -23,8 +23,7 @@
             <li><a href="{{ url_for('physio.index') }}">Physio</a></li>
             <li><a href="{{ url_for('day_note.index') }}">Day Notes</a></li>
             <li><a href="{{ url_for('event.index') }}">Events</a></li>
-            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-            {# TODO           <li><a href="#" data-tooltip="{{ user_profile['name'] }}"><span class="material-icons">account_box</span></a></li>#}
+            <li><a href="{{ url_for('user.index') }}"><span class="material-icons">account_box</span></a></li>
         {% else %}
             <li><a href="{{ url_for('auth.login') }}">Login</a></li>
         {% endif %}
