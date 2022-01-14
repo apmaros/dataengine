@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if day_notes %}
-        <h1>Recent Day Notes</h1>
+        <h3>Recent Day Notes</h3>
         <div class="data-container">
             {% include 'day_note/day_note_view_partial.html' %}
             <div class="legend"><i>last 7 days</i></div>
@@ -15,7 +15,7 @@
     {% endif %}
 
     {% if events %}
-        <h1>Recent Events</h1>
+        <h3>Recent Events</h3>
         {% include 'event/events_view_partial.html' %}
     {% else %}
         <article class="announcement">
