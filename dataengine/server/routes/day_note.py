@@ -16,7 +16,7 @@ from dataengine.server.routes.annotations import requires_auth
 from db.influxdb_client import build_influxdb_client
 from service.day_note import get_day_notes
 
-day_note_bp = Blueprint('day_note', __name__, url_prefix='/day_note')
+day_note_bp = Blueprint('day_note', __name__, url_prefix='/day-note')
 
 
 @day_note_bp.route('/')

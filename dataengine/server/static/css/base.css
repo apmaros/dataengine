@@ -110,15 +110,16 @@ article.data .content {
 
 article.data .labels {
     font-size: 0.8em;
-    margin: 10px;
 }
 
 article.data .labels span {
     background-color: #0f2b38;
     box-shadow: 0 1px 3px #0b0f12;
     padding: 10px;
-    margin: 5px;
+    margin: 2px;
     border-radius: 25px;
+    white-space: nowrap;
+    line-height: 3.2;
 }
 
 article.data .footer {
