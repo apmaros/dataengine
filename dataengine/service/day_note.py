@@ -45,6 +45,7 @@ def get_day_notes(user_id, start=None, stop=None):
           |> filter(fn: (r) => r._field == "note")
           |> filter(fn: (r) => r["user_id"] == "{user_id}")
           |> group()
+          |> sort(columns: ["_time"], desc: true)
     """
 
     try:
