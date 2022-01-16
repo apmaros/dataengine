@@ -1,24 +1,11 @@
-<figure>
-    <table>
-        <thead>
-        <tr>
-            <th>Time</th>
-            <th>Description</th>
-            <th>Feel</th>
-            <th>Duration</th>
-            <th>Activity</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for event in events %}
-            <tr>
-                <td>{{ event.time|format_datetime }}</td>
-                <td>{{ event.description }}</td>
-                <td>{{ event.feel if event.feel else '-' }}</td>
-                <td>{{ event.activity }}</td>
-                <td>{{ event.duration }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</figure>
+{% for event in events %}
+    <article class="data">
+        <div class="content">{{ event.description }}</div>
+        <div class="secondary-content">
+            <span>activity: {{ event.activity }}</span>
+            <span>duration: {{ event.duration if event.duration else '-' }}</span>
+            <span>feel: {{ event.feel if event.feel else '-' }}</span>
+        </div>
+        <div class="footer">{{ event.time|format_datetime }}</div>
+    </article>
+{% endfor %}

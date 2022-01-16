@@ -45,8 +45,3 @@ def get_events(user_id, start=None, stop=None):
 
     except RuntimeError as e:
         logger.error(f"Failed to db due to error {e}")
-
-
-if __name__ == '__main__':
-    a = get_events(None)
-    print(a)
