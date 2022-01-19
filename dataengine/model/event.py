@@ -25,5 +25,5 @@ class Event:
                 .tag('feel', self.feel)
                 .time(self.time)
                 .tag('duration', self.duration)
-                .field('user_id', self.user_id)
+                .tag('user_id', self.user_id)
                 .field('event_id', self.event_id))
