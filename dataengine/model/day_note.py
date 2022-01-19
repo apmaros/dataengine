@@ -25,5 +25,5 @@ def day_note_to_record(day_note: DayNote):
             .tag('energetic', day_note.energetic)
             .tag('anxious', day_note.anxious)
             .tag('creative', day_note.creative)
-            .tag('user_id', day_note.user_id)
+            .field('user_id', day_note.user_id)
             .field('day_note_id', day_note.day_note_id))
