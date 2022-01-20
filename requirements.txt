@@ -10,7 +10,7 @@ Flask==2.0.2
 gunicorn==20.1.0
 idna==3.3
 importlib-metadata==4.10.1
-influxdb-client==1.24.0
+influxdb-client==1.25.0
 iniconfig==1.1.1
 itsdangerous==2.0.1
 Jinja2==3.0.3
