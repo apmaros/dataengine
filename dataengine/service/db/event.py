@@ -27,7 +27,6 @@ def put_event(user_id: str, args: typing.Dict[str, str]):
         time=time if time else func.now(),
         feel=args.get('feel'),
     )
-    session = Context.db_session()
-
-    session.add(event)
-    session.commit()
+    with Context.db_session() as session:
+        session.add(event)
+        session.commit()
