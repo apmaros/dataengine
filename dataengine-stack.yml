@@ -18,6 +18,10 @@ services:
       - auth0_api_base_url
       - auth0_callback_url
       - server_name
+      - postgres_user
+      - postgres_password
+      - postgres_db
+      - postgres_host
     ports:
       - "4000:4000"
     deploy:
@@ -65,7 +69,6 @@ services:
       - postgres_user
       - postgres_password
       - postgres_db
-      - postgres_host
     ports:
       - '5438:5432'
     restart: always
