@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_NAME=dataengine
+export PYTHONPATH="${PYTHONPATH}:./${APP_NAME}"
+
+echo "$(date) migrating database"
+
+alembic upgrade head
+
+echo "$(date) migration successfully finished"

@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import sessionmaker
 
-from common.log import logger
-from db.postgres.config import DbConfig, get_db_url
+from dataengine.common.log import logger
+from dataengine.db.postgres.config import DbConfig, get_db_url
 
 
 def get_session(config: DbConfig) -> Session:

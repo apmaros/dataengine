@@ -5,7 +5,6 @@ from authlib.integrations.flask_client import OAuth
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from context import Context
 from dataengine.config import (
     AUTH0_CLIENT_ID,
     AUTO0_CLIENT_SECRET,
@@ -15,9 +14,10 @@ from dataengine.config import (
     AUTH0_CLIENT_KWARGS
 )
 from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_COOKIE_NAME
+from dataengine.context import Context
+from dataengine.db.postgres.config import DbConfig
+from dataengine.db.postgres.sesion import get_session
 from dataengine.server.util import format_datetime
-from db.postgres.config import DbConfig
-from db.postgres.sesion import get_session
 
 SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
 TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")

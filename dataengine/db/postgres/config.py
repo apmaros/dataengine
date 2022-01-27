@@ -1,7 +1,7 @@
 import string
 from dataclasses import dataclass
 
-from config import DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
+from dataengine.config import DB_USERNAME, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME
 
 
 @dataclass
