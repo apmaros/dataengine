@@ -53,10 +53,27 @@ services:
       DOCKER_INFLUXDB_INIT_BUCKET: bucket
     ports:
       - "8086:8086"
+
   redis:
     image: redis:alpine3.15
     volumes:
       - redis:/data
+
+  postgres:
+    image: postgres:14.1-alpine
+    secrets:
+      - postgres_user
+      - postgres_password
+      - postgres_db
+    ports:
+      - '5438:5432'
+    restart: always
+    environment:
+      POSTGRES_USER_FILE: '/run/secrets/postgres_user'
+      POSTGRES_PASSWORD_FILE: '/run/secrets/postgres_password'
+      POSTGRES_DB_FILE: '/run/secrets/postgres_db'
+    volumes:
+      - postgres:/var/lib/postgresql/data
 
 configs:
   influxdb_config:
@@ -69,6 +86,7 @@ volumes:
   influxdb2: {}
   grafana: {}
   redis: {}
+  postgres: { }
 
 secrets:
   monzo_client_secret:
@@ -98,4 +116,11 @@ secrets:
   auth0_callback_url:
     external: true
   server_name:
+    external: true
+  # postgres
+  postgres_user:
+    external: true
+  postgres_password:
+    external: true
+  postgres_db:
     external: true

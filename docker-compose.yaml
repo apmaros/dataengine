@@ -32,10 +32,23 @@ services:
       - redis:/data
     ports:
       - "6379:6379"
+  postgres:
+    image: postgres:14.1-alpine
+    ports:
+      - '5438:5432'
+    restart: always
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'dataengine'
+    volumes:
+      - postgres:/var/lib/postgresql/data
 
 volumes:
-  logvolume01: {}
-  influxdb: {}
-  influxdb2: {}
-  grafana: {}
-  redis: {}
+  logvolume01: { }
+  influxdb: { }
+  influxdb2: { }
+  grafana: { }
+  redis: { }
+  postgres: { }
+
