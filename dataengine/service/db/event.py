@@ -1,7 +1,22 @@
+import typing
+
+from sqlalchemy import select
+
+from dataengine import Context
 from dataengine.common.log import logger
+from dataengine.common.util import days_ago_datetime
 from dataengine.config import EVENT_INFLUX_BUCKET
 from dataengine.db.influxdb_client import build_influxdb_client
+from dataengine.model.dao.event import Event
 from dataengine.service.model.event_record import EventRecord
+
+
+def get_events_since(user_id, days_ago) -> typing.List[Event]:
+    statement = (select(Event)
+                 .filter(Event.user_id == user_id)
+                 .filter(Event.time > days_ago_datetime(days_ago)))
+
+    return Context.db_session().execute(statement)
 
 
 def flux_record_to_event_record(record) -> EventRecord:

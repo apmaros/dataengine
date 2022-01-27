@@ -9,13 +9,10 @@ from flask import (
     url_for
 )
 
-from common.util import utc_isoformat
-from config import EVENT_INFLUX_BUCKET
 from dataengine.common.log import logger
+from dataengine.config import DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
 from dataengine.server.routes.annotations import requires_auth
-from dataengine.service.event import get_events
-from db.influxdb_client import build_influxdb_client
-from model.event import Event
+from dataengine.service.db.event import get_events_since
 
 event_bp = Blueprint('event', __name__, url_prefix='/event')
 
@@ -24,7 +21,7 @@ event_bp = Blueprint('event', __name__, url_prefix='/event')
 @requires_auth
 def index():
     profile = session['profile']
-    events = get_events(profile['user_id'])
+    events = get_events_since(profile['user_id'], DEFAULT_DISPLAY_RESOURCE_DAYS_AGO)
     return render_template('event/index.html', user_profile=profile, events=events)
 
 

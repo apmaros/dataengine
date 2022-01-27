@@ -1,6 +1,6 @@
 {% for event in events %}
     <article class="data">
-        <div class="content">{{ event.description }}</div>
+        <div class="content">{{ event.body }}</div>
         <div class="secondary-content">
             <span>activity: {{ event.activity }}</span>
             <span>duration: {{ event.duration if event.duration else '-' }}</span>

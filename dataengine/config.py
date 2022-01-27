@@ -56,3 +56,4 @@ EVENT_INFLUX_BUCKET = 'events'
 # View
 # DDD at hh:mm (dd/mm/yyyy)
 DATETIME_VIEW_FORMAT = "%a at %H:%M (%d/%m/%y)"
+DEFAULT_DISPLAY_RESOURCE_DAYS_AGO = 30

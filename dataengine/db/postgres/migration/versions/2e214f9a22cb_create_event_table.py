@@ -28,12 +28,15 @@ def upgrade():
                         unique=True,
                         nullable=False
                     ),
+                    sa.Column('user_id', sa.String(50), nullable=False),
                     sa.Column('body', sa.Unicode(500), nullable=False),
-                    sa.Column('time', sa.DateTime(), nullable=False),
+                    sa.Column('activity', sa.String(50), nullable=False),
+                    sa.Column('duration', sa.SMALLINT(), nullable=True),
+                    sa.Column('time', sa.DateTime(), nullable=True),
                     sa.Column('feel', sa.SMALLINT(), nullable=True),
                     sa.Column('created_at', sa.TIMESTAMP, server_default=sa.func.now()),
                     )
 
 
 def downgrade():
-    pass
+    op.drop_table('event')

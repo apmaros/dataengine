@@ -3,10 +3,11 @@
 APP_NAME=dataengine
 
 export PYTHONPATH="${PYTHONPATH}:./${APP_NAME}"
-echo "Starting application server for ${APP_NAME}"
 
+echo "Migrating Database for $(APP_NAME)"
 time ./bin/migrate_postgres
 
+echo "Starting Application Server for $(APP_NAME)"
 CMD="gunicorn -w ${SERVER_WORKERS_COUNT} -b ${SERVER_HOST}:${SERVER_PORT} ${APP_NAME}:app"
 
 # shellcheck disable=SC2086

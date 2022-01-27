@@ -5,8 +5,8 @@ from flask import (
 )
 
 from dataengine.server.routes.annotations import requires_auth
-from service.day_note import get_day_notes
-from service.event import get_events
+from dataengine.service.day_note import get_day_notes
+from dataengine.service.db.event import get_events
 
 core_bp = Blueprint('core', __name__)
 

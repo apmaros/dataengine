@@ -53,3 +53,10 @@ def utc_isoformat(target_datetime=None):
         target_datetime = datetime.datetime.now()
 
     return target_datetime.isoformat()
+
+
+def days_ago_datetime(since) -> datetime:
+    now = datetime.datetime.now()
+    delta = datetime.timedelta(days=since)
+
+    return now - delta
