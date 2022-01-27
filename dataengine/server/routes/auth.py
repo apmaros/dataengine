@@ -7,8 +7,8 @@ from flask import (
     redirect
 )
 
-from context import Context
 from dataengine.config import AUTH0_CALLBACK_URL, AUTH0_CLIENT_ID, SERVER_NAME
+from dataengine.context import Context
 
 auth_bp = Blueprint('auth', __name__)
 

@@ -15,12 +15,13 @@ class ApplicationContext:
 class Context(object):
     _instance: ApplicationContext = None
 
-    @property
-    def instance(self) -> ApplicationContext:
-        return self._instance
+    @staticmethod
+    def get_instance() -> ApplicationContext:
+        return Context._instance
 
     @staticmethod
-    def set_context(app: Flask, oauth: OAuth, db_session: Session):
+    def set_context(app, oauth, db_session):
+        print("setting context")
         Context._instance = ApplicationContext(app, oauth, db_session)
 
     @staticmethod
@@ -40,5 +41,5 @@ class Context(object):
 
 
 def validate_context():
-    if not Context.instance:
+    if not Context.get_instance():
         raise ValueError("Context is not set")
