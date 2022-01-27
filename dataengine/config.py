@@ -43,6 +43,13 @@ AUTH0_AUTHORIZE_URL = f'{AUTH0_API_BASE_URL}/authorize'
 AUTH0_CLIENT_KWARGS = 'openid profile email'
 AUTH0_CALLBACK_URL = get_secret('AUTH0_CALLBACK_URL')
 
+# DB
+DB_USERNAME = get_secret("POSTGRES_USER")
+DB_PASSWORD = get_secret("POSTGRES_PASSWORD")
+DB_HOST = get_secret("POSTGRES_HOST")
+DB_PORT = 5432
+DB_NAME = get_secret("POSTGRES_DB") if get_secret("POSTGRES_DB") else 'dataengine'
+
 # Service
 EVENT_INFLUX_BUCKET = 'events'
 

@@ -16,6 +16,8 @@ from dataengine.config import (
 )
 from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_COOKIE_NAME
 from dataengine.server.util import format_datetime
+from db.postgres.config import DbConfig
+from db.postgres.sesion import get_session
 
 SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
 TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")
@@ -83,8 +85,9 @@ def create_app():
             'scope': AUTH0_CLIENT_KWARGS,
         },
     )
+    db_session = get_session(DbConfig())
 
-    Context.set_context(flask_app, auth0)
+    Context.set_context(flask_app, auth0, db_session)
 
     return flask_app
 
