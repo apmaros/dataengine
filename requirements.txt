@@ -1,3 +1,4 @@
+alembic==1.7.5
 attrs==21.4.0
 Authlib==0.15.5
 certifi==2021.10.8
@@ -7,13 +8,16 @@ click==8.0.3
 cryptography==36.0.1
 Deprecated==1.2.13
 Flask==2.0.2
+greenlet==1.1.2
 gunicorn==20.1.0
 idna==3.3
 importlib-metadata==4.10.1
+importlib-resources==5.4.0
 influxdb-client==1.25.0
 iniconfig==1.1.1
 itsdangerous==2.0.1
 Jinja2==3.0.3
+Mako==1.1.6
 MarkupSafe==2.0.1
 newrelic==7.4.0.172
 packaging==21.3
@@ -27,6 +31,7 @@ redis==4.1.1
 requests==2.27.1
 Rx==3.2.0
 six==1.16.0
+SQLAlchemy==1.4.31
 toml==0.10.2
 typing_extensions==4.0.1
 urllib3==1.26.8
