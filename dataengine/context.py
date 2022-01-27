@@ -21,7 +21,6 @@ class Context(object):
 
     @staticmethod
     def set_context(app, oauth, db_session):
-        print("setting context")
         Context._instance = ApplicationContext(app, oauth, db_session)
 
     @staticmethod
