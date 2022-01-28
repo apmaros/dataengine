@@ -63,8 +63,8 @@ def create_app():
     from server.routes.event import event_bp
     flask_app.register_blueprint(event_bp)
 
-    from server.routes.day_note import day_note_bp
-    flask_app.register_blueprint(day_note_bp)
+    from server.routes.note import note_bp
+    flask_app.register_blueprint(note_bp)
 
     from server.routes.admin import admin_bp
     flask_app.register_blueprint(admin_bp)

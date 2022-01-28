@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if day_notes %}
+    {% if notes %}
         <h3>Recent Day Notes</h3>
         <div class="data-container">
-            {% include 'day_note/day_note_view_partial.html' %}
+            {% include 'note/note_view_partial.html' %}
             <div class="legend"><i>last 7 days</i></div>
         </div>
     {% else %}
         <article class="announcement">
             <div class="message">You don't have any day notes</div>
-            <div><a href="{{ url_for('day_note.index') }}" role="button">Go to Day Notes</a></div>
+            <div><a href="{{ url_for('note.index') }}" role="button">Go to Day Notes</a></div>
         </article>
     {% endif %}
 
     {% if events %}
         <h3>Recent Events</h3>
-        {% include 'event/events_view_partial.html' %}
+        <div class="data-container">
+            {% include 'event/events_view_partial.html' %}
+            <div class="legend"><i>last 7 days</i></div>
+        </div>
     {% else %}
         <article class="announcement">
             <div class="message">You don't have any events yet</div>

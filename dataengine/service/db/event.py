@@ -23,11 +23,13 @@ def get_events_since(user_id, days_ago) -> typing.List[Event]:
 
 def put_event(user_id: str, args: typing.Dict[str, str]):
     time = args.get('time')
+    duration = args.get('duration')
+
     event = Event(
         user_id=user_id,
         body=args['body'],
         activity=args.get('activity'),
-        duration=args.get('duration'),
+        duration=duration if duration else None,
         time=time if time else func.now(),
         feel=args.get('feel'),
     )

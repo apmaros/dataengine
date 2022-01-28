@@ -1,0 +1,7 @@
+{% for note in notes %}
+    <article class="data">
+        <div class="content">{{ note.body }}</div>
+
+        <div class="footer">{{ note.created_at|format_datetime }}</div>
+    </article>
+{% endfor %}

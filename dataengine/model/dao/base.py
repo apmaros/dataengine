@@ -1,7 +1,7 @@
 from sqlalchemy import Column, TIMESTAMP
 from sqlalchemy.ext.declarative import declared_attr
 
-from dataengine.model.dao.default_columns import id_uuid
+from dataengine.model.dao.default_columns import id_uuid_column
 
 
 class Base(object):
@@ -11,5 +11,5 @@ class Base(object):
 
     __table_args__ = {'mysql_engine': 'InnoDB'}
 
-    id = id_uuid
+    id = id_uuid_column
     created_at = Column(TIMESTAMP)

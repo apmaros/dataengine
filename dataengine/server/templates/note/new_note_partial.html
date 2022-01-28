@@ -1,0 +1,7 @@
+<form action="{{ url_for('note.new') }}" method="post">
+    <label for="note">
+        <textarea type="text" name="body" id="body" placeholder="Note" rows="3" required></textarea>
+    </label>
+
+    <button type="submit">Submit</button>
+</form>
