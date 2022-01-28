@@ -18,7 +18,10 @@ def get_session(config: DbConfig) -> Session:
         url,
         echo=config.echo_queries,
         pool_size=10,
-        pool_recycle=1800
+        pool_recycle=1800,
+        # todo - optimisation - use optimistic conn invalidation instead
+        # https://docs.sqlalchemy.org/en/14/core/pooling.html#disconnect-handling-optimistic
+        pool_pre_ping=True
     )
     session_class = sessionmaker(bind=engine)
     return session_class()
