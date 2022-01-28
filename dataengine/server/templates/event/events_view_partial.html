@@ -1,10 +1,16 @@
 {% for event in events %}
     <article class="data">
         <div class="content">{{ event.body }}</div>
-        <div class="secondary-content">
-            <span>activity: {{ event.activity }}</span>
-            <span>duration: {{ event.duration if event.duration else '-' }}</span>
-            <span>feel: {{ event.feel if event.feel else '-' }}</span>
+        <div class="labels">
+            {% if event.activity %}
+                <span>activity: {{ event.activity }}</span>
+            {% endif %}
+            {% if event.duration %}
+                <span>duration: {{ event.duration }}</span>
+            {% endif %}
+            {% if event.feel %}
+                <span>feel: {{ event.feel }}</span>
+            {% endif %}
         </div>
         <div class="footer">{{ event.time|format_datetime }}</div>
     </article>
