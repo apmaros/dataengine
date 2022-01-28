@@ -14,7 +14,10 @@ def get_events_since(user_id, days_ago) -> typing.List[Event]:
                  .filter(Event.time > days_ago_datetime(days_ago))
                  )
 
-    return Context.db_session().execute(statement).scalars().all()
+    with Context.db_session() as session:
+        events = session.execute(statement).scalars().all()
+
+    return events
 
 
 def put_event(user_id: str, args: typing.Dict[str, str]):
