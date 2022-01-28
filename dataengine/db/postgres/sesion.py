@@ -18,7 +18,7 @@ def get_session(config: DbConfig) -> Session:
         url,
         echo=config.echo_queries,
         pool_size=10,
-        pool_recycle=3600
+        pool_recycle=1800
     )
     session_class = sessionmaker(bind=engine)
     return session_class()
