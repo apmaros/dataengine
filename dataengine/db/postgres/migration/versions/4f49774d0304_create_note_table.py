@@ -22,7 +22,7 @@ def upgrade():
         'note',
         make_id_uuid('id'),
         sa.Column('user_id', sa.String(50), nullable=False),
-        sa.Column('body', sa.Unicode(500), nullable=False),
+        sa.Column('body', sa.Unicode(5000), nullable=False),
         make_created_at_column()
     )
 
