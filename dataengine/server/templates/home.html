@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if notes_with_sentiment %}
+    {% if notes %}
         <h3>Recent Notes</h3>
         <div class="data-container">
             {% include 'note/note_view_partial.html' %}

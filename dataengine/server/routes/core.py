@@ -18,7 +18,7 @@ def index():
     profile = session['profile']
     events = get_events_since(profile['user_id'], days_ago=DEFAULT_DISPLAY_RESOURCE_SHORT_DAYS_AGO)
     notes = get_notes_since(profile['user_id'], days_ago=DEFAULT_DISPLAY_RESOURCE_SHORT_DAYS_AGO)
-    return render_template('home.html', user_profile=profile, events=events, notes_with_sentiment=notes)
+    return render_template('home.html', user_profile=profile, events=events, notes=notes)
 
 
 @core_bp.route('/about')
