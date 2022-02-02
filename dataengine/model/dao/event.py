@@ -1,9 +1,6 @@
 from sqlalchemy import Column, String, DATETIME, SMALLINT, Unicode, TIMESTAMP
-from sqlalchemy.ext.declarative import declarative_base
 
 from dataengine.model.dao.base import Base
-
-Base = declarative_base(cls=Base)
 
 
 class Event(Base):

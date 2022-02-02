@@ -3,5 +3,50 @@
         <textarea type="text" name="body" id="body" placeholder="Note" rows="3" required></textarea>
     </label>
 
+    <div class="grid">
+        <label for="sad">
+            <input type="range" name="sentiment_sad" id="sad" min="1" max="11"
+                   oninput="sadInputId.value = sad.value-1">
+            <small>Sad -
+                <output name="sadOutput" id="sadInputId">5</output>
+            </small>
+        </label>
+        <label for="anxiet">
+            <input type="range" name="sentiment_anxiety" id="anxiety" min="1" max="11"
+                   oninput="anxietyInputId.value = anxiety.value-1">
+            <small>Energetic -
+                <output name="anxietyOutput" id="anxietyInputId">5</output>
+            </small>
+        </label>
+        <label for="anxious">
+            <input type="range" name="sentiment_stress" id="stress" min="1" max="11"
+                   oninput="stressInputId.value = stress.value-1">
+            <small>Anxious -
+                <output name="stressOutput" id="stressInputId">5</output>
+            </small>
+        </label>
+        <label for="creative">
+            <input type="range" name="sentiment_happiness" id="happiness" min="1" max="11"
+                   oninput="happinessInputId.value = happiness.value-1">
+            <small>Creative -
+                <output name="happinessOutput" id="happinessInputId">5</output>
+            </small>
+        </label>
+        <label for="creative">
+            <input type="range" name="sentiment_energy" id="energy" min="1" max="11"
+                   oninput="energyInputId.value = energy.value-1">
+            <small>Creative -
+                <output name="energyOutput" id="energyInputId">5</output>
+            </small>
+        </label>
+        <label for="creativity">
+            <input type="range" name="sentiment_creativity" id="creativity" min="1" max="11"
+                   oninput="creativityInputId.value = creativity.value-1">
+            <small>Creative -
+                <output name="creativityOutput" id="creativityInputId">5</output>
+            </small>
+        </label>
+    </div>
+
     <button type="submit">Submit</button>
 </form>

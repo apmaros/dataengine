@@ -1,4 +1,5 @@
 import typing
+import uuid
 
 from sqlalchemy import func, desc
 from sqlalchemy import select
@@ -26,6 +27,7 @@ def put_event(user_id: str, args: typing.Dict[str, str]):
     duration = args.get('duration')
 
     event = Event(
+        id=uuid.uuid4(),
         user_id=user_id,
         body=args['body'],
         activity=args.get('activity'),
@@ -33,6 +35,7 @@ def put_event(user_id: str, args: typing.Dict[str, str]):
         time=time if time else func.now(),
         feel=args.get('feel'),
     )
+
     with Context.db_session() as session:
         session.add(event)
         session.commit()

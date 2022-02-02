@@ -1,7 +1,16 @@
-{% for note in notes %}
+{% for note in notes_with_sentiment %}
     <article class="data">
-        <div class="content">{{ note.body }}</div>
-
-        <div class="footer">{{ note.created_at|format_datetime }}</div>
+        <div class="content">{{ note.note.body }}</div>
+        {% if note.sentiment %}
+            <div class="labels">
+                <span>happiness: {{ note.sentiment.happiness }}</span>
+                <span>creativity: {{ note.sentiment.creativity }}</span>
+                <span>stress: {{ note.sentiment.stress }}</span>
+                <span>energy: {{ note.sentiment.energy }}</span>
+                <span>sad: {{ note.sentiment.sad }}</span>
+                <span>anxiety: {{ note.sentiment.anxiety }}</span>
+            </div>
+        {% endif %}
+        <div class="footer">{{ note.note.created_at|format_datetime }}</div>
     </article>
 {% endfor %}

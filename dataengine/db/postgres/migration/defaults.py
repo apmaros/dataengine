@@ -4,14 +4,14 @@ from sqlalchemy import Column, TIMESTAMP, func
 from sqlalchemy.dialects.postgresql import UUID
 
 
-def make_id_uuid(column_name: str, is_unique=True) -> Column:
+def make_id_uuid(column_name: str, is_unique=True, nullable=False) -> Column:
     return Column(
         column_name,
         UUID(as_uuid=True),
         primary_key=True,
         default=uuid.uuid4,
         unique=is_unique,
-        nullable=False
+        nullable=nullable
     )
 
 

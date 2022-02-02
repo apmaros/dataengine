@@ -21,7 +21,7 @@ note_bp = Blueprint('note', __name__, url_prefix='/note')
 def index():
     profile = session['profile']
     notes = get_notes_since(profile['user_id'], 30)
-    return render_template('note/index.html', user_profile=profile, notes=notes)
+    return render_template('note/index.html', user_profile=profile, notes_with_sentiment=notes)
 
 
 @note_bp.route('/new', methods=['POST'])
