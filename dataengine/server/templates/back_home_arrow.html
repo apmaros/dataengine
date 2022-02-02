@@ -1,3 +1,5 @@
 <div class="content-nav">
-    <a href="{{ url_for('core.index') }}"><i class="material-icons left">arrow_back</i></a>
+    <a href="{% if referrer %} {{ referrer }} {% else %} {{ url_for('core.index') }} {% endif %}">
+        <i class="material-icons left">arrow_back</i>
+    </a>
 </div>

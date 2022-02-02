@@ -1,4 +1,4 @@
-{% for note in notes_with_sentiment %}
+{% for note in notes %}
     <article class="data">
         <div class="content">{{ note.note.body }}</div>
         {% if note.sentiment %}
@@ -11,6 +11,15 @@
                 <span>anxiety: {{ note.sentiment.anxiety }}</span>
             </div>
         {% endif %}
-        <div class="footer">{{ note.note.created_at|format_datetime }}</div>
+        <div class="footer">
+            {{ note.note.created_at|format_datetime }}
+            <details class="control-nav right">
+                <summary>
+                    <span class="control-nav right material-icons">settings</span>
+                </summary>
+                <a href="{{ url_for('note.edit', id=note.note.id) }}">edit</a> |
+                <a href="{{ url_for('note.delete', id=note.note.id) }}">delete</a>
+            </details>
+        </div>
     </article>
 {% endfor %}

@@ -45,8 +45,8 @@ div.flash article.success {
     background-color: #337c36;
 }
 
-div.flash article span.error {
-    color: #a24b4b;
+div.flash article.error {
+    background-color: #740b1d;
 }
 
 article.monzo ul li {
@@ -79,11 +79,16 @@ article ul.data-list li {
     font-size: 48px;
 }
 
-article .control-nav {
-    font-size: 48px;
-    padding: 10px;
+article .control-nav.right {
     width: 100%;
-    text-align: center;
+    border-bottom-style: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+details.control-nav .right {
+    font-size: 0.9em;
+    text-align: right;
 }
 
 details.control-nav summary::after {

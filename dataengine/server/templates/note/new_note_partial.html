@@ -1,7 +1,4 @@
 <form action="{{ url_for('note.new') }}" method="post">
-    <label for="note">
-        <textarea type="text" name="body" id="body" placeholder="Note" rows="3" required></textarea>
-    </label>
-        {% include 'note/sentiment_form_partial.html' %}
+    {% include 'note/note_form_partial.html' %}
     <button type="submit">Submit</button>
 </form>
