@@ -14,7 +14,7 @@ def get_notes_since(user_id, days_ago) -> typing.List[Note]:
     statement = (select(Note, Sentiment)
                  .filter(Note.user_id == user_id)
                  .filter(Note.created_at > days_ago_datetime(days_ago))
-                 .join(Sentiment, Sentiment.parent_id == Note.id)
+                 .join(Sentiment, Sentiment.parent_id == Note.id, isouter=True)
                  .order_by(desc(Note.created_at)))
 
     with Context.db_session() as session:
