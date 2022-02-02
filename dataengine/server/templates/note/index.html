@@ -2,15 +2,8 @@
 
 {% block content %}
     {% include 'back_home_arrow.html' %}
-
-    {% include 'note/note_view_partial.html' %}
     <article>
-        <details class="control-nav">
-            <summary>
-                <span class="control-nav material-icons">add_circle</span>
-            </summary>
-            {% include 'note/new_note_partial.html' %}
-        </details>
+        {% include 'note/new_note_partial.html' %}
     </article>
-
+    {% include 'note/note_view_partial.html' %}
 {% endblock %}
