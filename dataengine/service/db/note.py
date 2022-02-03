@@ -74,13 +74,18 @@ def args_to_sentiment(args, note_id, user_id):
         id=uuid.uuid4(),
         user_id=user_id,
         parent_id=note_id,
-        sad=args.get('sentiment_sad', None),
-        anxiety=args.get('sentiment_anxiety', None),
-        stress=args.get('sentiment_stress', None),
-        happiness=args.get('sentiment_happiness', None),
-        energy=args.get('sentiment_energy', None),
-        creativity=args.get('sentiment_creativity', None),
+        sad=_get_int(args, 'sentiment_sad'),
+        anxiety=_get_int(args, 'sentiment_anxiety'),
+        stress=_get_int(args, 'sentiment_stress'),
+        happiness=_get_int(args, 'sentiment_happiness'),
+        energy=_get_int(args, 'sentiment_energy'),
+        creativity=_get_int(args, 'sentiment_creativity'),
     )
+
+
+def _get_int(args, key):
+    val = args.get(key, None)
+    return int(val) if val else None
 
 
 def _build_notes_with_sentiment(rows):

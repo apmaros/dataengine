@@ -1,6 +1,10 @@
 {% for note in notes %}
     <article class="data">
-        <div class="content">{{ note.note.body }}</div>
+        <div class="content">
+            {% for paragraph in note.note.body|split_paragraphs %}
+                <p>{{ paragraph }}</p>
+            {% endfor %}
+        </div>
         {% if note.sentiment %}
             <div class="labels">
                 <span>happiness: {{ note.sentiment.happiness }}</span>
