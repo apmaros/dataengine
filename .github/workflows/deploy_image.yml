@@ -27,12 +27,14 @@ jobs:
         snapshot: true
         tags: "latest"
         buildargs: APP_VERSION
-        no_push: ${{ github.ref_name == 'main' }}
+        no_push: ${{ github.ref_name != 'main' }}
   deploy:
     if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
     needs: [ build ]
     steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
       - name: install ssh key
         uses: shimataro/ssh-key-action@v2
         with:
