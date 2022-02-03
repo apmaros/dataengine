@@ -1,10 +1,10 @@
 from sqlalchemy import Column, TIMESTAMP
-from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.ext.declarative import declared_attr, declarative_base
 
 from dataengine.model.dao.default_columns import id_uuid_column
 
 
-class Base(object):
+class BaseClazz(object):
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower()
@@ -13,3 +13,6 @@ class Base(object):
 
     id = id_uuid_column
     created_at = Column(TIMESTAMP)
+
+
+Base = declarative_base(cls=BaseClazz)

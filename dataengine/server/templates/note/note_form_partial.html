@@ -1,0 +1,5 @@
+<label for="note">
+    <textarea type="text" name="body" id="body" placeholder="Note" rows="3" required>{% if note %}
+        {{ note.note.body }}{% endif %}</textarea>
+</label>
+{% include 'note/sentiment_form_partial.html' %}

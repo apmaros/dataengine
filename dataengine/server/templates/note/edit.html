@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'back_home_arrow.html' %}
+    <form action="{{ url_for('note.edit') }}" method="post">
+        {% include 'note/note_form_partial.html' %}
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock %}
