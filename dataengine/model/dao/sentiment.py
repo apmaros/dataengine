@@ -18,11 +18,13 @@ class Sentiment(Base):
     creativity = Column(SMALLINT)
 
     def blank(self):
-        return not any([
+        sentiments = [
             self.sad,
             self.anxiety,
             self.stress,
             self.happiness,
             self.energy,
             self.creativity
-        ])
+        ]
+
+        return not any(list(filter(lambda s: s is not None and s != 0, sentiments)))

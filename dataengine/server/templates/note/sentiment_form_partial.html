@@ -1,56 +1,56 @@
 <div class="grid">
     <label for="happiness">
-        <input type="range" name="sentiment_happiness" id="happiness" min="1" max="10"
-               oninput="happinessInputId.value = happiness.value" value="
-                    {% if note and note.sentiment %} {{ note.sentiment.happiness }} {% else %} 0 {% endif %}
-               ">
+        <input type="range" name="sentiment_happiness" id="happiness" min="0" max="10"
+               oninput="happinessInputId.value = happiness.value"
+               value="{% if note and note.sentiment %} {{ note.sentiment.happiness }} {% else %}0{% endif %}"
+        >
         <small>Happiness -
-            <output name="happinessOutput" id="happinessInputId">5</output>
+            <output name="happinessOutput" id="happinessInputId">0</output>
         </small>
     </label>
     <label for="energy">
-        <input type="range" name="sentiment_energy" id="energy" min="1" max="10"
-               oninput="energyInputId.value = energy.value" value="
-                    {% if note and note.sentiment %} {{ note.sentiment.energy }} {% else %} 0 {% endif %}
-               ">
+        <input type="range" name="sentiment_energy" id="energy" min="0" max="10"
+               oninput="energyInputId.value = energy.value"
+               value="{% if note and note.sentiment %} {{ note.sentiment.energy }} {% else %}0{% endif %}"
+        >
         <small>Energy -
-            <output name="energyOutput" id="energyInputId">5</output>
+            <output name="energyOutput" id="energyInputId">0</output>
         </small>
     </label>
     <label for="creativity">
-        <input type="range" name="sentiment_creativity" id="creativity" min="1" max="10"
-               oninput="creativityInputId.value = creativity.value" value="
-                    {% if note and note.sentiment %} {{ note.sentiment.creativity }} {% else %} 0 {% endif %}
-               ">
+        <input type="range" name="sentiment_creativity" id="creativity" min="0" max="10"
+               oninput="creativityInputId.value = creativity.value"
+               value="{% if note and note.sentiment %} {{ note.sentiment.creativity }} {% else %}0{% endif %}"
+        >
         <small>Creativity -
-            <output name="creativityOutput" id="creativityInputId">5</output>
+            <output name="creativityOutput" id="creativityInputId">0</output>
         </small>
     </label>
     <label for="sad">
-        <input type="range" name="sentiment_sad" id="sad" min="1" max="10"
-               oninput="sadInputId.value = sad.value" value="
-                    {% if note and note.sentiment %} {{ note.sentiment.sad }} {% else %} 0 {% endif %}
-               ">
+        <input type="range" name="sentiment_sad" id="sad" min="0" max="10"
+               oninput="sadInputId.value = sad.value"
+               value="{% if note and note.sentiment %} {{ note.sentiment.sad }} {% else %}0{% endif %}"
+        >
         <small>Sad -
-            <output name="sadOutput" id="sadInputId">5</output>
+            <output name="sadOutput" id="sadInputId">0</output>
         </small>
     </label>
     <label for="anxiety">
-        <input type="range" name="sentiment_anxiety" id="anxiety" min="1" max="10"
-               oninput="anxietyInputId.value = anxiety.value" value="
-                    {% if note and note.sentiment %} {{ note.sentiment.anxiety }} {% else %} 0 {% endif %}
-               ">
+        <input type="range" name="sentiment_anxiety" id="anxiety" min="0" max="10"
+               oninput="anxietyInputId.value = anxiety.value"
+               value="{% if note and note.sentiment %} {{ note.sentiment.anxiety }} {% else %}0{% endif %}"
+        >
         <small>Energetic -
-            <output name="anxietyOutput" id="anxietyInputId">5</output>
+            <output name="anxietyOutput" id="anxietyInputId">0</output>
         </small>
     </label>
     <label for="stress">
-        <input type="range" name="sentiment_stress" id="stress" min="1" max="10"
-               oninput="stressInputId.value = stress.value" value="
-                    {% if note and note.sentiment %} {{ note.sentiment.stress }} {% else %} 0 {% endif %}
-               ">
+        <input type="range" name="sentiment_stress" id="stress" min="0" max="10"
+               oninput="stressInputId.value = stress.value"
+               value="{% if note and note.sentiment %} {{ note.sentiment.stress }} {% else %}0{% endif %}"
+        >
         <small>Anxious -
-            <output name="stressOutput" id="stressInputId">5</output>
+            <output name="stressOutput" id="stressInputId">0</output>
         </small>
     </label>
 </div>
