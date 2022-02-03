@@ -27,7 +27,7 @@ jobs:
         snapshot: true
         tags: "latest"
         buildargs: APP_VERSION
-        no_push: ${{ github.ref_name == 'main' }}
+        no_push: ${{ github.ref_name != 'main' }}
   deploy:
     if: ${{ github.ref_name == 'main' }}
     runs-on: ubuntu-latest
