@@ -1,6 +1,6 @@
 from random import randint
 
-from common.util import current_time_sec, random_str
+from dataengine.common.util import random_str, current_time_sec
 from dataengine.monzo.model.Transaction import Transaction
 from factory.util import rand
 
