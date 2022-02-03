@@ -1,8 +1,6 @@
-name: deploy image
+name: Build and Deploy
 
-on:
-  push:
-    branches: [ main ]
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,11 +27,17 @@ jobs:
         snapshot: true
         tags: "latest"
         buildargs: APP_VERSION
-    - name: install ssh key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
-        name: id_rsa # optional
-        known_hosts: ${{ secrets.KNOWN_HOSTS }}
-    - name: deploy api
-      run: docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy --prune -c dataengine-stack.yml dataengine
+        no_push: ${{ github.ref_name == 'main' }}
+  deploy:
+    if: ${{ github.ref_name == 'main' }}
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: install ssh key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - name: deploy api
+        run: docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy --prune -c dataengine-stack.yml dataengine

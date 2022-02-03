@@ -84,6 +84,7 @@ article .control-nav.right {
     border-bottom-style: none;
     padding-bottom: 0;
     margin-bottom: 0;
+    text-align: right;
 }
 
 details.control-nav .right {
