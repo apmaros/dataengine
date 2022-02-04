@@ -19,6 +19,7 @@ if not is_dev():
     # use only newrelic logging handler
     logger.handlers.clear()
     logger.addHandler(handler)
+    logger.info("Logger for prod environment was setup")
 else:
     logging.basicConfig(
         level=logging.INFO,
@@ -26,4 +27,4 @@ else:
         datefmt='%Y-%m-%d %H:%M:%S',
         handlers=[logging.StreamHandler()]
     )
-    logger.info('logger for development environment was setup')
+    logger.info('Logger for development environment was setup')

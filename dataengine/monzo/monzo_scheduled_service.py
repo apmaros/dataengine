@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from threading import Timer
 from typing import Optional
 
+import newrelic.agent
+
 from dataengine.common.log import logger
 from dataengine.db.influxdb_client import build_influxdb_client
 from dataengine.monzo.monzo_client import MonzoClient
@@ -43,6 +45,7 @@ class MonzoScheduledService(object):
         )
         self.timer.start()
 
+    @newrelic.agent.background_task()
     def _sync_and_schedule(self):
         if not self.is_running:
             logger.warn(f"{self._TASK_NAME}: Attempting to run task that was stopped, skipping")
