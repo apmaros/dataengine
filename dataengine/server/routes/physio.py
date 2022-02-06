@@ -9,9 +9,10 @@ from flask import (
     render_template
 )
 
+from config import DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
 from dataengine.common.log import logger
 from dataengine.server.routes.annotations import requires_auth
-from service.db.physio import put_heart_rate_reading
+from dataengine.service.db.physio import put_heart_rate_reading, get_heart_rate_readings_since
 
 physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
 
@@ -20,7 +21,11 @@ physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
 @requires_auth
 def index():
     profile = session['profile']
-    return render_template('physio/index.html', user_profile=profile)
+    bp_readings = get_heart_rate_readings_since(
+        session['profile']['user_id'],
+        DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
+    )
+    return render_template('physio/index.html', user_profile=profile, bp_readings=bp_readings)
 
 
 @physio_bp.route('/blood_pressure', methods=['POST'])
