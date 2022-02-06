@@ -2,13 +2,10 @@
 
 {% block content %}
     {% include 'back_home_arrow.html' %}
-    {% include 'physio/view_blood_pressure_readings.html' %}
+    {% if bp_readings %}
+        {% include 'physio/view_blood_pressure_readings.html' %}
+    {% endif %}
     <article>
-        <details class="control-nav" open>
-            <summary>
-                <span class="control-nav material-icons">add_circle</span>
-            </summary>
-            {% include 'physio/new_blood_pressure_reading_partial.html' %}
-        </details>
+        {% include 'physio/new_blood_pressure_reading_partial.html' %}
     </article>
 {% endblock %}
