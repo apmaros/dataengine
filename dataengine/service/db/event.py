@@ -1,8 +1,7 @@
 import typing
 import uuid
 
-from sqlalchemy import func, desc
-from sqlalchemy import select
+from sqlalchemy import select, func, desc
 
 from dataengine import Context
 from dataengine.common.util import days_ago_datetime
