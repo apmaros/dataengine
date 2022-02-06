@@ -1,0 +1,41 @@
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    const labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+    ];
+
+    const data = {
+        datasets: [
+            {
+                label: 'systolic',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [{x: '2016-12-24', y: 20}, {x: '2016-12-25', y: 10}, {x: '2016-12-26', y: 30}],
+            },
+            {
+                label: 'diastolic',
+                backgroundColor: 'rgb(131,52,234)',
+                borderColor: 'rgb(131,52,234)',
+                data: [{x: '2016-12-24', y: 30}, {x: '2016-12-25', y: 20}, {x: '2016-12-26', y: 40}],
+            }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
