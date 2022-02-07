@@ -83,7 +83,6 @@
                 label: 'anxiety',
                 backgroundColor: 'rgb(13,85,243)',
                 borderColor: 'rgb(13,85,243)',
-                active: false,
                 data: [
                     {% for note in notes|reverse %}
                         {% if note.sentiment.anxiety %}
