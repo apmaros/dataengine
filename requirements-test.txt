@@ -7,9 +7,7 @@
 alembic==1.7.5
     # via -r requirements/requirements.in
 attrs==21.4.0
-    # via
-    #   -r requirements/requirements.in
-    #   pytest
+    # via -r requirements/requirements.in
 authlib==0.15.5
     # via -r requirements/requirements.in
 certifi==2021.10.8
@@ -55,7 +53,6 @@ importlib-metadata==4.10.1
     #   alembic
     #   click
     #   pluggy
-    #   pytest
     #   redis
     #   sqlalchemy
 importlib-resources==5.4.0
@@ -65,9 +62,7 @@ importlib-resources==5.4.0
 influxdb-client==1.25.0
     # via -r requirements/requirements.in
 iniconfig==1.1.1
-    # via
-    #   -r requirements/requirements.in
-    #   pytest
+    # via -r requirements/requirements.in
 itsdangerous==2.0.1
     # via
     #   -r requirements/requirements.in
@@ -90,18 +85,13 @@ newrelic==7.4.0.172
 packaging==21.3
     # via
     #   -r requirements/requirements.in
-    #   pytest
     #   redis
 pluggy==1.0.0
-    # via
-    #   -r requirements/requirements.in
-    #   pytest
+    # via -r requirements/requirements.in
 psycopg2-binary==2.9.3
     # via -r requirements/requirements.in
 py==1.11.0
-    # via
-    #   -r requirements/requirements.in
-    #   pytest
+    # via -r requirements/requirements.in
 pycparser==2.21
     # via
     #   -r requirements/requirements.in
@@ -110,12 +100,6 @@ pyparsing==3.0.7
     # via
     #   -r requirements/requirements.in
     #   packaging
-pytest-mock==3.7.0
-    # via -r requirements/requirements-test.in
-pytest==6.2.5
-    # via
-    #   -r requirements/requirements-test.in
-    #   pytest-mock
 python-dateutil==2.8.2
     # via
     #   -r requirements/requirements.in
@@ -142,9 +126,7 @@ sqlalchemy==1.4.31
     #   -r requirements/requirements.in
     #   alembic
 toml==0.10.2
-    # via
-    #   -r requirements/requirements.in
-    #   pytest
+    # via -r requirements/requirements.in
 typing-extensions==4.0.1
     # via
     #   -r requirements/requirements.in
