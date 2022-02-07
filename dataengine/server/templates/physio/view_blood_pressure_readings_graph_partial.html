@@ -3,10 +3,10 @@
         datasets: [
             {
                 label: 'systolic',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgb(255,133,158)',
+                borderColor: 'rgb(255,133,158)',
                 data: [
-                    {% for reading in bp_readings %}
+                    {% for reading in bp_readings|reverse %}
                         {x: '{{ reading.created_at|format_label_datetime }}', y: {{ reading.systolic }}},
                     {% endfor %}
                 ],
@@ -16,7 +16,7 @@
                 backgroundColor: 'rgb(131,52,234)',
                 borderColor: 'rgb(131,52,234)',
                 data: [
-                    {% for reading in bp_readings %}
+                    {% for reading in bp_readings|reverse %}
                         {x: '{{ reading.created_at|format_label_datetime }}', y: {{ reading.diastolic }}},
                     {% endfor %}
                 ],
@@ -26,7 +26,7 @@
                 backgroundColor: 'rgb(208,62,62)',
                 borderColor: 'rgb(208,62,62)',
                 data: [
-                    {% for reading in bp_readings %}
+                    {% for reading in bp_readings|reverse %}
                         {x: '{{ reading.created_at|format_label_datetime }}', y: {{ reading.heart_rate }}},
                     {% endfor %}
                 ],
