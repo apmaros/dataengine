@@ -17,7 +17,7 @@ from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_CO
 from dataengine.context import Context
 from dataengine.db.postgres.config import DbConfig
 from dataengine.db.postgres.sesion import get_session
-from dataengine.server.util import format_datetime, split_paragraphs
+from dataengine.server.util import format_datetime, split_paragraphs, format_label_datetime
 
 SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
 TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")
@@ -47,6 +47,7 @@ def create_app():
     # Template filters
     flask_app.jinja_env.filters['format_datetime'] = format_datetime
     flask_app.jinja_env.filters['split_paragraphs'] = split_paragraphs
+    flask_app.jinja_env.filters['format_label_datetime'] = format_label_datetime
 
     # Register Routes
     from server.routes.core import core_bp

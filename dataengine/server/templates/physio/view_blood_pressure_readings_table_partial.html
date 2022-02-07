@@ -1,0 +1,23 @@
+<details>
+    <summary>See Readings</summary>
+    <table>
+        <header>
+            <tr>
+                <th>Date</th>
+                <th>Systolic</th>
+                <th>Diastolic</th>
+                <th>Heart rate</th>
+                <th>Last Activity</th>
+            </tr>
+        </header>
+        {% for reading in bp_readings %}
+            <tr>
+                <td>{{ reading.created_at|format_datetime }}</td>
+                <td>{{ reading.systolic }}</td>
+                <td>{{ reading.diastolic }}</td>
+                <td>{{ reading.heart_rate }}</td>
+                <td>{{ reading.last_activity }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</details>

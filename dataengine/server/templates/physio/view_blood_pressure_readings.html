@@ -1,51 +1,9 @@
-<div>
-    <canvas id="bloodPressureReadingChart"></canvas>
+<article>
+    <canvas id="bloodPressureReadingChart" class="chart"></canvas>
+</article>
+
+<div class="floating">
+    {% include 'physio/view_blood_pressure_readings_table_partial.html' %}
 </div>
 
-<script>
-    const data = {
-        datasets: [
-            {
-                label: 'systolic',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: [
-                    {% for reading in bp_readings %}
-                        {x: '{{ reading.created_at }}', y: {{ reading.systolic }}},
-                    {% endfor %}
-                ],
-            },
-            {
-                label: 'diastolic',
-                backgroundColor: 'rgb(131,52,234)',
-                borderColor: 'rgb(131,52,234)',
-                data: [
-                    {% for reading in bp_readings %}
-                        {x: '{{ reading.created_at }}', y: {{ reading.diastolic }}},
-                    {% endfor %}
-                ],
-            },
-            {
-                label: 'heart_rate',
-                backgroundColor: 'rgb(208,62,62)',
-                borderColor: 'rgb(208,62,62)',
-                data: [
-                    {% for reading in bp_readings %}
-                        {x: '{{ reading.created_at }}', y: {{ reading.heart_rate }}},
-                    {% endfor %}
-                ],
-            }
-        ]
-    };
-
-    const config = {
-        type: 'line',
-        data: data,
-        options: {}
-    };
-
-    const bloodPressureReadingChart = new Chart(
-        document.getElementById('bloodPressureReadingChart'),
-        config
-    );
-</script>
+{% include 'physio/view_blood_pressure_readings_graph.html' %}
