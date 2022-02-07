@@ -1,0 +1,91 @@
+<script>
+    const data = {
+        datasets: [
+            {
+                label: 'happiness',
+                backgroundColor: 'rgb(174,255,133)',
+                borderColor: 'rgb(174,255,133)',
+                data: [
+                    {% for note in notes|reverse %}
+                        {
+                            x: '{{ note.note.created_at|format_label_datetime }}',
+                            y: {{ note.sentiment.happiness }}
+                        },
+                    {% endfor %}
+                ],
+            },
+            {
+                label: 'creativity',
+                backgroundColor: 'rgb(131,52,234)',
+                borderColor: 'rgb(131,52,234)',
+                data: [
+                    {% for note in notes|reverse %}
+                        {
+                            x: '{{ note.note.created_at|format_label_datetime }}',
+                            y: {% if note.sentiment.creativity %} {{ note.sentiment.creativity }}
+                                } {% else %} 0 {% endif %},
+                    {% endfor %}
+                ],
+            },
+            {
+                label: 'stress',
+                backgroundColor: 'rgb(162,75,75)',
+                borderColor: 'rgb(162,75,75)',
+                data: [
+                    {% for note in notes|reverse %}
+                        {
+                            x: '{{ note.note.created_at|format_label_datetime }}',
+                            y: {% if note.sentiment.stress %} {{ note.sentiment.stress }}} {% else %} 0 {% endif %},
+                    {% endfor %}
+                ],
+            },
+            {
+                label: 'energy',
+                backgroundColor: 'rgb(255,137,137)',
+                borderColor: 'rgb(255,137,137)',
+                data: [
+                    {% for note in notes|reverse %}
+                        {
+                            x: '{{ note.note.created_at|format_label_datetime }}',
+                            y: {% if note.sentiment.energy %} {{ note.sentiment.energy }}} {% else %} 0 {% endif %},
+                    {% endfor %}
+                ],
+            },
+            {
+                label: 'sad',
+                backgroundColor: 'rgb(137,184,255)',
+                borderColor: 'rgb(137,184,255)',
+                data: [
+                    {% for note in notes|reverse %}
+                        {
+                            x: '{{ note.note.created_at|format_label_datetime }}',
+                            y: {% if note.sentiment.sad %} {{ note.sentiment.sad }}} {% else %} 0 {% endif %},
+                    {% endfor %}
+                ],
+            },
+            {
+                label: 'anxiety',
+                backgroundColor: 'rgb(13,85,243)',
+                borderColor: 'rgb(13,85,243)',
+                data: [
+                    {% for note in notes|reverse %}
+                        {
+                            x: '{{ note.note.created_at|format_label_datetime }}',
+                            y: {% if note.sentiment.anxiety %} {{ note.sentiment.anxiety }}} {% else %} 0 {% endif %}
+                    {% endfor %}
+                ],
+            }
+        ]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+
+    const noteSentimentChart = new Chart(
+        document.getElementById('noteSentimentChart'),
+        config
+    );
+</script>

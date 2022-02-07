@@ -5,5 +5,10 @@
     <article>
         {% include 'note/new_note_partial.html' %}
     </article>
-    {% include 'note/note_view_partial.html' %}
+    <article>
+        <canvas id="noteSentimentChart" class="chart"></canvas>
+    </article>
+
+    {% include 'note/view_note_table_partial.html' %}
+    {% include 'note/view_note_chart_script.html' %}
 {% endblock %}
