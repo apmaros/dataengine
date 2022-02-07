@@ -20,6 +20,7 @@
                 label: 'creativity',
                 backgroundColor: 'rgb(131,52,234)',
                 borderColor: 'rgb(131,52,234)',
+                hidden: true,
                 data: [
                     {% for note in notes|reverse %}
                         {% if note.sentiment.creativity %}
@@ -50,6 +51,7 @@
                 label: 'energy',
                 backgroundColor: 'rgb(255,137,137)',
                 borderColor: 'rgb(255,137,137)',
+                hidden: true,
                 data: [
                     {% for note in notes|reverse %}
                         {% if note.sentiment.energy %}
@@ -65,6 +67,7 @@
                 label: 'sad',
                 backgroundColor: 'rgb(137,184,255)',
                 borderColor: 'rgb(137,184,255)',
+                hidden: true,
                 data: [
                     {% for note in notes|reverse %}
                         {% if note.sentiment.sad %}
@@ -80,6 +83,7 @@
                 label: 'anxiety',
                 backgroundColor: 'rgb(13,85,243)',
                 borderColor: 'rgb(13,85,243)',
+                active: false,
                 data: [
                     {% for note in notes|reverse %}
                         {% if note.sentiment.anxiety %}
