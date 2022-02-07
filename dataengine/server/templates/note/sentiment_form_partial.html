@@ -40,7 +40,7 @@
                oninput="anxietyInputId.value = anxiety.value"
                value="{% if note and note.sentiment %} {{ note.sentiment.anxiety }} {% else %}0{% endif %}"
         >
-        <small>Energetic -
+        <small>Anxiety -
             <output name="anxietyOutput" id="anxietyInputId">0</output>
         </small>
     </label>
@@ -49,7 +49,7 @@
                oninput="stressInputId.value = stress.value"
                value="{% if note and note.sentiment %} {{ note.sentiment.stress }} {% else %}0{% endif %}"
         >
-        <small>Anxious -
+        <small>Stress -
             <output name="stressOutput" id="stressInputId">0</output>
         </small>
     </label>
