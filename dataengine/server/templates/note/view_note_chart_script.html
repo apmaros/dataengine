@@ -7,10 +7,12 @@
                 borderColor: 'rgb(174,255,133)',
                 data: [
                     {% for note in notes|reverse %}
-                        {
-                            x: '{{ note.note.created_at|format_label_datetime }}',
-                            y: {{ note.sentiment.happiness }}
-                        },
+                        {% if note.sentiment.happiness %}
+                            {
+                                x: '{{ note.note.created_at|format_label_datetime }}',
+                                y: {{ note.sentiment.happiness }}
+                            },
+                        {% endif %}
                     {% endfor %}
                 ],
             },
@@ -20,10 +22,12 @@
                 borderColor: 'rgb(131,52,234)',
                 data: [
                     {% for note in notes|reverse %}
-                        {
-                            x: '{{ note.note.created_at|format_label_datetime }}',
-                            y: {% if note.sentiment.creativity %} {{ note.sentiment.creativity }}
-                                } {% else %} 0 {% endif %},
+                        {% if note.sentiment.creativity %}
+                            {
+                                x: '{{ note.note.created_at|format_label_datetime }}',
+                                y: {{ note.sentiment.creativity }}
+                            },
+                        {% endif %}
                     {% endfor %}
                 ],
             },
@@ -33,9 +37,12 @@
                 borderColor: 'rgb(162,75,75)',
                 data: [
                     {% for note in notes|reverse %}
-                        {
-                            x: '{{ note.note.created_at|format_label_datetime }}',
-                            y: {% if note.sentiment.stress %} {{ note.sentiment.stress }}} {% else %} 0 {% endif %},
+                        {% if note.sentiment.stress %}
+                            {
+                                x: '{{ note.note.created_at|format_label_datetime }}',
+                                y: {{ note.sentiment.stress }}
+                            },
+                        {% endif %}
                     {% endfor %}
                 ],
             },
@@ -45,9 +52,12 @@
                 borderColor: 'rgb(255,137,137)',
                 data: [
                     {% for note in notes|reverse %}
-                        {
-                            x: '{{ note.note.created_at|format_label_datetime }}',
-                            y: {% if note.sentiment.energy %} {{ note.sentiment.energy }}} {% else %} 0 {% endif %},
+                        {% if note.sentiment.energy %}
+                            {
+                                x: '{{ note.note.created_at|format_label_datetime }}',
+                                y: {{ note.sentiment.energy }}
+                            },
+                        {% endif %}
                     {% endfor %}
                 ],
             },
@@ -57,9 +67,12 @@
                 borderColor: 'rgb(137,184,255)',
                 data: [
                     {% for note in notes|reverse %}
-                        {
-                            x: '{{ note.note.created_at|format_label_datetime }}',
-                            y: {% if note.sentiment.sad %} {{ note.sentiment.sad }}} {% else %} 0 {% endif %},
+                        {% if note.sentiment.sad %}
+                            {
+                                x: '{{ note.note.created_at|format_label_datetime }}',
+                                y: {{ note.sentiment.sad }}
+                            },
+                        {% endif %}
                     {% endfor %}
                 ],
             },
@@ -69,9 +82,12 @@
                 borderColor: 'rgb(13,85,243)',
                 data: [
                     {% for note in notes|reverse %}
-                        {
-                            x: '{{ note.note.created_at|format_label_datetime }}',
-                            y: {% if note.sentiment.anxiety %} {{ note.sentiment.anxiety }}} {% else %} 0 {% endif %}
+                        {% if note.sentiment.anxiety %}
+                            {
+                                x: '{{ note.note.created_at|format_label_datetime }}',
+                                y: {{ note.sentiment.anxiety }}
+                            },
+                        {% endif %}
                     {% endfor %}
                 ],
             }

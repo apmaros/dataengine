@@ -13,3 +13,10 @@ def format_datetime(value, fmt=DATETIME_VIEW_FORMAT):
 
 def split_paragraphs(text):
     return text.split('\n')
+
+
+def or_zero(value):
+    if value:
+        return value
+    else:
+        return 'null'
