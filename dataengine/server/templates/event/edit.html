@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'back_home_arrow.html' %}
+    <form action="{{ url_for('event.edit') }}" method="post">
+        {% include 'event/event_form_partial.html' %}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
