@@ -6,10 +6,23 @@
         <input type="text" name="body" id="body" placeholder="Description" required
                value="{% if event and event.body %}{{ event.body }}{% endif %}">
     </label>
+</div>
+<div class="grid">
     <label for="activity">
         <input type="text" name="activity" id="activity" placeholder="Activity"
                value="{% if event and event.activity %}{{ event.activity }}{% endif %}">
     </label>
+<label for="duration">
+        <input type="number" name="duration" id="duration" placeholder="Duration"
+               value="{% if event and  event.duration %}{{ event.duration }}{% endif %}">
+        <small>in minutes</small>
+    </label>
+    <label for="time">
+        <input type="datetime-local" name="time" id="time"
+               value="{% if event and event.time %}{{ event.time }}{% endif %}">
+        <small>Time (Optional)</small>
+    </label>
+
     <label for="feel">
         <input type="range" name="feel" id="feel" min="1" max="5" placeholder="3"
                oninput="feelInputId.value = feel.value"
@@ -17,17 +30,5 @@
         <small>Feel -
             <output name="feelOutput" id="feelInputId">3</output>
         </small>
-    </label>
-</div>
-<div class="grid">
-    <label for="time">
-        <input type="datetime-local" name="time" id="time"
-               value="{% if event and event.time %}{{ event.time }}{% endif %}">
-        <small>Time (Optional)</small>
-    </label>
-    <label for="duration">
-        <input type="number" name="duration" id="duration" placeholder="Duration"
-               value="{% if event and  event.duration %}{{ event.duration }}{% endif %}">
-        <small>in minutes</small>
     </label>
 </div>
