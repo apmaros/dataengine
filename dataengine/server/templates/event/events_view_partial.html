@@ -12,6 +12,15 @@
                 <span>feel: {{ event.feel }}</span>
             {% endif %}
         </div>
-        <div class="footer">{{ event.time|format_datetime }}</div>
+        <div class="footer">
+            {{ event.time|format_datetime }}
+            <details class="control-nav right">
+                <summary>
+                    <span class="control-nav right material-icons">settings</span>
+                </summary>
+                <a href="{{ url_for('event.edit', id=event.id) }}">edit</a> |
+                <a href="{{ url_for('event.delete', id=event.id) }}">delete</a>
+            </details>
+        </div>
     </article>
 {% endfor %}
