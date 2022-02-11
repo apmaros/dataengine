@@ -1,6 +1,6 @@
 # Budget Desk
 [![deploy image](https://github.com/apmaros/budgetapp/actions/workflows/deploy_image.yml/badge.svg)](https://github.com/apmaros/budgetapp/actions/workflows/deploy_image.yml)
-[![CodeQL](https://github.com/apmaros/budgetapp/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/apmaros/budgetapp/actions/workflows/codeql-analysis.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/apmaros/dataengine/badge)](https://www.codefactor.io/repository/github/apmaros/dataengine)
 
 ## ENV Variables
 
