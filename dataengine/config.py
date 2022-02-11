@@ -53,6 +53,9 @@ DB_NAME = get_secret("POSTGRES_DB") if get_secret("POSTGRES_DB") else 'dataengin
 # Service
 EVENT_INFLUX_BUCKET = 'events'
 
+# USER Metric names
+ALCOHOL_METRIC = 'alcohol_units'
+
 # View
 # DDD at hh:mm (dd/mm/yyyy)
 DATETIME_VIEW_FORMAT = "%a at %H:%M (%d/%m/%y)"

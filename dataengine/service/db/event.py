@@ -18,14 +18,14 @@ def get_event(note_id):
 
 
 def get_events_since(user_id, days_ago) -> typing.List[Event]:
-    statement = (select(Event)
+    stmt = (select(Event)
                  .filter(Event.user_id == user_id)
                  .filter(Event.time > days_ago_datetime(days_ago))
                  .order_by(desc(Event.time))
                  )
 
     with Context.db_session() as session:
-        events = session.execute(statement).scalars().all()
+        events = session.execute(stmt).scalars().all()
 
     return events
 
