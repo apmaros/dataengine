@@ -51,7 +51,7 @@ class MonzoClient(object):
             account_id=self.config.monzo_account_id
         ).get('transactions', [])
 
-        return list(map(lambda raw_tx: build_transaction(raw_tx), raw_txs))
+        return list(map(build_transaction, raw_txs))
 
     def get_all_transactions(self):
         return self.get_transactions(None, None)

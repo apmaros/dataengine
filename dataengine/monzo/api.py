@@ -122,11 +122,11 @@ def get_transactions(
     content: Dict = result.json()
     if result.status_code == 200:
         return content
-    else:
-        raise ApiError(
-            content.get('code', 'unknown'),
-            content.get('message', 'Unknown error')
-        )
+
+    raise ApiError(
+        content.get('code', 'unknown'),
+        content.get('message', 'Unknown error')
+    )
 
 
 def get_accounts(token: str):
