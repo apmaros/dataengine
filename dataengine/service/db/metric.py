@@ -3,8 +3,8 @@ from datetime import datetime
 
 from sqlalchemy import select, desc
 
-from common.util import days_ago_datetime
 from dataengine import Context
+from dataengine.common.util import days_ago_datetime
 from dataengine.model.dao.metric import Metric
 
 
