@@ -1,0 +1,17 @@
+<form action="{{ url_for('metric.new') }}" method="post">
+    <input type="hidden" id="metric-name" name="metric-name" value="alcohol_units">
+
+    <div class="grid">
+        <label for="value">
+            <input type="number" name="value" id="value" placeholder="Value" required>
+        </label>
+        <label for="event">
+            <input type=text name="event" id="event" placeholder="Event">
+        </label>
+    </div>
+    <label for="time">
+        <input type="datetime-local" name="time" id="time">
+        <small>Time (Optional)</small>
+    </label>
+    <button type="submit">Submit</button>
+</form>

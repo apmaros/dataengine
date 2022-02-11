@@ -25,7 +25,7 @@ def get_events_since(user_id, days_ago) -> typing.List[Event]:
                  )
 
     with Context.db_session() as session:
-        events = session.execute(statement).scalars().all()
+        events = session.execute(stmt).scalars().all()
 
     return events
 

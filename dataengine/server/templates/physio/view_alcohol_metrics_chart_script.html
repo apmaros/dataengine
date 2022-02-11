@@ -1,0 +1,27 @@
+<script>
+    const alcoholMetricsData = {
+        datasets: [
+            {
+                label: 'value',
+                backgroundColor: 'rgb(255,133,158)',
+                borderColor: 'rgb(255,133,158)',
+                data: [
+                    {% for metric in alcohol_metrics|reverse %}
+                        {x: '{{ metric.time|format_label_datetime }}', y: {{ metric.value }}},
+                    {% endfor %}
+                ],
+            },
+        ]
+    };
+
+    const alcoholMetricsConfig = {
+        type: 'line',
+        data: alcoholMetricsData,
+        options: {}
+    };
+
+    const alcoholMetricChart = new Chart(
+        document.getElementById('alcoholMetricsChart'),
+        alcoholMetricsConfig
+    );
+</script>

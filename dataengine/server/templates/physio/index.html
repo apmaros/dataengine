@@ -5,7 +5,17 @@
     {% if bp_readings %}
         {% include 'physio/view_blood_pressure_readings.html' %}
     {% endif %}
-    <article>
-        {% include 'physio/new_blood_pressure_reading_partial.html' %}
-    </article>
+    {% if alcohol_metrics %}
+        {% include 'physio/view_alcohol_metrics.html' %}
+    {% endif %}
+    <div class="grid">
+        <article>
+            <header>Blood Pressure Reading</header>
+            {% include 'physio/new_blood_pressure_reading_partial.html' %}
+        </article>
+        <article>
+            <header>Alcohol Units</header>
+            {% include 'physio/new_alcohol_units_partial.html' %}
+        </article>
+    </div>
 {% endblock %}
