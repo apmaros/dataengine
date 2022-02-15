@@ -1,7 +1,7 @@
 import typing
 import uuid
 
-from sqlalchemy import update, select, func, desc
+from sqlalchemy import delete, update, select, func, desc
 
 from dataengine import Context
 from dataengine.common.util import days_ago_datetime
@@ -52,6 +52,12 @@ def update_event(user_id, args):
     )
     with Context.db_session() as session:
         session.execute(stmt)
+        session.commit()
+
+
+def delete_event(note_id: str):
+    with Context.db_session() as session:
+        session.execute(delete(Event).where(Event.id == note_id))
         session.commit()
 
 
