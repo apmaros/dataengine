@@ -12,7 +12,7 @@ from flask import (
 from dataengine.common.log import logger
 from dataengine.config import DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
 from dataengine.server.routes.annotations import requires_auth
-from dataengine.service.db.event import get_events_since, put_event, get_event, update_event
+from dataengine.service.db.event import get_events_since, put_event, get_event, update_event, delete_event
 
 event_bp = Blueprint('event', __name__, url_prefix='/event')
 
@@ -64,4 +64,11 @@ def edit_post():
 @event_bp.route('/delete')
 @requires_auth
 def delete():
-    pass
+    try:
+        delete_event(request.args['id'])
+        flash('👌 Note was deleted', 'success')
+    except Exception as e:
+        logger.error(f"Failed to delete note {e}")
+        flash('Failed to delete a note due to an error', 'error')
+
+    return make_response(redirect(url_for('event.index')))
