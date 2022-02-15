@@ -68,7 +68,7 @@ def delete():
         delete_event(request.args['id'])
         flash('👌 Note was deleted', 'success')
     except Exception as e:
-        logger.error(f"Failed to delete note {e}")
-        flash('Failed to delete a note due to an error', 'error')
+        logger.error(f"Failed to delete event {e}")
+        flash('Failed to delete a event due to an error', 'error')
 
     return make_response(redirect(url_for('event.index')))
