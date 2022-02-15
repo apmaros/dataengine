@@ -1,26 +1,37 @@
 {% for event in events %}
-    <article class="data">
-        <div class="content">{{ event.body }}</div>
+    <article class="list">
+        <div class="body">{{ event.body }}</div>
         <div class="labels">
             {% if event.activity %}
-                <span>activity: {{ event.activity }}</span>
+                <span class="label">
+                    <span class="key">activity:</span>
+                    <span class="value">{{ event.activity }}</span>
+                </span>
             {% endif %}
             {% if event.duration %}
-                <span>duration: {{ event.duration }}</span>
+                <span class="label">
+                    <span class="key">duration:</span>
+                    <span class="value">{{ event.duration }}</span>
+
+                </span>
             {% endif %}
             {% if event.feel %}
-                <span>feel: {{ event.feel }}</span>
+                <span class="label">
+                    <span class="key">feel:</span>
+                    <span class="value">{{ event.feel }}</span>
+                </span>
             {% endif %}
-        </div>
-        <div class="footer">
-            {{ event.time|format_datetime }}
-            <details class="control-nav right">
-                <summary>
-                    <span class="control-nav right material-icons">settings</span>
-                </summary>
-                <a href="{{ url_for('event.edit', id=event.id) }}">edit</a> |
-                <a href="{{ url_for('event.delete', id=event.id) }}">delete</a>
-            </details>
+            {% if event.time %}
+                <span class="label">
+                    <span class="key">time:</span>
+                    <span class="value">{{ event.time|format_datetime }}</span>
+                </span>
+            {% endif %}
+            <span class="control-nav">
+                <a href="{{ url_for('event.delete', id=event.id) }}"><span
+                        class="summary material-icons">clear</span></a>
+                <a href="{{ url_for('event.edit', id=event.id) }}"><span class="summary material-icons">edit</span></a>
+            </span>
         </div>
     </article>
 {% endfor %}

@@ -31,6 +31,47 @@ article {
     margin: 10px;
 }
 
+/* Article list*/
+article.list {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 10px;
+    border: 1px solid #25394a;
+    border-radius: 0;
+}
+
+article.list .body {
+    font-size: 1.3em;
+}
+
+article.list .labels {
+    padding-top: 5px;
+    color: #8d98a1;
+}
+
+article.list:hover {
+    background-color: #172530;;
+}
+
+article.list .labels .label {
+    margin-right: 10px;
+}
+
+article.list .labels .key {
+    font-weight: 600;
+}
+
+article.list .labels .value {
+    font-weight: 400;
+}
+
+article.list span.summary {
+    float: right;
+    font-size: 0.95em;
+}
+
+/* end article list */
+
 a.brand-logo {
     color: #fafffb;
     font-weight: bolder;
@@ -127,7 +168,7 @@ article.data .labels {
     font-size: 0.8em;
 }
 
-article.data .labels span {
+.data .labels span {
     background-color: #0f2b38;
     box-shadow: 0 1px 3px #0b0f12;
     padding: 10px;
@@ -178,3 +219,4 @@ article.announcement .message {
     margin-top: 10px;
     margin-bottom: 20px;
 }
+
