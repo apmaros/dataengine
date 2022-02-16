@@ -45,6 +45,7 @@ article.list .body {
 }
 
 article.list .labels {
+    font-size: 0.84em;
     padding-top: 5px;
     color: #8d98a1;
 }
@@ -219,4 +220,3 @@ article.announcement .message {
     margin-top: 10px;
     margin-bottom: 20px;
 }
-
