@@ -23,8 +23,8 @@
             {% endif %}
             {% if event.time %}
                 <span class="label">
-                    <span class="key">time:</span>
-                    <span class="value">{{ event.time|format_datetime }}</span>
+                    <span class="key">time: </span>
+                    <span class="value">{{ event.time|format_label_datetime }}</span>
                 </span>
             {% endif %}
             <span class="control-nav">
