@@ -42,6 +42,7 @@ article.list {
 
 article.list .body {
     font-size: 1.3em;
+    font-weight: 300;
 }
 
 article.list .labels {
@@ -59,7 +60,7 @@ article.list .labels .label {
 }
 
 article.list .labels .key {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 article.list .labels .value {
