@@ -13,6 +13,7 @@ from dataengine.common.log import logger
 from dataengine.config import DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
 from dataengine.server.routes.annotations import requires_auth
 from dataengine.service.db.event import get_events_since, put_event, get_event, update_event, delete_event
+from dataengine.service.event import group_events_by_date
 
 event_bp = Blueprint('event', __name__, url_prefix='/event')
 
@@ -22,7 +23,12 @@ event_bp = Blueprint('event', __name__, url_prefix='/event')
 def index():
     profile = session['profile']
     events = get_events_since(profile['user_id'], DEFAULT_DISPLAY_RESOURCE_DAYS_AGO)
-    return render_template('event/index.html', user_profile=profile, events=events)
+
+    return render_template(
+        'event/index.html',
+        user_profile=profile,
+        grouped_events=group_events_by_date(events).values(),
+    )
 
 
 @event_bp.route('/', methods=['POST'])

@@ -12,8 +12,8 @@ from flask import (
 from dataengine.common.log import logger
 from dataengine.config import DEFAULT_DISPLAY_RESOURCE_DAYS_AGO, ALCOHOL_METRIC
 from dataengine.server.routes.annotations import requires_auth
+from dataengine.service.db.metric import get_metrics_since
 from dataengine.service.db.physio import put_heart_rate_reading, get_heart_rate_readings_since
-from service.db.metric import get_metrics_since
 
 physio_bp = Blueprint('physio', __name__, url_prefix='/physio')
 

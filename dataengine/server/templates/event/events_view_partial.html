@@ -1,37 +1,41 @@
-{% for event in events %}
-    <article class="list">
-        <div class="body">{{ event.body }}</div>
-        <div class="labels">
-            {% if event.activity %}
-                <span class="label">
-                    <span class="key">activity:</span>
-                    <span class="value">{{ event.activity }}</span>
-                </span>
-            {% endif %}
-            {% if event.duration %}
-                <span class="label">
-                    <span class="key">duration:</span>
-                    <span class="value">{{ event.duration }}</span>
+{% for group in grouped_events %}
+    <div class="head">{{ group.key }}</div>
+    {% for event in group.value %}
+        <article class="list">
+            <div class="body">{{ event.body }}</div>
+            <div class="labels">
+                {% if event.activity %}
+                    <span class="label">
+                            <span class="key">activity:</span>
+                            <span class="value">{{ event.activity }}</span>
+                        </span>
+                {% endif %}
+                {% if event.duration %}
+                    <span class="label">
+                            <span class="key">duration:</span>
+                            <span class="value">{{ event.duration }}</span>
 
-                </span>
-            {% endif %}
-            {% if event.feel %}
-                <span class="label">
-                    <span class="key">feel:</span>
-                    <span class="value">{{ event.feel }}</span>
-                </span>
-            {% endif %}
-            {% if event.time %}
-                <span class="label">
-                    <span class="key">time: </span>
-                    <span class="value">{{ event.time|format_label_datetime }}</span>
-                </span>
-            {% endif %}
-            <span class="control-nav">
-                <a href="{{ url_for('event.delete', id=event.id) }}"><span
-                        class="summary material-icons">clear</span></a>
-                <a href="{{ url_for('event.edit', id=event.id) }}"><span class="summary material-icons">edit</span></a>
-            </span>
-        </div>
-    </article>
+                        </span>
+                {% endif %}
+                {% if event.feel %}
+                    <span class="label">
+                            <span class="key">feel:</span>
+                            <span class="value">{{ event.feel }}</span>
+                        </span>
+                {% endif %}
+                {% if event.time %}
+                    <span class="label">
+                            <span class="key">time: </span>
+                            <span class="value">{{ event.time|format_label_datetime }}</span>
+                        </span>
+                {% endif %}
+                <span class="control-nav">
+                        <a href="{{ url_for('event.delete', id=event.id) }}"><span
+                                class="summary material-icons">clear</span></a>
+                        <a href="{{ url_for('event.edit', id=event.id) }}"><span
+                                class="summary material-icons">edit</span></a>
+                    </span>
+            </div>
+        </article>
+    {% endfor %}
 {% endfor %}

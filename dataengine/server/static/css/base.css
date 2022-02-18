@@ -32,9 +32,13 @@ article {
 }
 
 /* Article list*/
+
+.head {
+    padding: 10px;
+}
+
 article.list {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
     padding: 10px;
     border: 1px solid #25394a;
     border-radius: 0;
