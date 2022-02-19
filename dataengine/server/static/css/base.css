@@ -31,10 +31,29 @@ article {
     margin: 10px;
 }
 
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #1095c1;
+    border-radius: 25px;
+    display: inline-block;
+}
+
 /* Article list*/
 
 .head {
     padding: 10px;
+    color: #3189a6;
+}
+
+
+.article-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left-style: solid;
+    border-left-color: #1095c1;
+    margin-left: 5px;
 }
 
 article.list {
