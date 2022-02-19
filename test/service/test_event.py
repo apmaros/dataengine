@@ -17,8 +17,8 @@ def test_group_by_date_groups_events_with_the_same_date():
     grouped = group_events_by_date([event, another_event, third_event])
 
     assert len(grouped) == 2
-    assert grouped['16-02-2022'].key == '16-02-2022'
-    assert grouped['16-02-2022'].value == [event]
+    assert grouped['Wed, 16-02-2022'].key == 'Wed, 16-02-2022'
+    assert grouped['Wed, 16-02-2022'].value == [event]
 
-    assert grouped['17-02-2022'].key == '17-02-2022'
-    assert grouped['17-02-2022'].value == [another_event, third_event]
+    assert grouped['Thu, 17-02-2022'].key == 'Thu, 17-02-2022'
+    assert grouped['Thu, 17-02-2022'].value == [another_event, third_event]
