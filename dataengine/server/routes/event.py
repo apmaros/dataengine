@@ -23,11 +23,12 @@ event_bp = Blueprint('event', __name__, url_prefix='/event')
 def index():
     profile = session['profile']
     events = get_events_since(profile['user_id'], DEFAULT_DISPLAY_RESOURCE_DAYS_AGO)
+    grouped_events = group_events_by_date(events).values()
 
     return render_template(
         'event/index.html',
         user_profile=profile,
-        grouped_events=group_events_by_date(events).values(),
+        grouped_events=grouped_events,
     )
 
 

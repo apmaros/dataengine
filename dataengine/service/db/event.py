@@ -1,7 +1,7 @@
 import typing
 import uuid
 
-from sqlalchemy import delete, update, select, func, desc
+from sqlalchemy import delete, update, select, or_, desc
 
 from dataengine import Context
 from dataengine.common.util import days_ago_datetime
@@ -20,7 +20,10 @@ def get_event(note_id):
 def get_events_since(user_id, days_ago) -> typing.List[Event]:
     stmt = (select(Event)
             .filter(Event.user_id == user_id)
-            .filter(Event.time > days_ago_datetime(days_ago))
+            .filter(or_(
+        Event.time == None,
+        Event.time > days_ago_datetime(days_ago))
+    )
             .order_by(desc(Event.time))
             )
 
@@ -72,6 +75,6 @@ def _args_to_event(user_id, args) -> Event:
         body=args['body'],
         activity=args.get('activity'),
         duration=duration if duration else None,
-        time=time if time else func.now(),
+        time=time if time else None,
         feel=args.get('feel'),
     )
