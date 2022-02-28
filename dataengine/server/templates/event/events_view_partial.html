@@ -1,5 +1,6 @@
 {% for group in grouped_events %}
-    <span class="dot"></span><span class="head">{{ group.key }}</span>
+    <span class="dot"></span>
+    <span class="head">{{ group.key|format_timeline_datetime }}, <i>{{ group.key|format_relative_time_days }}</i></span>
     <div class="article-container">
         {% for event in group.value %}
             <article class="list">

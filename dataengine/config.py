@@ -60,6 +60,7 @@ ALCOHOL_METRIC = 'alcohol_units'
 # DDD at hh:mm (dd/mm/yyyy)
 DATETIME_VIEW_FORMAT = "%a at %H:%M (%d/%m/%y)"
 DATETIME_LABEL_FORMAT = "%d/%m/%y, %H:%M"
+DATETIME_LABEL_WITH_DOW = "%a, %d-%m-%Y"
 DEFAULT_DISPLAY_RESOURCE_DAYS_AGO = 30
 DEFAULT_DISPLAY_RESOURCE_SHORT_DAYS_AGO = 7
 

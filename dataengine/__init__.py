@@ -17,7 +17,8 @@ from dataengine.config import SERVER_SECRET_KEY, SERVER_SESSION_TYPE, SESSION_CO
 from dataengine.context import Context
 from dataengine.db.postgres.config import DbConfig
 from dataengine.db.postgres.sesion import get_session
-from dataengine.server.util import format_datetime, split_paragraphs, format_label_datetime
+from dataengine.server.util import format_datetime, split_paragraphs, format_label_datetime, format_timeline_datetime, \
+    format_relative_time_days
 
 SERVER_PATH = os.path.join(pathlib.Path(__file__).parent.absolute(), "server")
 TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")
@@ -48,33 +49,35 @@ def create_app():
     flask_app.jinja_env.filters['format_datetime'] = format_datetime
     flask_app.jinja_env.filters['split_paragraphs'] = split_paragraphs
     flask_app.jinja_env.filters['format_label_datetime'] = format_label_datetime
+    flask_app.jinja_env.filters['format_timeline_datetime'] = format_timeline_datetime
+    flask_app.jinja_env.filters['format_relative_time_days'] = format_relative_time_days
 
     # Register Routes
-    from server.routes.core import core_bp
+    from dataengine.server.routes.core import core_bp
     flask_app.register_blueprint(core_bp)
 
-    from server.routes.auth import auth_bp
+    from dataengine.server.routes.auth import auth_bp
     flask_app.register_blueprint(auth_bp)
 
-    from server.routes.monzo import monzo_bp
+    from dataengine.server.routes.monzo import monzo_bp
     flask_app.register_blueprint(monzo_bp)
 
-    from server.routes.physio import physio_bp
+    from dataengine.server.routes.physio import physio_bp
     flask_app.register_blueprint(physio_bp)
 
-    from server.routes.event import event_bp
+    from dataengine.server.routes.event import event_bp
     flask_app.register_blueprint(event_bp)
 
-    from server.routes.note import note_bp
+    from dataengine.server.routes.note import note_bp
     flask_app.register_blueprint(note_bp)
 
-    from server.routes.admin import admin_bp
+    from dataengine.server.routes.admin import admin_bp
     flask_app.register_blueprint(admin_bp)
 
-    from server.routes.user import user_bp
+    from dataengine.server.routes.user import user_bp
     flask_app.register_blueprint(user_bp)
 
-    from server.routes.metric import metric_bp
+    from dataengine.server.routes.metric import metric_bp
     flask_app.register_blueprint(metric_bp)
 
     # Setup OAuth

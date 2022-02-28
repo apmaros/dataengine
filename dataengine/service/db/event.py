@@ -21,11 +21,9 @@ def get_events_since(user_id, days_ago) -> typing.List[Event]:
     stmt = (select(Event)
             .filter(Event.user_id == user_id)
             .filter(or_(
-        Event.time == None,
-        Event.time > days_ago_datetime(days_ago))
-    )
-            .order_by(desc(Event.time))
-            )
+        Event.time is None,
+        Event.time > days_ago_datetime(days_ago)
+    )).order_by(desc(Event.time)))
 
     with Context.db_session() as session:
         events = session.execute(stmt).scalars().all()
