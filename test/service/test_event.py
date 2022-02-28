@@ -27,5 +27,5 @@ def test_group_by_date_groups_events_without_date():
     grouped = group_events_by_date([event, another_event])
 
     assert len(grouped)
-    assert grouped['Not Scheduled'].key == 'Not Scheduled'
-    assert grouped['Not Scheduled'].value == [event, another_event]
+    assert grouped[None].key is None
+    assert grouped[None].value == [event, another_event]
