@@ -21,7 +21,8 @@ def get_events_since(user_id, days_ago) -> typing.List[Event]:
     stmt = (select(Event)
             .filter(Event.user_id == user_id)
             .filter(or_(
-        Event.time is None,
+        # must be `==` for ORM
+        Event.time == None,
         Event.time > days_ago_datetime(days_ago)
     )).order_by(desc(Event.time)))
 
@@ -49,8 +50,8 @@ def update_event(user_id, args):
         activity=event.activity,
         duration=event.duration,
         time=event.time,
-        feel=event.feel)
-    )
+        feel=event.feel
+    ))
     with Context.db_session() as session:
         session.execute(stmt)
         session.commit()

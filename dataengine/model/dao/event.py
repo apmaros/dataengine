@@ -13,3 +13,6 @@ class Event(Base):
     time = Column(DATETIME)
     feel = Column(SMALLINT)
     created_at = Column(TIMESTAMP)
+
+    def __repr__(self):
+        return f'user_id={self.user_id}, time={self.time}, activity={self.activity}, body={self.body}'

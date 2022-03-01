@@ -6,7 +6,7 @@ from dataengine.model.item_group import ItemGroup
 
 
 def group_events_by_date(events: t.List[Event]) -> t.Dict[str, Event]:
-    grouped: t.Dict[datetime, ItemGroup] = {}
+    grouped: t.Dict[t.Optional[datetime], ItemGroup] = {}
 
     for event in events:
         if event.time:
