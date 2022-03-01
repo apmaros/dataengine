@@ -10,7 +10,7 @@ def group_events_by_date(events: t.List[Event]) -> t.Dict[str, Event]:
 
     for event in events:
         if event.time:
-            key = event.time
+            key = event.time.date()
         else:
             key = None
 
