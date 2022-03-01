@@ -5,7 +5,7 @@ from factory.util import to_datetime
 
 def test_group_by_date_groups_events_with_the_same_date():
     dt = to_datetime("2022-02-16 08:50:00")
-    another_dt = to_datetime("2022-02-17 08:50:00")
+    another_dt = to_datetime("2022-02-17 09:51:01")
     event = make_event(dt, 'some-id', 'body')
     another_event = make_event(another_dt, 'some-id', 'another-body body')
     third_event = make_event(another_dt, 'some-id', 'third-body body')
@@ -13,11 +13,11 @@ def test_group_by_date_groups_events_with_the_same_date():
     grouped = group_events_by_date([event, another_event, third_event])
 
     assert len(grouped) == 2
-    assert grouped[dt].key == dt
-    assert grouped[dt].value == [event]
+    assert grouped[dt.date()].key == dt.date()
+    assert grouped[dt.date()].value == [event]
 
-    assert grouped[another_dt].key == another_dt
-    assert grouped[another_dt].value == [another_event, third_event]
+    assert grouped[another_dt.date()].key == another_dt.date()
+    assert grouped[another_dt.date()].value == [another_event, third_event]
 
 
 def test_group_by_date_groups_events_without_date():

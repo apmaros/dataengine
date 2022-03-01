@@ -25,7 +25,7 @@ def format_relative_time_days(value):
         return ""
 
     today = datetime.now().date()
-    delta = (today - value.date()).days
+    delta = (today - value).days
     if abs(delta) == 1:
         formatted_days = 'day'
     else:

@@ -5,7 +5,7 @@ from factory.util import to_datetime
 
 
 def test_format_timeline_datetime_formats_datetime():
-    assert format_timeline_datetime(to_datetime("2022-02-17 08:50:00")) == "Thu, 17-02-2022"
+    assert format_timeline_datetime(to_datetime("2022-02-17 08:50:00").date()) == "Thu, 17-02-2022"
 
 
 def test_format_timeline_datetime_when_none_value_does_not_format_datetime():
