@@ -14,7 +14,7 @@ from dataengine.monzo.api import (
 from dataengine.monzo.model.Transaction import build_transaction
 from dataengine.monzo.model.monzo_config import MonzoApiConfig
 from dataengine.monzo.model.monzo_token import MonzoToken
-from db.redis_client import get_redis_client
+from dataengine.db.redis_client import get_redis_client
 
 
 class AuthenticationException(Exception):
