@@ -1,3 +1,10 @@
+:root {
+    --primary-alt1: #487676;
+    --detail-color-dark: #0f2b38;
+    --error-color: #740b1d;
+    --success-color: #337c36;
+}
+
 nav .brand-logo {
     font-size: 1.5em;
     padding-left: 10px;
@@ -34,7 +41,7 @@ article {
 .dot {
     height: 10px;
     width: 10px;
-    background-color: #1095c1;
+    background-color: var(--primary);
     border-radius: 25px;
     display: inline-block;
 }
@@ -43,7 +50,7 @@ article {
 
 .head {
     padding: 10px;
-    color: #3189a6;
+    color: var(--primary);
 }
 
 
@@ -52,14 +59,14 @@ article {
     margin-bottom: 10px;
     padding-left: 10px;
     border-left-style: solid;
-    border-left-color: #1095c1;
+    border-left-color: var(--primary);
     margin-left: 5px;
 }
 
 article.list {
     margin: 0;
     padding: 10px;
-    border: 1px solid #25394a;
+    border: 1px solid var(--muted-border-color);
     border-radius: 0;
 }
 
@@ -71,11 +78,11 @@ article.list .body {
 article.list .labels {
     font-size: 0.84em;
     padding-top: 5px;
-    color: #8d98a1;
+    color: var(--secondary);
 }
 
 article.list:hover {
-    background-color: #172530;;
+    background-color: var(--muted-border-color);
 }
 
 article.list .labels .label {
@@ -98,7 +105,7 @@ article.list span.summary {
 /* end article list */
 
 a.brand-logo {
-    color: #fafffb;
+    color: var(--contrast);
     font-weight: bolder;
 }
 
@@ -108,11 +115,11 @@ div.flash article {
 }
 
 div.flash article.success {
-    background-color: #337c36;
+    background-color: var(--success-color);
 }
 
 div.flash article.error {
-    background-color: #740b1d;
+    background-color: var(--error-color);
 }
 
 article.monzo ul li {
@@ -167,7 +174,7 @@ details.control-nav summary::after {
     border-style: solid;
     border-width: 0;
     margin-bottom: 10px;
-    box-shadow: 0 1px 5px #424649;
+    box-shadow: 0 1px 5px var(--secondary);
 }
 
 .card .card-value {
@@ -194,8 +201,8 @@ article.data .labels {
 }
 
 .data .labels span {
-    background-color: #0f2b38;
-    box-shadow: 0 1px 3px #0b0f12;
+    background-color: var(--detail-color-dark);
+    box-shadow: 0 1px 3px var(--contrast-inverse);
     padding: 10px;
     margin: 2px;
     border-radius: 25px;
@@ -208,13 +215,13 @@ article.data .secondary-content {
 }
 
 article.data .secondary-content span:not(:last-child) {
-    border-right: 1px solid #567a7a;
+    border-right: 1px solid var(--secondary);
     padding-right: 5px;
 }
 
 article.data .footer {
     padding: 20px 10px 10px;
-    color: #878787;
+    color: var(--secondary);
     font-size: 0.8em;
 }
 
@@ -229,7 +236,7 @@ article.announcement .message {
 .data-container .legend {
     text-align: right;
     padding: 10px;
-    color: #487676;
+    color: var(--primary-alt1);
     text-transform: capitalize;
     font-size: 0.8em;
 }
