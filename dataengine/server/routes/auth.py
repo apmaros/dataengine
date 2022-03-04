@@ -43,4 +43,4 @@ def callback_handling():
         'email': userinfo.get('email'),
         'email_verified': userinfo.get('email_verified'),
     }
-    return redirect(url_for('core.index'))
+    return redirect(url_for('user.home'))

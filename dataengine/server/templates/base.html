@@ -25,7 +25,13 @@
 <body>
 <nav>
     <ul>
-        <li><a href="{{ url_for('core.index') }}" class="brand-logo"><strong>Daxplr</strong></a></li>
+        <li>
+            {% if user_profile %}
+                <a href="{{ url_for('user.home') }}" class="brand-logo"><strong>Daxplr</strong></a>
+            {% else %}
+                <a href="{{ url_for('core.index') }}" class="brand-logo"><strong>Daxplr</strong></a>
+            {% endif %}
+        </li>
     </ul>
     <ul class="menu">
         {% if user_profile %}

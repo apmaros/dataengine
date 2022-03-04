@@ -31,7 +31,7 @@ def sync():
         if not token:
             logger.warn("Can not schedule Monzo sync, Monzo token not found")
             flash("Monzo token not found, please login to Monzo")
-            return make_response(redirect(url_for('core.index')))
+            return make_response(redirect(url_for('admin.index')))
 
         sync_success = MonzoService(
             build_monzo_client(token),
@@ -46,7 +46,7 @@ def sync():
         logger.error(f"Failed to sync transactions due to {e}")
         flash('Transactions failed to sync')
 
-    return make_response(redirect(url_for('core.index')))
+    return make_response(redirect(url_for('admin.index')))
 
 
 @monzo_bp.route("/schedule")
@@ -57,7 +57,7 @@ def schedule():
         if not token:
             logger.warn("Can not schedule Monzo sync, Monzo token not found")
             flash("Monzo token not found, please login to Monzo")
-            return make_response(redirect(url_for('core.index')))
+            return make_response(redirect(url_for('admin.index')))
 
         monzo_client = build_monzo_client(token)
         scheduled_monzo = get_scheduled_monzo_service_instance(
@@ -75,7 +75,7 @@ def schedule():
         logger.error(f"Failed to schedule Mozno sync due to {e}")
         logger.error(traceback.print_exc())
 
-    return make_response(redirect(url_for('core.index')))
+    return make_response(redirect(url_for('admin.index')))
 
 
 @monzo_bp.route('/login')
@@ -88,7 +88,7 @@ def login():
 @requires_auth
 def callback():
     code = request.args.get("code")
-    resp = make_response(redirect(url_for('core.index')))
+    resp = make_response(redirect(url_for('admin.index')))
     monzo_client = build_monzo_client()
     try:
         token: MonzoToken = monzo_client.acquire_token(code)
@@ -110,7 +110,7 @@ def callback():
 @monzo_bp.route('/logout')
 @requires_auth
 def logout():
-    resp = make_response(redirect(url_for('core.index')))
+    resp = make_response(redirect(url_for('admin.index')))
     remove_monzo_token()
     flash("Successfully lodged-out")
     return resp
