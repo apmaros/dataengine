@@ -23,6 +23,7 @@ services:
       - postgres_db
       - postgres_host
       - new_relic_license_key
+      - new_relic_app_id
     ports:
       - "4000:4000"
     deploy:
@@ -133,4 +134,6 @@ secrets:
     external: true
   # newrelic
   new_relic_license_key:
+    external: true
+  new_relic_app_id:
     external: true
