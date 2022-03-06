@@ -27,12 +27,16 @@ services:
     ports:
       - "4000:4000"
     deploy:
-      replicas: 1
+      replicas: 2
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
         window: 120s
+    configs:
+      - source: newrelic_config
+        target: /usr/src/app/newrelic.ini
+
   grafana:
     image: grafana/grafana:8.3.3
     depends_on:
@@ -85,6 +89,9 @@ configs:
   influxdb_config:
     external: true
     name: influxdb_config
+  newrelic_config:
+    external: true
+    name: newrelic_config
 
 volumes:
   logvolume01: {}
