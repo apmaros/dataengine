@@ -53,3 +53,13 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: deploy api
         run: docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy --prune -c dataengine-stack.yml dataengine
+      - name: Set Release Version from Tag
+        run: echo "RELEASE_VERSION=${{ GITHUB_REF:10 }}" >> $GITHUB_ENV
+      - name: Create New Relic deployment marker
+        uses: newrelic/deployment-marker-action@v1
+        with:
+          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
+          accountId: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+          applicationId: ${{ secrets.NEW_RELIC_APPLICATION_ID }}
+          revision: "${{ env.RELEASE_VERSION }}"
+
