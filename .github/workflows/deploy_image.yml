@@ -19,7 +19,13 @@ jobs:
       - name: test
         run: |
           export PYTHONPATH="${PYTHONPATH}:./dataengine"
-          python -m pytest
+          make test
+          make coverage
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
       - name: build and push docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
