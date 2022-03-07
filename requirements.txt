@@ -32,15 +32,7 @@ gunicorn==20.1.0
     # via -r requirements/requirements.in
 idna==3.3
     # via requests
-importlib-metadata==4.11.2
-    # via
-    #   alembic
-    #   click
-    #   redis
-    #   sqlalchemy
-importlib-resources==5.4.0
-    # via alembic
-influxdb-client==1.25.0
+influxdb-client==1.26.0
     # via -r requirements/requirements.in
 itsdangerous==2.0.1
     # via flask
@@ -79,12 +71,10 @@ six==1.16.0
     # via
     #   influxdb-client
     #   python-dateutil
-sqlalchemy==1.4.31
+sqlalchemy==1.4.32
     # via
     #   -r requirements/requirements.in
     #   alembic
-typing-extensions==4.0.1
-    # via importlib-metadata
 urllib3==1.26.8
     # via
     #   influxdb-client
@@ -93,10 +83,6 @@ werkzeug==2.0.2
     # via flask
 wrapt==1.13.3
     # via deprecated
-zipp==3.7.0
-    # via
-    #   importlib-metadata
-    #   importlib-resources
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
