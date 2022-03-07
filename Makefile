@@ -10,4 +10,8 @@ install-test:
 run:
 	python dataengine/main.py
 test:
-	python -m pytest
+	python -m coverage pytest
+coverage:
+	coverage run --source=dataengine --branch -m pytest test/ --junitxml=build/test.xml -v
+	coverage report
+	coverage xml -i -o build/coverage.xml

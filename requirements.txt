@@ -18,11 +18,13 @@ charset-normalizer==2.0.12
     # via requests
 click==8.0.4
     # via flask
+coverage==6.3.2
+    # via -r requirements/requirements.in
 cryptography==36.0.1
     # via authlib
 deprecated==1.2.13
     # via redis
-flask==2.0.2
+flask==2.0.3
     # via -r requirements/requirements.in
 greenlet==1.1.2
     # via sqlalchemy

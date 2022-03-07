@@ -6,6 +6,8 @@
 #
 attrs==21.4.0
     # via pytest
+coverage==6.3.2
+    # via -r requirements/requirements-test.in
 freezegun==1.1.0
     # via -r requirements/requirements-test.in
 importlib-metadata==4.11.2
