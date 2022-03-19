@@ -47,7 +47,7 @@ markupsafe==2.1.0
     #   -r requirements/requirements.in
     #   jinja2
     #   mako
-newrelic==7.4.0.172
+newrelic==7.6.0.173
     # via -r requirements/requirements.in
 packaging==21.3
     # via redis
