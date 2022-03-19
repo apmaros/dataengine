@@ -32,13 +32,13 @@ gunicorn==20.1.0
     # via -r requirements/requirements.in
 idna==3.3
     # via requests
-influxdb-client==1.26.0
+influxdb-client==1.27.0
     # via -r requirements/requirements.in
 itsdangerous==2.0.1
     # via flask
 jinja2==3.0.3
     # via flask
-mako==1.1.6
+mako==1.2.0
     # via
     #   -r requirements/requirements.in
     #   alembic
