@@ -6,7 +6,7 @@
 #
 alembic==1.7.5
     # via -r requirements/requirements.in
-authlib==0.15.5
+authlib==1.0.0
     # via -r requirements/requirements.in
 certifi==2021.10.8
     # via
