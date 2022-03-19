@@ -19,7 +19,13 @@ jobs:
       - name: test
         run: |
           export PYTHONPATH="${PYTHONPATH}:./dataengine"
-          python -m pytest
+          make test
+          make coverage
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
       - name: build and push docker image
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
@@ -47,3 +53,12 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: deploy api
         run: docker --host ${{ secrets.DOCKER_SWARM_HOST }} stack deploy --prune -c dataengine-stack.yml dataengine
+      - name: Create New Relic deployment marker
+        uses: newrelic/deployment-marker-action@v1
+        with:
+          apiKey: ${{ secrets.NEW_RELIC_API_KEY }}
+          accountId: ${{ secrets.NEW_RELIC_ACCOUNT_ID }}
+          applicationId: ${{ secrets.NEW_RELIC_APPLICATION_ID }}
+          revision: "${{ github.ref }}-${{ github.sha }}"
+          user: "${{ github.actor }}"
+          description: "${{ github.event.head_commit.message }}"
