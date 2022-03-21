@@ -6,7 +6,7 @@
 #
 alembic==1.7.5
     # via -r requirements/requirements.in
-authlib==0.15.5
+authlib==1.0.0
     # via -r requirements/requirements.in
 certifi==2021.10.8
     # via
@@ -32,22 +32,22 @@ gunicorn==20.1.0
     # via -r requirements/requirements.in
 idna==3.3
     # via requests
-influxdb-client==1.26.0
+influxdb-client==1.27.0
     # via -r requirements/requirements.in
 itsdangerous==2.0.1
     # via flask
 jinja2==3.0.3
     # via flask
-mako==1.1.6
+mako==1.2.0
     # via
     #   -r requirements/requirements.in
     #   alembic
-markupsafe==2.0.1
+markupsafe==2.1.1
     # via
     #   -r requirements/requirements.in
     #   jinja2
     #   mako
-newrelic==7.4.0.172
+newrelic==7.6.0.173
     # via -r requirements/requirements.in
 packaging==21.3
     # via redis
@@ -61,7 +61,7 @@ python-dateutil==2.8.2
     # via influxdb-client
 pytz==2021.3
     # via influxdb-client
-redis==4.1.2
+redis==4.1.4
     # via -r requirements/requirements.in
 requests==2.27.1
     # via -r requirements/requirements.in
