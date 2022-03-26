@@ -92,6 +92,7 @@ def create_app():
         client_kwargs={
             'scope': AUTH0_CLIENT_KWARGS,
         },
+        server_metadata_url=f'{AUTH0_API_BASE_URL}/.well-known/openid-configuration'
     )
     db_session = get_session(DbConfig())
 
