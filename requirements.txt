@@ -26,7 +26,7 @@ cryptography==36.0.1
     # via authlib
 deprecated==1.2.13
     # via redis
-flask==2.0.3
+flask==2.1.0
     # via -r requirements/requirements.in
 greenlet==1.1.2
     # via sqlalchemy
