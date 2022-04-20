@@ -34,7 +34,7 @@ gunicorn==20.1.0
     # via -r requirements/requirements.in
 idna==3.3
     # via requests
-influxdb-client==1.27.0
+influxdb-client==1.28.0
     # via -r requirements/requirements.in
 itsdangerous==2.0.1
     # via flask
