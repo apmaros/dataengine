@@ -1,9 +1,10 @@
 import typing as t
 from dataclasses import asdict
+from typing import List, Dict, Any
 
 from influxdb_client import Point
 
-from dataengine.common.util import _day_to_daytime_str
+from dataengine.common.util import day_to_daytime_str
 from dataengine.monzo.api import get_transactions
 from dataengine.monzo.model.Merchant import build_merchant
 from dataengine.monzo.model.Transaction import build_transaction, Transaction
@@ -30,10 +31,10 @@ def transaction_as_record(transaction: Transaction) -> Point:
             .field('abs_amount', transaction.abs_amount))
 
 
-def _get_txs(request, since=None, before=None) -> t.List[Transaction]:
+def _get_txs(request, since=None, before=None) -> List[Dict[Any, Any]]:
     txs_raw = get_transactions(
-        _day_to_daytime_str(since) if since else None,
-        _day_to_daytime_str(before, True) if before else None,
+        day_to_daytime_str(since) if since else None,
+        day_to_daytime_str(before, True) if before else None,
         get_access_token(request),
         get_account_id(request),
     )
