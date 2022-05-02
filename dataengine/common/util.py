@@ -11,7 +11,7 @@ def str_to_float(s: str):
 
 
 # example 2021-03-04T00:00:00Z
-def _day_to_daytime_str(date, is_end=False):
+def day_to_daytime_str(date, is_end=False):
     time = "23:59:59Z" if is_end else "00:00:00Z"
     return datetime_fn(date.year, date.month, date.day) \
         .replace(tzinfo=pytz.UTC) \
@@ -26,7 +26,7 @@ def get_uuid():
     return str(uuid.uuid4())
 
 
-def _last_week_date():
+def week_ago_date():
     return date.today() - timedelta(days=7)
 
 
@@ -46,7 +46,7 @@ def utc_isoformat(target_datetime=None):
     compatible with influxdb time datatype.
 
     If no datetime is provided, datetime `now` is used.
-    :param target_datetime: optional date time to be formatted
+    @target_datetime: optional date time to be formatted
     :return: ISO formatted string representing target datetime
     """
     if not target_datetime:

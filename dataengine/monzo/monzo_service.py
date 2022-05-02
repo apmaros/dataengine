@@ -3,7 +3,7 @@ import datetime
 from influxdb_client import Point
 
 from dataengine.common.log import logger
-from dataengine.common.util import current_time_sec, _day_to_daytime_str
+from dataengine.common.util import current_time_sec, day_to_daytime_str
 from dataengine.monzo.model.api_error import ApiError
 from dataengine.monzo.monzo_client import MonzoClient
 from dataengine.monzo.monzo_token_provider import store_monzo_token, load_monzo_token
@@ -27,7 +27,7 @@ class MonzoService:
             store_monzo_token(new_token)
 
         if sync_since_days:
-            since = _day_to_daytime_str(
+            since = day_to_daytime_str(
                 datetime.datetime.now() - datetime.timedelta(sync_since_days)
             )
         else:
