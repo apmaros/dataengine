@@ -80,6 +80,9 @@ def create_app():
     from dataengine.server.routes.metric import metric_bp
     flask_app.register_blueprint(metric_bp)
 
+    from dataengine.server.routes.user_metric import user_metric_bp
+    flask_app.register_blueprint(user_metric_bp)
+
     # Setup OAuth
     oauth = OAuth(flask_app)
     auth0 = oauth.register(

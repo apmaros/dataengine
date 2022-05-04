@@ -28,7 +28,7 @@ def home():
     notes = get_notes_since(profile['user_id'], days_ago=DEFAULT_DISPLAY_RESOURCE_SHORT_DAYS_AGO)
     grouped_events = group_events_by_date(events).values()
     return render_template(
-        'user/home.html',
+        'user/index.html',
         user_profile=profile,
         grouped_events=grouped_events,
         notes=notes

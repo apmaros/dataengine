@@ -1,0 +1,20 @@
+<details>
+    <summary>Metric Readings</summary>
+    <table>
+        <!-- TODO review header - not allowed -->
+        <header>
+            <tr>
+                <th>Time</th>
+                <th>Event</th>
+                <th>Value</th>
+            </tr>
+        </header>
+        {% for metric in alcohol_metrics %}
+            <tr>
+                <td>{{ metric.time|format_datetime }}</td>
+                <td>{{ metric.event }}</td>
+                <td>{{ metric.value }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</details>

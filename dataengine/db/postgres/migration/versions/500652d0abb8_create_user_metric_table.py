@@ -24,6 +24,7 @@ def upgrade():
         'user_metric',
         make_id_uuid('id'),
         sa.Column('user_id', sa.String(50), nullable=False),
+        sa.Column('metric_id', sa.String(50), nullable=False),
         make_created_at_column(),
         # values
         sa.Column('name', sa.String(50), nullable=False),
