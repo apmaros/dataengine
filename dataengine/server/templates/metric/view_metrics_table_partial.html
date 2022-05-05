@@ -9,7 +9,7 @@
                 <th>Value</th>
             </tr>
         </header>
-        {% for metric in alcohol_metrics %}
+        {% for metric in metrics %}
             <tr>
                 <td>{{ metric.time|format_datetime }}</td>
                 <td>{{ metric.event }}</td>

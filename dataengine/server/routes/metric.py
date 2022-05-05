@@ -9,9 +9,13 @@ from flask import (
 
 from dataengine.common.log import logger
 from dataengine.config import DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
+from dataengine.model.dao.user_metric import UserMetric
 from dataengine.server.routes.annotations import requires_auth
-from dataengine.service.db.metric import put_metric, get_metrics_since, \
+from dataengine.service.db.metric import (
+    put_metric,
     get_metrics_by_user_metric_id_since
+)
+from dataengine.service.db.user_metric import get_user_metric
 
 metric_bp = Blueprint('metric', __name__, url_prefix='/metric')
 
@@ -36,11 +40,16 @@ def new():
 @requires_auth
 def index(user_metric_id):
     profile = session['profile']
-
+    user_id = profile['user_id']
     metrics = []
+    user_metric = None
+
     try:
+        user_metric = get_user_metric(user_metric_id)
+        _validate_user(user_id, user_metric)
+
         metrics = get_metrics_by_user_metric_id_since(
-            profile['user_id'],
+            user_id,
             user_metric_id,
             DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
         )
@@ -48,9 +57,17 @@ def index(user_metric_id):
         logger.error(f"Failed to get metrics due to error {e}")
         flash('Failed to get metrics due to error', 'error')
 
-
     return render_template(
         'metric/index.html',
         user_profile=profile,
-        metrics=metrics,
+        user_metric=user_metric,
+        metrics=metrics
     )
+
+
+def _validate_user(user_id, user_metric: UserMetric):
+    if user_id != user_metric.user_id:
+        raise ValueError(
+            f'Metric does not belong to the user'
+            f'user_id={user_id}, user_metric.user_id={user_metric.user_id}'
+        )

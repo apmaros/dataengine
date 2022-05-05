@@ -53,10 +53,16 @@ def get_metrics_by_user_metric_id_since(
 def _args_to_metric(user_id: str, args: typing.Dict[str, str]) -> Metric:
     time = args.get('time')
 
-    return Metric(
+    metric = Metric(
         user_id=user_id,
-        name=args['metric-name'],
         value=args['value'],
         event=args['event'],
         time=time if time else datetime.utcnow(),
     )
+
+    if 'metric-name' in args:
+        metric.name = args['metric-name']
+    if 'user-metric-id' in args:
+        metric.user_metric_id = args['user-metric-id']
+
+    return metric

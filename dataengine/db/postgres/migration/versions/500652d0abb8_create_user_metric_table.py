@@ -27,7 +27,7 @@ def upgrade():
         sa.Column('metric_id', sa.String(50), nullable=False),
         make_created_at_column(),
         # values
-        sa.Column('name', sa.String(50), nullable=False),
+        sa.Column('name', sa.String(50), nullable=True),
         sa.Column('description', sa.Text, nullable=True),
     )
 

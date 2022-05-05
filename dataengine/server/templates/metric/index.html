@@ -2,5 +2,8 @@
 
 {% block content %}
     {% include 'back_home_arrow.html' %}
+    <h3>{{ user_metric.name }}</h3>
     {% include 'metric/view_metrics.html' %}
+    {% include 'metric/new_metric_form_partial.html' %}
+
 {% endblock %}
