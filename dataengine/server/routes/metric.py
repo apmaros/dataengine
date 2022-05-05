@@ -61,7 +61,8 @@ def index(user_metric_id):
         'metric/index.html',
         user_profile=profile,
         user_metric=user_metric,
-        metrics=metrics
+        metrics=metrics,
+        referrer=request.referrer,
     )
 
 
