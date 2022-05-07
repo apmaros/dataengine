@@ -22,11 +22,12 @@ def index():
     )
 
 
-@user_metric_bp.route('/new', methods=["POST"])
+@user_metric_bp.route('/', methods=["POST"])
 @requires_auth
 def new():
     profile = session['profile']
     try:
+        # TODO - validate user_metric form
         put_user_metric(profile['user_id'], request.form)
     except RuntimeError as e:
         logger.error(f'Failed to write to database due to error {e}')

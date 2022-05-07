@@ -25,7 +25,7 @@ TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")
 STATIC_FOLDER_PATH = os.path.join(SERVER_PATH, "static")
 
 
-def create_app():
+def create_app() -> Flask:
     """
     Create and configure the APP by:
         - set configuration

@@ -17,7 +17,7 @@ class Transaction:
     currency: str
     notes: str
     description: str
-    address: str
+    address: t.Optional[str]
     merchant: t.Optional[Merchant] = None
 
     def to_plot_dict(self):

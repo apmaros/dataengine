@@ -51,8 +51,8 @@ def make_raw_merchant(
 
 
 def make_transaction(
-    monzo_id: int = random_str(),
-    time: int = current_time_sec(),
+    monzo_id: str = random_str(),
+    time: str = str(current_time_sec()),
     category: str = rand(TX_CATEGORY_SAMPLE),
     monzo_type: str = rand(TX_TYPE),
     name: str = rand(TX_NAME_SAMPLE),

@@ -15,8 +15,8 @@ def index():
     profile = session.get('profile', None)
     if profile:
         return make_response(redirect(url_for('user.home')))
-    else:
-        return render_template('index.html')
+
+    return render_template('index.html')
 
 
 @core_bp.route('/about')

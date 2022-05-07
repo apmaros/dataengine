@@ -9,7 +9,7 @@ from flask import (
 
 from dataengine.common.log import logger
 from dataengine.config import DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
-from dataengine.model.dao.user_metric import UserMetric
+from dataengine.server.RequestError import RequestError, ErrorType
 from dataengine.server.routes.annotations import requires_auth
 from dataengine.service.db.metric import (
     put_metric,
@@ -33,7 +33,12 @@ def new():
 
     flash(f"👌 Metric was recorded", 'success')
 
-    return make_response(redirect(request.referrer))
+    if request.referrer:
+        redirect_to = request.referrer
+    else:
+        redirect_to = '/metric/'
+
+    return make_response(redirect(redirect_to))
 
 
 @metric_bp.route('/<user_metric_id>')
@@ -46,14 +51,14 @@ def index(user_metric_id):
 
     try:
         user_metric = get_user_metric(user_metric_id)
-        _validate_user(user_id, user_metric)
+        _validate_user(user_id, user_metric.user_id)
 
         metrics = get_metrics_by_user_metric_id_since(
             user_id,
             user_metric_id,
             DEFAULT_DISPLAY_RESOURCE_DAYS_AGO
         )
-    except RuntimeError as e:
+    except RequestError as e:
         logger.error(f"Failed to get metrics due to error {e}")
         flash('Failed to get metrics due to error', 'error')
 
@@ -66,9 +71,10 @@ def index(user_metric_id):
     )
 
 
-def _validate_user(user_id, user_metric: UserMetric):
-    if user_id != user_metric.user_id:
-        raise ValueError(
+def _validate_user(user_id: str, user_metric_user_id: str):
+    if user_id != user_metric_user_id:
+        raise RequestError(
+            ErrorType.UNAUTHORISED,
             f'Metric does not belong to the user'
-            f'user_id={user_id}, user_metric.user_id={user_metric.user_id}'
+            f'user_id={user_id}, user_metric_user_id={user_metric_user_id}',
         )
