@@ -24,5 +24,3 @@ def test_id_raises_when_invalid_id():
 
     assert e.value.error_type == ErrorType.VALIDATION
     assert e.value.message == "'some-id' is not a valid id"
-
-

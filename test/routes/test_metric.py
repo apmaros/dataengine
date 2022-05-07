@@ -66,4 +66,3 @@ def test_new_stores_new_metric(
 
     assert resp.status_code == 302
     put_metric_mock.assert_called_with(user_id, metric_data)
-

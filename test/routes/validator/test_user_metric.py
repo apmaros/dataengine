@@ -17,7 +17,3 @@ def test_validate_user_metric_does_raises_when_name_missing():
         validate_user_metric_form({})
     assert e.value.error_type == ErrorType.VALIDATION
     assert e.value.message == "'name' must be present"
-
-
-
-
