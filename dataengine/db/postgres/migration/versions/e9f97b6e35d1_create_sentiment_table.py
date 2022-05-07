@@ -36,4 +36,4 @@ def upgrade():
 
 
 def downgrade():
-    op.drop_table('projects')
+    op.drop_table('sentiment')

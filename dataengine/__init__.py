@@ -25,7 +25,7 @@ TEMPLATE_FOLDER_PATH = os.path.join(SERVER_PATH, "templates")
 STATIC_FOLDER_PATH = os.path.join(SERVER_PATH, "static")
 
 
-def create_app():
+def create_app() -> Flask:
     """
     Create and configure the APP by:
         - set configuration
@@ -79,6 +79,9 @@ def create_app():
 
     from dataengine.server.routes.metric import metric_bp
     flask_app.register_blueprint(metric_bp)
+
+    from dataengine.server.routes.user_metric import user_metric_bp
+    flask_app.register_blueprint(user_metric_bp)
 
     # Setup OAuth
     oauth = OAuth(flask_app)
