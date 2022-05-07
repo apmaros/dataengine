@@ -4,6 +4,9 @@ from werkzeug.utils import redirect
 from flask import request
 from dataengine.common.log import logger
 from dataengine.server.routes.annotations import requires_auth
+from dataengine.server.routes.validator.user_metric import (
+    validate_user_metric_form
+)
 from dataengine.service.db.user_metric import get_user_metrics, put_user_metric
 
 user_metric_bp = Blueprint('user_metric', __name__, url_prefix='/user/metric')
@@ -27,9 +30,9 @@ def index():
 def new():
     profile = session['profile']
     try:
-        # TODO - validate user_metric form
+        validate_user_metric_form(request.form)
         put_user_metric(profile['user_id'], request.form)
-    except RuntimeError as e:
+    except Exception as e:
         logger.error(f'Failed to write to database due to error {e}')
         flash('Failed to record event due to error', 'error')
 

@@ -17,7 +17,6 @@ def get_user_metric(user_metric_id: str) -> UserMetric:
     return user_metric
 
 
-# TODO - Rename to get_user_metric_by_user_id
 def get_user_metrics(user_id: str) -> t.List[UserMetric]:
     stmt = (select(UserMetric)
             .filter(UserMetric.user_id == user_id)
