@@ -15,4 +15,7 @@ class Event(Base):
     created_at = Column(TIMESTAMP)
 
     def __repr__(self):
-        return f'user_id={self.user_id}, time={self.time}, activity={self.activity}, body={self.body}'
+        return (f'user_id={self.user_id},'
+                f' time={self.time},'
+                f' activity={self.activity},'
+                f' body={self.body}')

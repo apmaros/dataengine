@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'back_home_arrow.html' %}
+
+    <div class="grid">
+        <article>
+            {% for user_metric in user_metrics %}
+            <ul>
+                <li>
+                    <a href="{{ url_for('metric.index', user_metric_id=user_metric.id) }}">
+                        {{ user_metric.name }}
+                    </a>
+                </li>
+            </ul>
+            {% endfor %}
+        </article>
+        <article>
+            {% include 'user_metric/new_user_metric_partial.html' %}
+        </article>
+
+    </div>
+{% endblock %}

@@ -1,20 +1,20 @@
 import os
+import typing as t
 
 from dataengine.common.log import logger
 
 SECRETS_PATH = f'/run/secrets/'
 
 
-def get_secret(name: str) -> str:
+def get_secret(name: str) -> t.Optional[str]:
     """
     Retrieves a secret in following order:
         - environment variable
         - file
 
     Secrets in environment variable are always in uppercase and file in lowercase.
-    :param name: name of the secret
+    @name: name of the secret
     :return: value of the secret
-    :raise: KeyError if the secret is not found
     """
     logger.debug(f"Trying to fetch secret '{name}' from environment variable")
     env_variable_secret = os.getenv(name.upper())

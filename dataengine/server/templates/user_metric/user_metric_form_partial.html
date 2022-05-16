@@ -1,0 +1,15 @@
+{% if user_metric and user_metric.id %}
+    <input type="hidden" id="id" name="id" value="{{ user_metric.id }}">
+{% endif %}
+
+<label for="name">
+    <input type="text" name="name" id="name" placeholder="Name"
+           value="{% if user_metric and user_metric.name %}{{ user_metric.name }}{% endif %}">
+</label>
+<label for="description">
+    <textarea type="text" name="description" id="description" placeholder="Description" rows="3" required>
+        {% if user_metric %}
+            {{ user_metric.description }}
+        {% endif %}
+    </textarea>
+</label>

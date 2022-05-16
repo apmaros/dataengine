@@ -1,0 +1,27 @@
+<script>
+    const metricsData = {
+        datasets: [
+            {
+                label: 'value',
+                backgroundColor: 'rgb(255,133,158)',
+                borderColor: 'rgb(255,133,158)',
+                data: [
+                    {% for metric in metrics|reverse %}
+                        {x: '{{ metric.time|format_label_datetime }}', y: {{ metric.value }}},
+                    {% endfor %}
+                ],
+            },
+        ]
+    };
+
+    const metricsConfig = {
+        type: 'line',
+        data: metricsData,
+        options: {}
+    };
+
+    const metricChart = new Chart(
+        document.getElementById('metricsChart'),
+        metricsConfig
+    );
+</script>

@@ -35,6 +35,7 @@
     </ul>
     <ul class="menu">
         {% if user_profile %}
+            <li><a href="{{ url_for('user_metric.index') }}">Metrics</a></li>
             <li><a href="{{ url_for('physio.index') }}">Physio</a></li>
             <li><a href="{{ url_for('note.index') }}">Notes</a></li>
             <li><a href="{{ url_for('event.index') }}">Events</a></li>
