@@ -6,7 +6,7 @@
 #
 attrs==21.4.0
     # via pytest
-coverage==6.3.2
+coverage==6.3.3
     # via -r requirements/requirements-test.in
 freezegun==1.2.1
     # via -r requirements/requirements-test.in
