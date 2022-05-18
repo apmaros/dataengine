@@ -1,0 +1,19 @@
+<script>
+mapboxgl.accessToken = '{{mapbox_token}}';
+
+const noteMap = new mapboxgl.Map({
+    container: 'note-map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-73.996489, 40.705923], // starting position [lng, lat]
+    zoom: 5
+});
+
+{% for note in notes %}
+    new mapboxgl.Marker()
+        .setLngLat([{{note.geo_location.lng}}, {{note.geo_location.lat}}])
+        .setPopup(
+            new mapboxgl.Popup().setHTML("{{note.geo_location.name}}")
+        ).addTo(noteMap);
+{% endfor %}
+
+</script>

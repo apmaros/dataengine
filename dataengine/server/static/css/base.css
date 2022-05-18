@@ -2,6 +2,10 @@
     height: 500px;
 }
 
+#note-map {
+    height: 500px;
+}
+
 :root {
     --primary-alt1: #487676;
     --detail-color-dark: #0f2b38;

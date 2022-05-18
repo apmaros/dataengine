@@ -13,15 +13,16 @@ from dataengine.model.dao.sentiment import Sentiment
 
 
 def get_notes_since(user_id, days_ago) -> List[NoteWithSentiment]:
-    statement = (select(Note, Sentiment)
+    statement = (select(Note, Sentiment, GeoLocation)
                  .filter(Note.user_id == user_id)
                  .filter(Note.created_at > days_ago_datetime(days_ago))
                  .join(Sentiment, Sentiment.parent_id == Note.id, isouter=True)
+                 .join(GeoLocation, GeoLocation.parent_id == Note.id, isouter=True)
                  .order_by(desc(Note.created_at)))
 
     with Context.db_session() as session:
         notes = list(map(
-            lambda r: NoteWithSentiment(r.Note, r.Sentiment),
+            lambda r: NoteWithSentiment(r.Note, r.Sentiment, r.GeoLocation),
             session.execute(statement)
         ))
 
@@ -29,9 +30,10 @@ def get_notes_since(user_id, days_ago) -> List[NoteWithSentiment]:
 
 
 def get_note(note_id):
-    stmt = (select(Note, Sentiment)
+    stmt = (select(Note, Sentiment, GeoLocation)
             .filter(Note.id == note_id)
-            .join(Sentiment, Sentiment.parent_id == Note.id, isouter=True))
+            .join(Sentiment, Sentiment.parent_id == Note.id, isouter=True)
+            .join(GeoLocation, GeoLocation.parent_id == Note.id, isouter=True))
 
     with Context.db_session() as session:
         notes = _build_notes_with_sentiment(session.execute(stmt))
@@ -112,6 +114,6 @@ def _get_int(args, key):
 
 def _build_notes_with_sentiment(rows):
     return list(map(
-        lambda r: NoteWithSentiment(r.Note, r.Sentiment),
+        lambda r: NoteWithSentiment(r.Note, r.Sentiment, r.GeoLocation),
         rows
     ))
