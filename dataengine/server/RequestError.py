@@ -11,3 +11,10 @@ class RequestError(Exception):
         self.message = message
         self.error_type = error_type
         super().__init__(self.message)
+
+    @staticmethod
+    def make_field_missing_validation_error(field):
+        raise RequestError(
+            ErrorType.VALIDATION,
+            f"'{field}' must be present"
+        )

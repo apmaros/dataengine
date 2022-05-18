@@ -1,16 +1,18 @@
-import typing
+import typing as t
 import uuid
+from typing import List
 
 from sqlalchemy import select, delete, desc, func
 
 from dataengine import Context
 from dataengine.common.util import days_ago_datetime
+from dataengine.model.dao.geo_location import GeoLocation
 from dataengine.model.dao.note import Note
 from dataengine.model.dao.note_with_sentiment import NoteWithSentiment
 from dataengine.model.dao.sentiment import Sentiment
 
 
-def get_notes_since(user_id, days_ago) -> typing.List[Note]:
+def get_notes_since(user_id, days_ago) -> List[NoteWithSentiment]:
     statement = (select(Note, Sentiment)
                  .filter(Note.user_id == user_id)
                  .filter(Note.created_at > days_ago_datetime(days_ago))
@@ -37,19 +39,39 @@ def get_note(note_id):
     return notes[0] if notes else None
 
 
-def put_note(user_id: str, args: typing.Dict[str, str]):
+def put_note(user_id: str, args: t.Dict[str, str]):
     note_id = uuid.uuid4()
     note = args_to_node(args, note_id, user_id)
     sentiment = args_to_sentiment(args, note_id, user_id)
+    location = args_to_location(args, note_id)
 
     with Context.db_session() as session:
         session.add(note)
         if not sentiment.blank():
             session.add(sentiment)
+        if location:
+            session.add(location)
         session.commit()
 
 
-def update_note(args):
+def args_to_location(args, note_id) -> t.Optional[GeoLocation]:
+    name = args.get('geo-name', None)
+    lat = args.get('geo-lat', None)
+    lng = args.get('geo-lng', None)
+
+    if not all([lat, lng]):
+        return None
+
+    loc = GeoLocation()
+    loc.parent_id = note_id
+    loc.name = name
+    loc.lat = lat
+    loc.lng = lng
+
+    return loc
+
+
+def update_note(_):
     raise 'UNIMPLEMENTED'
 
 

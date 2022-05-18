@@ -50,6 +50,9 @@ DB_HOST = get_secret("POSTGRES_HOST")
 DB_PORT = 5432
 DB_NAME = get_secret("POSTGRES_DB") if get_secret("POSTGRES_DB") else 'dataengine'
 
+#MapBox
+MAPBOX_ACCESS_TOKEN = get_secret('mapboxgl_access_token')
+
 # Service
 EVENT_INFLUX_BUCKET = 'events'
 

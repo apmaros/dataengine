@@ -1,4 +1,5 @@
-<form action="{{ url_for('note.new') }}" method="post">
+<form id="note-form" action="{{ url_for('note.new') }}" method="post">
     {% include 'note/note_form_partial.html' %}
+    {% include 'note/new_note_map_partial.html' %}
     <button type="submit">Submit</button>
 </form>

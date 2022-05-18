@@ -32,10 +32,9 @@ def new():
     try:
         validate_user_metric_form(request.form)
         put_user_metric(profile['user_id'], request.form)
+        flash(f"👌 Event was recorded", 'success')
     except Exception as e:
         logger.error(f'Failed to write to database due to error {e}')
         flash('Failed to record event due to error', 'error')
-
-    flash(f"👌 Event was recorded", 'success')
 
     return make_response(redirect(url_for('user_metric.index')))

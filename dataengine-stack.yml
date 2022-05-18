@@ -24,6 +24,7 @@ services:
       - postgres_host
       - new_relic_license_key
       - new_relic_app_id
+      - mapboxgl_access_token
     ports:
       - "4000:4000"
     deploy:
@@ -143,4 +144,6 @@ secrets:
   new_relic_license_key:
     external: true
   new_relic_app_id:
+    external: true
+  mapboxgl_access_token:
     external: true
