@@ -27,4 +27,6 @@ class Sentiment(Base):
             self.creativity
         ]
 
-        return not any(list(filter(lambda s: s is not None and s != 0, sentiments)))
+        return not any(
+            list(filter(lambda s: s is not None and s != 0, sentiments))
+        )

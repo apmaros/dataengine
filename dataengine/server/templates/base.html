@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Daxplr</title>
-    <!--Import Google Icon Font-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <!-- Import Google Icon Font -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Import Charts -->
     <script src="{{ url_for('static', filename='js/chart_v3.7.0.min.js') }}"></script>
-
+    <!-- Import MapBox -->
+    <script src="{{ url_for('static', filename='js/mapbox-gl-v2.8.2.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/mapbox-gl-v2.8.2.css') }}">
+    <!--  -->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}"
           media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"
           media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="apple-touch-icon" sizes="180x180"
           href="{{ url_for('static', filename='flavicon/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32"

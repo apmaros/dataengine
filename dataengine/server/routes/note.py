@@ -10,7 +10,9 @@ from flask import (
 )
 
 from dataengine.common.log import logger
+from dataengine.config import MAPBOX_ACCESS_TOKEN
 from dataengine.server.routes.annotations import requires_auth
+from dataengine.server.routes.validator.note import validate_note
 from dataengine.service.db.note import get_notes_since, put_note, delete_note, get_note, update_note
 
 note_bp = Blueprint('note', __name__, url_prefix='/note')
@@ -21,19 +23,24 @@ note_bp = Blueprint('note', __name__, url_prefix='/note')
 def index():
     profile = session['profile']
     notes = get_notes_since(profile['user_id'], 30)
-    return render_template('note/index.html', user_profile=profile, notes=notes)
+    return render_template(
+        'note/index.html',
+        user_profile=profile,
+        notes=notes,
+        mapbox_token=MAPBOX_ACCESS_TOKEN
+    )
 
 
-# remove redundant `new`
-@note_bp.route('/new', methods=['POST'])
+@note_bp.route('/', methods=['POST'])
 @requires_auth
 def new():
     try:
+        validate_note(request.form)
         put_note(session['profile']['user_id'], request.form)
         flash(f"👌 Day note was recorded", 'success')
     except Exception as e:
-        logger.error(f"Failed to write to database due to error {e}")
-        flash('Failed to record day note due to an error', 'error')
+        logger.error(f"Failed to write a note to database due to error {e}")
+        flash('Failed to store a note due to an error', 'error')
 
     return make_response(redirect(url_for('note.index')))
 

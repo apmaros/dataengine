@@ -1,0 +1,34 @@
+<details>
+    <summary>Add Location</summary>
+    <article>
+        <div id="map" class="mapboxgl-map"></div>
+    </article>
+    <input type="text" id="geo-name" name="geo-name" placeholder="Location Name">
+    <input type="hidden" id="geo-lat" name="geo-lat">
+    <input type="hidden" id="geo-lng" name="geo-lng">
+</details>
+
+<script>
+mapboxgl.accessToken = '{{mapbox_token}}';
+const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [-73.996489, 40.705923], // starting position [lng, lat]
+    zoom: 10 // starting zoom
+});
+
+var marker = new mapboxgl.Marker();
+
+map.on('click', (e) => {
+    const inputs = document.getElementById("note-form").elements;
+
+    const geoLat = inputs["geo-lat"];
+    geoLat.value = e.lngLat.lat
+
+    const geoLng = inputs["geo-lng"];
+    geoLng.value = e.lngLat.lng
+
+    marker.setLngLat(e.lngLat).addTo(map);
+});
+
+</script>
