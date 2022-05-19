@@ -31,4 +31,14 @@ map.on('click', (e) => {
     marker.setLngLat(e.lngLat).addTo(map);
 });
 
+map.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        zoom: 4,
+        placeholder: 'Search',
+        mapboxgl: mapboxgl,
+        reverseGeocode: true
+    })
+);
+
 </script>

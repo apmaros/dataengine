@@ -29,11 +29,10 @@ def new():
     try:
         validate_metric(request.form)
         put_metric(profile['user_id'], request.form)
+        flash(f"👌 Metric was recorded", 'success')
     except Exception as e:
         logger.error(f"Failed to write to database due to error {e}")
         flash('Failed to record event due to error', 'error')
-
-    flash(f"👌 Metric was recorded", 'success')
 
     if request.referrer:
         redirect_to = request.referrer

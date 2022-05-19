@@ -8,12 +8,25 @@ const noteMap = new mapboxgl.Map({
     zoom: 5
 });
 
+noteMap.addControl(
+    new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        zoom: 4,
+        placeholder: 'Search',
+        mapboxgl: mapboxgl,
+        reverseGeocode: true
+    })
+);
+
+
 {% for note in notes %}
-    new mapboxgl.Marker()
+    {% if note.geo_location.lng %}
+        new mapboxgl.Marker()
         .setLngLat([{{note.geo_location.lng}}, {{note.geo_location.lat}}])
         .setPopup(
             new mapboxgl.Popup().setHTML("{{note.geo_location.name}}")
         ).addTo(noteMap);
+    {% endif %}
 {% endfor %}
 
 </script>
