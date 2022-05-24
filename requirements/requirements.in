@@ -11,4 +11,4 @@ redis==4.3.1
 requests==2.27.1
 SQLAlchemy==1.4.36
 psycopg2-binary==2.9.3
-coverage==6.3.3
+coverage==6.4
