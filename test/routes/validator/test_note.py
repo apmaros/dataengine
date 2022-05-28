@@ -1,12 +1,14 @@
 import pytest
+from werkzeug.datastructures import ImmutableMultiDict
 
 from dataengine.server.RequestError import RequestError, ErrorType
 from dataengine.server.routes.validator.note import validate_note
 
 
 def test_validate_note_does_not_raise_when_valid_form():
-    form = {'body': 'some body'}
-    validate_note(form)
+    validate_note(ImmutableMultiDict(
+        {'body': 'some body', 'geo-lat': '', 'geo-lng': ''}
+    ))
 
 
 def test_validate_note_raise_when_note_does_not_have_body():

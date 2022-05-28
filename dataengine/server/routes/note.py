@@ -39,7 +39,7 @@ def new():
         put_note(session['profile']['user_id'], request.form)
         flash(f"👌 Day note was recorded", 'success')
     except Exception as e:
-        logger.error(f"Failed to write a note to database due to error {e}")
+        logger.error(f"Failed to write a note to database due to error", e)
         flash('Failed to store a note due to an error', 'error')
 
     return make_response(redirect(url_for('note.index')))
