@@ -27,13 +27,13 @@ jobs:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
       - name: build and push docker image
-        uses: elgohr/Publish-Docker-Github-Action@master
+        uses: elgohr/Publish-Docker-Github-Action@v4
         env:
           APP_VERSION: ${{ github.sha }}
         with:
+          name: apmaros/budgetdesk
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          name: apmaros/budgetdesk
           snapshot: true
           tags: "latest"
           buildargs: APP_VERSION
