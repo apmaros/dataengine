@@ -20,7 +20,7 @@ charset-normalizer==2.0.12
     # via requests
 click==8.0.4
     # via flask
-coverage==6.3.3
+coverage==6.4
     # via -r requirements/requirements.in
 cryptography==36.0.1
     # via authlib
