@@ -11,6 +11,7 @@
     --detail-color-dark: #0f2b38;
     --error-color: #740b1d;
     --success-color: #337c36;
+    --font-size-larger: 1.2em;
 }
 
 nav .brand-logo {
@@ -258,4 +259,16 @@ article.announcement .message {
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.small-card {
+    padding: 5px;
+    margin: 10px;
+    margin-top: 10px;
+    border-bottom-style: solid;
+    border-bottom-color: #384856;
+}
+
+.small-card .card-head {
+    font-size: var(--font-size-larger);
 }
