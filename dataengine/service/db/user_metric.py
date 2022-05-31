@@ -35,6 +35,7 @@ def put_user_metric(user_id, args):
         id=user_metric_id,
         user_id=user_id,
         name=args['name'],
+        description=args.get('description')
     )
 
     with Context.db_session() as session:
