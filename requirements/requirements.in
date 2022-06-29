@@ -6,7 +6,7 @@ influxdb-client==1.29.1
 influxdb-client==1.29.1
 Mako==1.2.0
 MarkupSafe==2.1.1
-newrelic==7.10.0.175
+newrelic==7.14.0.177
 redis==4.3.3
 requests==2.27.1
 SQLAlchemy==1.4.37
