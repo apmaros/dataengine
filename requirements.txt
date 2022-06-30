@@ -65,7 +65,7 @@ pytz==2021.3
     # via influxdb-client
 redis==4.3.3
     # via -r requirements/requirements.in
-requests==2.27.1
+requests==2.28.1
     # via -r requirements/requirements.in
 rx==3.2.0
     # via influxdb-client
