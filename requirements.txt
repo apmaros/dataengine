@@ -4,7 +4,7 @@
 #
 #    pip-compile --no-emit-index-url --output-file=requirements.txt requirements/requirements.in
 #
-alembic==1.8.0
+alembic==1.8.1
     # via -r requirements/requirements.in
 async-timeout==4.0.2
     # via redis
