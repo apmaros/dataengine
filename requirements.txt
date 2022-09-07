@@ -40,7 +40,7 @@ itsdangerous==2.0.1
     # via flask
 jinja2==3.0.3
     # via flask
-mako==1.2.1
+mako==1.2.2
     # via
     #   -r requirements/requirements.in
     #   alembic
