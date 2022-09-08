@@ -34,7 +34,7 @@ gunicorn==20.1.0
     # via -r requirements/requirements.in
 idna==3.3
     # via requests
-influxdb-client==1.31.0
+influxdb-client==1.32.0
     # via -r requirements/requirements.in
 itsdangerous==2.0.1
     # via flask
@@ -61,20 +61,20 @@ pyparsing==3.0.7
     # via packaging
 python-dateutil==2.8.2
     # via influxdb-client
-pytz==2021.3
+reactivex==4.0.4
     # via influxdb-client
 redis==4.3.4
     # via -r requirements/requirements.in
 requests==2.28.1
     # via -r requirements/requirements.in
-rx==3.2.0
-    # via influxdb-client
 six==1.16.0
     # via python-dateutil
 sqlalchemy==1.4.40
     # via
     #   -r requirements/requirements.in
     #   alembic
+typing-extensions==4.3.0
+    # via reactivex
 urllib3==1.26.8
     # via
     #   influxdb-client
