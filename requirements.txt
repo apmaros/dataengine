@@ -49,7 +49,7 @@ markupsafe==2.1.1
     #   -r requirements/requirements.in
     #   jinja2
     #   mako
-newrelic==8.0.0.179
+newrelic==8.1.0.180
     # via -r requirements/requirements.in
 packaging==21.3
     # via redis
@@ -60,8 +60,6 @@ pycparser==2.21
 pyparsing==3.0.7
     # via packaging
 python-dateutil==2.8.2
-    # via influxdb-client
-pytz==2021.3
     # via influxdb-client
 redis==4.3.4
     # via -r requirements/requirements.in
