@@ -40,7 +40,7 @@ itsdangerous==2.0.1
     # via flask
 jinja2==3.0.3
     # via flask
-mako==1.2.1
+mako==1.2.3
     # via
     #   -r requirements/requirements.in
     #   alembic
@@ -60,8 +60,6 @@ pycparser==2.21
 pyparsing==3.0.7
     # via packaging
 python-dateutil==2.8.2
-    # via influxdb-client
-pytz==2021.3
     # via influxdb-client
 redis==4.3.4
     # via -r requirements/requirements.in
