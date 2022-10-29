@@ -1,3 +1,5 @@
+.PHONY: test
+
 # must use TABS instead of spaces
 # otherwise fails with makefile:X: *** missing separator.  Stop.
 freeze:
@@ -10,7 +12,7 @@ install-test:
 run:
 	python dataengine/main.py
 test:
-	python -m coverage pytest
+	python -m pytest
 coverage:
 	coverage run --source=dataengine --branch -m pytest test/ --junitxml=build/test.xml -v
 	coverage report
