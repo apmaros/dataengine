@@ -40,7 +40,7 @@ itsdangerous==2.0.1
     # via flask
 jinja2==3.0.3
     # via flask
-mako==1.2.1
+mako==1.2.3
     # via
     #   -r requirements/requirements.in
     #   alembic
@@ -71,7 +71,7 @@ rx==3.2.0
     # via influxdb-client
 six==1.16.0
     # via python-dateutil
-sqlalchemy==1.4.40
+sqlalchemy==1.4.42
     # via
     #   -r requirements/requirements.in
     #   alembic
