@@ -5,7 +5,7 @@
 freeze:
 	pip-compile -r --no-emit-index-url --output-file=requirements-test.txt requirements/requirements-test.in
 	pip-compile -r --no-emit-index-url --output-file=requirements.txt requirements/requirements.in
-install:
+install: install
 	PIP_CONFIG_FILE=pip.conf pip install -r requirements.txt
 install-test:
 	PIP_CONFIG_FILE=pip.conf pip install -r requirements-test.txt
