@@ -7,7 +7,7 @@ freeze:
 	pip-compile -r --no-emit-index-url --output-file=requirements.txt requirements/requirements.in
 install:
 	PIP_CONFIG_FILE=pip.conf pip install -r requirements.txt
-install-test:
+install-test: install
 	PIP_CONFIG_FILE=pip.conf pip install -r requirements-test.txt
 run:
 	python dataengine/main.py
