@@ -53,7 +53,7 @@ newrelic==8.4.0
     # via -r requirements/requirements.in
 packaging==21.3
     # via redis
-psycopg2-binary==2.9.3
+psycopg2-binary==2.9.5
     # via -r requirements/requirements.in
 pycparser==2.21
     # via cffi
