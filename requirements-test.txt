@@ -6,7 +6,7 @@
 #
 attrs==21.4.0
     # via pytest
-coverage==6.4.4
+coverage==6.5.0
     # via -r requirements/requirements-test.in
 exceptiongroup==1.0.0
     # via pytest
