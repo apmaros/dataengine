@@ -71,7 +71,7 @@ rx==3.2.0
     # via influxdb-client
 six==1.16.0
     # via python-dateutil
-sqlalchemy==1.4.42
+sqlalchemy==1.4.45
     # via
     #   -r requirements/requirements.in
     #   alembic
