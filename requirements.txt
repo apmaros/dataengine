@@ -22,7 +22,7 @@ click==8.0.4
     # via flask
 coverage==6.5.0
     # via -r requirements/requirements.in
-cryptography==36.0.1
+cryptography==39.0.1
     # via authlib
 deprecated==1.2.13
     # via redis
