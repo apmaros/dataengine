@@ -1,4 +1,4 @@
-FROM python:3.10.7-slim
+FROM python:slim-bookworm
 
 ARG APP_VERSION
 ENV APP_VERSION=$APP_VERSION
