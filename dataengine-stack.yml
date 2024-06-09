@@ -38,32 +38,32 @@ services:
       - source: newrelic_config
         target: /usr/src/app/newrelic.ini
 
-  grafana:
-    image: grafana/grafana:8.3.3
-    depends_on:
-      - influxdb
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana:/var/lib/grafana
-    environment:
-      GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource"
-
-  influxdb:
-    image: influxdb:2.0
-    volumes:
-      - influxdb:/var/lib/influxdb
-      - influxdb2:/var/lib/influxdb2
-    configs:
-      - source: influxdb_config
-        target: /etc/influxdb2/config.yml
-        uid: '1000'
-        gid: '1000'
-    environment:
-      DOCKER_INFLUXDB_INIT_ORG: org
-      DOCKER_INFLUXDB_INIT_BUCKET: bucket
-    ports:
-      - "8086:8086"
+#  grafana:
+#    image: grafana/grafana:8.3.3
+#    depends_on:
+#      - influxdb
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - grafana:/var/lib/grafana
+#    environment:
+#      GF_INSTALL_PLUGINS: "grafana-clock-panel,grafana-simple-json-datasource"
+#
+#  influxdb:
+#    image: influxdb:2.0
+#    volumes:
+#      - influxdb:/var/lib/influxdb
+#      - influxdb2:/var/lib/influxdb2
+#    configs:
+#      - source: influxdb_config
+#        target: /etc/influxdb2/config.yml
+#        uid: '1000'
+#        gid: '1000'
+#    environment:
+#      DOCKER_INFLUXDB_INIT_ORG: org
+#      DOCKER_INFLUXDB_INIT_BUCKET: bucket
+#    ports:
+#      - "8086:8086"
 
   redis:
     image: redis:alpine3.15
